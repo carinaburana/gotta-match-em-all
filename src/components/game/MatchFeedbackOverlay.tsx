@@ -2,6 +2,7 @@ import { AnimatePresence, motion } from 'motion/react';
 import { useEffect, useState } from 'react';
 
 import { feedbackVariants } from '@/components/animations/variants';
+import { PORTRAIT_AREA_CLASS } from '@/components/cards/cardLayout';
 import { GAME_CONFIG } from '@/game/config';
 import type { SwipeEvent, SwipeOutcome } from '@/types/game';
 
@@ -29,7 +30,11 @@ function getFeedbackStyle(outcome: SwipeOutcome): FeedbackStyle | null {
   }
 }
 
-/** Shows a short overlay after each swipe. Purely visual — it never changes the score. */
+/**
+ * Shows a short overlay after each swipe. Purely visual — it never changes the score.
+ * Render it inside the card area: it sits at the bottom of the portrait so it never covers the
+ * name or the verification badge (which players need to judge the next card).
+ */
 export function MatchFeedbackOverlay({ lastSwipe }: { lastSwipe: SwipeEvent | null }) {
   const [visibleEventId, setVisibleEventId] = useState<number | null>(null);
 
@@ -48,7 +53,7 @@ export function MatchFeedbackOverlay({ lastSwipe }: { lastSwipe: SwipeEvent | nu
 
   return (
     <div
-      className="pointer-events-none absolute inset-0 z-30 flex items-center justify-center"
+      className={`pointer-events-none absolute inset-x-0 top-0 z-30 flex items-end justify-center pb-4 ${PORTRAIT_AREA_CLASS}`}
       aria-live="polite"
     >
       <AnimatePresence>
