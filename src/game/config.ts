@@ -22,6 +22,11 @@ export const GAME_CONFIG = {
     normalMatch: 10,
     specialMatch: 100,
     negativeMatch: -100,
+    /**
+     * Liking someone who doesn't like you back. Mirrors how real apps rank down people who
+     * swipe right on everyone, so "like every verified profile" stops being a free strategy.
+     */
+    likedNoMatch: -10,
   },
 
   /** Chance (0–1) that a candidate likes the player back after a right swipe. */
@@ -60,6 +65,11 @@ export const GAME_CONFIG = {
       ancientMax: 950,
     },
     distanceKm: { min: 1, max: 99 },
+    /**
+     * Highlight shared interests and show "N in common" on the card. Off by default so players
+     * have to read the profile instead of scanning for purple chips. Handy to toggle in user tests.
+     */
+    highlightSharedInterests: false,
   },
 
   /**
@@ -89,6 +99,10 @@ export const GAME_CONFIG = {
   feedback: {
     /** How long a match overlay stays visible. */
     overlayDurationMs: 1_100,
+    /** Longer duration when a THE ONE teaser is shown with the feedback, so it can be read. */
+    teaserOverlayDurationMs: 1_800,
+    /** Every Nth swipe also shows a THE ONE teaser ("THE ONE is getting closer…"). */
+    theOneTeaserEverySwipes: 6,
   },
 } as const;
 

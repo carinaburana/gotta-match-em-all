@@ -42,6 +42,12 @@ export interface SearchingContent {
   steps: string[];
 }
 
+/** What the fictional "algorithm" says during swiping. "{points}" is replaced with the points. */
+export interface AlgorithmMessages {
+  noMatch: string[];
+  theOneTeasers: string[];
+}
+
 /** Everything the game needs from `src/data`, validated and ready to use. */
 export interface GameContent {
   interestCategories: InterestCategory[];
@@ -54,4 +60,5 @@ export interface GameContent {
   portraitSrcs: string[];
   playerAvatars: PlayerAvatar[];
   searching: SearchingContent;
+  algorithmMessages: AlgorithmMessages;
 }

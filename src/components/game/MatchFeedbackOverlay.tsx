@@ -3,21 +3,35 @@ import { useEffect, useState } from 'react';
 
 import { feedbackVariants } from '@/components/animations/variants';
 import { PORTRAIT_AREA_CLASS } from '@/components/cards/cardLayout';
+import { GAME_CONTENT } from '@/data';
 import { GAME_CONFIG } from '@/game/config';
-import type { SwipeEvent, SwipeOutcome } from '@/types/game';
+import type { SwipeEvent } from '@/types/game';
+import { fillTemplate, formatPoints } from '@/utils/format';
 
 interface FeedbackStyle {
   title: string;
   className: string;
 }
 
+const { noMatch: NO_MATCH_MESSAGES, theOneTeasers: THE_ONE_TEASERS } =
+  GAME_CONTENT.algorithmMessages;
+
+/** Cycles through a message list by swipe number — deterministic, no randomness needed. */
+function pickMessage(messages: readonly string[], index: number): string {
+  return messages[index % messages.length] ?? '';
+}
+
 /**
  * PLACEHOLDER feedback visuals. Replace the content per outcome with the final reward
  * animations (+10, +100, −100) later — the trigger logic below can stay as it is.
  */
-function getFeedbackStyle(outcome: SwipeOutcome): FeedbackStyle | null {
+function getFeedbackStyle({ outcome, eventId }: SwipeEvent): FeedbackStyle | null {
   if (outcome.type === 'liked-no-match') {
-    return { title: 'No match… keep swiping!', className: 'bg-white/90 text-ink-muted text-base' };
+    const template = pickMessage(NO_MATCH_MESSAGES, eventId);
+    return {
+      title: fillTemplate(template, { points: formatPoints(outcome.points) }),
+      className: 'bg-white/95 text-nope text-base',
+    };
   }
   if (outcome.type !== 'match') return null;
   switch (outcome.category) {
@@ -28,6 +42,13 @@ function getFeedbackStyle(outcome: SwipeOutcome): FeedbackStyle | null {
     case 'negative':
       return { title: 'Unverified! −100', className: 'bg-nope text-white text-2xl' };
   }
+}
+
+/** Every few swipes the app dangles THE ONE to keep the player going. THE ONE never comes. */
+function getTheOneTeaser(eventId: number): string | null {
+  const every = GAME_CONFIG.feedback.theOneTeaserEverySwipes;
+  if (eventId % every !== 0) return null;
+  return pickMessage(THE_ONE_TEASERS, eventId / every - 1);
 }
 
 /**
@@ -41,32 +62,48 @@ export function MatchFeedbackOverlay({ lastSwipe }: { lastSwipe: SwipeEvent | nu
   useEffect(() => {
     if (!lastSwipe) return;
     setVisibleEventId(lastSwipe.eventId);
+    const durationMs =
+      getTheOneTeaser(lastSwipe.eventId) === null
+        ? GAME_CONFIG.feedback.overlayDurationMs
+        : GAME_CONFIG.feedback.teaserOverlayDurationMs;
     const timeoutId = window.setTimeout(
       () => setVisibleEventId((current) => (current === lastSwipe.eventId ? null : current)),
-      GAME_CONFIG.feedback.overlayDurationMs,
+      durationMs,
     );
     return () => window.clearTimeout(timeoutId);
   }, [lastSwipe]);
 
-  const style =
-    lastSwipe && visibleEventId === lastSwipe.eventId ? getFeedbackStyle(lastSwipe.outcome) : null;
+  const isVisible = lastSwipe !== null && visibleEventId === lastSwipe.eventId;
+  const style = isVisible ? getFeedbackStyle(lastSwipe) : null;
+  const teaser = isVisible ? getTheOneTeaser(lastSwipe.eventId) : null;
 
   return (
     <div
-      className={`pointer-events-none absolute inset-x-0 top-0 z-30 flex items-end justify-center pb-4 ${PORTRAIT_AREA_CLASS}`}
+      className={`pointer-events-none absolute inset-x-0 top-0 z-30 flex items-end justify-center px-4 pb-4 ${PORTRAIT_AREA_CLASS}`}
       aria-live="polite"
     >
       <AnimatePresence>
-        {style && lastSwipe && (
+        {lastSwipe && (style || teaser) && (
           <motion.div
             key={lastSwipe.eventId}
             variants={feedbackVariants}
             initial="initial"
             animate="animate"
             exit="exit"
-            className={`rounded-3xl px-6 py-4 text-center font-black shadow-xl ${style.className}`}
+            className="flex flex-col items-center gap-2"
           >
-            {style.title}
+            {teaser && (
+              <p className="rounded-2xl bg-brand-700 px-4 py-2 text-center text-sm font-bold text-white shadow-xl">
+                {teaser}
+              </p>
+            )}
+            {style && (
+              <p
+                className={`rounded-3xl px-6 py-4 text-center font-black shadow-xl ${style.className}`}
+              >
+                {style.title}
+              </p>
+            )}
           </motion.div>
         )}
       </AnimatePresence>

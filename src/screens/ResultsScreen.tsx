@@ -23,6 +23,7 @@ export function ResultsScreen({ player, summary, onRestart }: ResultsScreenProps
     ['Matches (+10)', summary.normalMatches],
     ['Special matches (+100)', summary.specialMatches],
     ['Unverified matches (−100)', summary.negativeMatches],
+    ['Likes not returned (−10)', summary.unansweredLikes],
     ['Session duration', formatDurationSeconds(summary.sessionDurationMs)],
   ];
 

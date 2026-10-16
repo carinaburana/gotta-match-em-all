@@ -40,6 +40,7 @@ const EMPTY_STATS: SessionStats = {
   normalMatches: 0,
   specialMatches: 0,
   negativeMatches: 0,
+  unansweredLikes: 0,
 };
 
 export function createInitialGameState(deck: Candidate[]): GameSessionState {
@@ -92,6 +93,7 @@ export function gameReducer(state: GameSessionState, action: GameAction): GameSe
         if (outcome.category === 'special') stats.specialMatches += 1;
         if (outcome.category === 'negative') stats.negativeMatches += 1;
       }
+      if (outcome.type === 'liked-no-match') stats.unansweredLikes += 1;
 
       const nextIndex = state.currentIndex + 1;
       const hasNextCard = nextIndex < state.deck.length;

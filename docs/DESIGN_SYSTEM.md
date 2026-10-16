@@ -76,7 +76,8 @@ Tailwind's 4 px scale. Common values: screen side padding `px-6` (24 px), card i
 - Top ~44 %: portrait on a lavender background (`brand-100`). Images always use a fixed container
   with `object-fit: cover` — layouts must not depend on image dimensions.
 - Below: name + age + verified badge, home town, distance, "About me", interest chips.
-- Interest chips: outlined grey by default; **shared interests are filled purple**.
+- Interest chips: outlined grey. Shared interests are only filled purple when
+  `candidate.highlightSharedInterests` is on (off by default).
 - Timer (left) and score (right) float over the portrait area.
 
 ## Animation guidelines

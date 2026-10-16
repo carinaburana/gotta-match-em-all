@@ -4,6 +4,7 @@
  * message instead of causing weird bugs mid-game.
  */
 import aboutMeJson from '@/data/about-me.json';
+import algorithmMessagesJson from '@/data/algorithm-messages.json';
 import alienCitiesJson from '@/data/alien-cities.json';
 import alienNamesJson from '@/data/alien-names.json';
 import alienPortraitsJson from '@/data/alien-portraits.json';
@@ -115,6 +116,13 @@ function loadContent(): GameContent {
       title: searchingStepsJson.title,
       subtitle: searchingStepsJson.subtitle,
       steps: cleanStringList('searching-steps.json', searchingStepsJson.steps),
+    },
+    algorithmMessages: {
+      noMatch: cleanStringList('algorithm-messages.json', algorithmMessagesJson.noMatch),
+      theOneTeasers: cleanStringList(
+        'algorithm-messages.json',
+        algorithmMessagesJson.theOneTeasers,
+      ),
     },
   };
 }

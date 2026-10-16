@@ -14,7 +14,8 @@ const LOW_TIME_MS = 10_000;
 /** Timer (left) and score (right), overlaid on the top of the card like in the mockups. */
 export function GameHud({ remainingMs, score, lastSwipe }: GameHudProps) {
   const isLowTime = remainingMs <= LOW_TIME_MS;
-  const delta = lastSwipe?.outcome.type === 'match' ? lastSwipe.outcome.points : null;
+  const delta =
+    lastSwipe && lastSwipe.outcome.type !== 'rejected' ? lastSwipe.outcome.points : null;
 
   return (
     <div className="pointer-events-none absolute inset-x-0 top-0 z-20 flex items-start justify-between px-6 pt-[max(1.25rem,env(safe-area-inset-top))]">

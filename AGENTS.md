@@ -26,8 +26,9 @@ Visual references: `docs/mockups/*.png`.
 1. **THE ONE never appears.** Never create a THE ONE candidate, kind, flag or ID — not even
    internally. The teaser screen is a narrative promise only.
 2. Candidate kinds are exactly `normal` (+10), `special` (+100) and `unverified` (−100).
-3. Penalties only happen when an unverified candidate **reciprocates** a like. Viewing, liking
-   without a match, and rejecting never change the score.
+3. The big penalty (−100) only happens when an unverified candidate **reciprocates** a like.
+   A like that isn't returned costs a small penalty (−10) for any candidate. Viewing and
+   rejecting never change the score.
 4. The timer starts when gameplay becomes active — not during setup, searching or the teaser.
 5. Swipe gestures, buttons and keyboard all go through the same `swipe(candidateId, direction)`
    action. The reducer ignores swipes for anything other than the current card.
@@ -81,6 +82,7 @@ tests on purpose — don't add a test framework. Use `?seed=1234` for reproducib
 - `src/data/alien-portraits.json` — which files in `public/aliens/` may be used
 - `src/data/player-avatars.json` — the 4 player avatars (`public/avatars/`)
 - `src/data/searching-steps.json` — text for the fake AI sequence
+- `src/data/algorithm-messages.json` — "unanswered like" messages and THE ONE teasers
 - `public/videos/the-one-teaser.mp4` — teaser video (placeholder shown if missing)
 
 Keep sample data small; don't invent large datasets. The team supplies final content.

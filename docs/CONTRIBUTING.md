@@ -84,15 +84,16 @@ Don't silence errors with `// eslint-disable`, `@ts-ignore` or `any` — fix the
 
 All game text lives in `src/data/`. You don't need to touch code to change content.
 
-| File                   | Contains                                              |
-| ---------------------- | ----------------------------------------------------- |
-| `interests.json`       | Categories → interests (`id`, `label`)                |
-| `alien-names.json`     | Candidate names                                       |
-| `alien-cities.json`    | Fictional home towns                                  |
-| `about-me.json`        | Bios (`id`, `text`)                                   |
-| `alien-portraits.json` | Portrait files the game may use                       |
-| `player-avatars.json`  | The 4 avatars shown during setup                      |
-| `searching-steps.json` | Text of the fake AI sequence (`{name}` = player name) |
+| File                      | Contains                                                    |
+| ------------------------- | ----------------------------------------------------------- |
+| `interests.json`          | Categories → interests (`id`, `label`)                      |
+| `alien-names.json`        | Candidate names                                             |
+| `alien-cities.json`       | Fictional home towns                                        |
+| `about-me.json`           | Bios (`id`, `text`)                                         |
+| `alien-portraits.json`    | Portrait files the game may use                             |
+| `player-avatars.json`     | The 4 avatars shown during setup                            |
+| `searching-steps.json`    | Text of the fake AI sequence (`{name}` = player name)       |
+| `algorithm-messages.json` | No-match messages and THE ONE teasers (`{points}` = points) |
 
 Rules:
 
