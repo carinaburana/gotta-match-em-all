@@ -1,0 +1,16 @@
+{
+  "_comment": "Messages the 'algorithm' shows during swiping. {points} is replaced with the configured points. noMatch: shown when a like isn't returned. theOneTeasers: shown every few swipes to dangle THE ONE (who never appears).",
+  "noMatch": [
+    "Not liked back. The algorithm noticed. {points}",
+    "No match. You'll be shown to fewer aliens. {points}",
+    "Ouch. Your desirability score dropped. {points}",
+    "Too many likes look desperate. {points}"
+  ],
+  "theOneTeasers": [
+    "THE ONE is getting closer… keep swiping! 💜",
+    "THE ONE just viewed your profile 👀",
+    "Our AI is 99.7 % sure THE ONE is coming up!",
+    "THE ONE is online right now. Don't stop!",
+    "Only a few more swipes until THE ONE ✨"
+  ]
+}

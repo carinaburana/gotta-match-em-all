@@ -60,7 +60,7 @@ export type MatchCategory = 'normal' | 'special' | 'negative';
 
 export type SwipeOutcome =
   | { type: 'rejected' }
-  | { type: 'liked-no-match' }
+  | { type: 'liked-no-match'; points: number }
   | { type: 'match'; category: MatchCategory; points: number };
 
 /** One resolved swipe, used for feedback overlays. `eventId` increases with every swipe. */
@@ -86,6 +86,8 @@ export interface SessionStats {
   normalMatches: number;
   specialMatches: number;
   negativeMatches: number;
+  /** Likes that weren't returned (each costs `points.likedNoMatch`). */
+  unansweredLikes: number;
 }
 
 /** Aggregated result handed to the results screen. */

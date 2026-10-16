@@ -15,3 +15,8 @@ export function formatDurationSeconds(ms: number): string {
 export function fillTemplate(template: string, values: Record<string, string>): string {
   return template.replace(/\{(\w+)\}/g, (match, key: string) => values[key] ?? match);
 }
+
+/** "+10" / "−10" (with a real minus sign, like the rest of the UI). */
+export function formatPoints(points: number): string {
+  return points < 0 ? `−${Math.abs(points)}` : `+${points}`;
+}

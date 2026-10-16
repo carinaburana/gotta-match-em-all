@@ -29,7 +29,7 @@ export function getPointsForMatch(
   }
 }
 
-/** Score change caused by a swipe outcome. Rejections and unanswered likes are worth 0. */
+/** Score change caused by a swipe outcome. Only rejections are worth 0. */
 export function getScoreChange(outcome: SwipeOutcome): number {
-  return outcome.type === 'match' ? outcome.points : 0;
+  return outcome.type === 'rejected' ? 0 : outcome.points;
 }

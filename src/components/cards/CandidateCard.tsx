@@ -3,6 +3,7 @@ import { PORTRAIT_AREA_CLASS } from '@/components/cards/cardLayout';
 import { InterestTag } from '@/components/cards/InterestTag';
 import { HomeIcon, PinIcon, VerifiedIcon } from '@/components/ui/icons';
 import { GAME_CONTENT } from '@/data';
+import { GAME_CONFIG } from '@/game/config';
 import { countSharedInterests, isSharedInterest } from '@/game/compatibility';
 import type { InterestId } from '@/types/content';
 import type { Candidate } from '@/types/game';
@@ -14,6 +15,8 @@ interface CandidateCardProps {
 
 /** Purely visual dating profile card. Knows nothing about swiping or scoring. */
 export function CandidateCard({ candidate, playerInterestIds }: CandidateCardProps) {
+  // Off by default: players should read the interests, not scan for highlighted chips.
+  const { highlightSharedInterests } = GAME_CONFIG.candidate;
   const sharedCount = countSharedInterests(playerInterestIds, candidate.interestIds);
 
   return (
@@ -58,7 +61,7 @@ export function CandidateCard({ candidate, playerInterestIds }: CandidateCardPro
         <section className="border-t border-line pt-3">
           <h3 className="font-semibold">
             Interests
-            {sharedCount > 0 && (
+            {highlightSharedInterests && sharedCount > 0 && (
               <span className="ml-2 text-sm font-normal text-brand-600">
                 {sharedCount} in common
               </span>
@@ -69,7 +72,7 @@ export function CandidateCard({ candidate, playerInterestIds }: CandidateCardPro
               <InterestTag
                 key={id}
                 label={GAME_CONTENT.interestsById.get(id)?.label ?? id}
-                isShared={isSharedInterest(id, playerInterestIds)}
+                isShared={highlightSharedInterests && isSharedInterest(id, playerInterestIds)}
               />
             ))}
           </ul>

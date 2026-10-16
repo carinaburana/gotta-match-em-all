@@ -25,8 +25,9 @@ A single session of roughly 1–2 minutes, understandable without instructions:
    announcing THE ONE has been found.
 4. **THE ONE teaser** — a short video introduces the player's supposedly ideal match.
 5. **Swipe gameplay** — 60 seconds of swiping through generated alien profiles. Matches give
-   +10, rare "special" matches +100, matches with unverified "bad guys" −100. A big timer and
-   reward animations create urgency.
+   +10, rare "special" matches +100, matches with unverified "bad guys" −100, and every like
+   that isn't returned −10 ("the algorithm noticed"). A big timer, reward animations and
+   occasional "THE ONE is getting closer…" teasers create urgency.
 6. **Results** — session statistics. The final satirical ending is still open (see below).
 
 ## Why THE ONE never appears

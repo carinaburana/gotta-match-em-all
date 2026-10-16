@@ -24,8 +24,8 @@ export function doesCandidateReciprocate(
 /**
  * Resolves a swipe into an outcome. This is the single place where swipe rules live:
  * - left  → rejected, never affects the score
- * - right → match if the candidate reciprocates, otherwise nothing happens
- * Liking an unverified candidate is only penalised if they like you back.
+ * - right → match if the candidate reciprocates, otherwise an unanswered like (small penalty)
+ * Matching an unverified candidate is the big penalty; an unanswered like costs the same for all.
  */
 export function resolveSwipe(
   candidate: Candidate,
@@ -33,7 +33,9 @@ export function resolveSwipe(
   probabilities: ProbabilityConfig = GAME_CONFIG.reciprocationProbability,
 ): SwipeOutcome {
   if (direction === 'left') return { type: 'rejected' };
-  if (!doesCandidateReciprocate(candidate, probabilities)) return { type: 'liked-no-match' };
+  if (!doesCandidateReciprocate(candidate, probabilities)) {
+    return { type: 'liked-no-match', points: GAME_CONFIG.points.likedNoMatch };
+  }
 
   const category = getMatchCategory(candidate.kind);
   return { type: 'match', category, points: getPointsForMatch(category) };

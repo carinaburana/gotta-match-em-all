@@ -46,9 +46,15 @@ statistics change.
 ## Verification and penalties
 
 - Viewing an unverified candidate: no effect.
-- Liking an unverified candidate who doesn't like you back: no effect.
+- Liking **any** candidate who doesn't like you back: **−10** (`points.likedNoMatch`).
 - Liking an unverified candidate who **does** like you back: match → **−100**.
 - Rejecting anyone: no effect.
+
+Why the −10: without it, the best strategy is "like everyone with a verification badge" — every
+like is a free lottery ticket. Real dating apps rank down people who swipe right on everyone, so
+the penalty is framed as the algorithm judging you ("Your desirability score dropped −10").
+Liking a verified profile is now roughly break-even (normal: 50 % +10 / 50 % −10); only the
+occasional +100 special makes it worth it.
 
 The score starts at 0 and may become negative.
 
@@ -71,14 +77,15 @@ Resolution (`resolveSwipe` in `src/game/matchmaking.ts`):
 
 1. Left → `rejected`.
 2. Right → the candidate reciprocates if `reciprocationRoll < probability(kind)`.
-3. No reciprocation → `liked-no-match` (0 points).
+3. No reciprocation → `liked-no-match` (**−10**).
 4. Reciprocation → `match` with category `normal` / `special` / `negative` and its points.
 
 ## Compatibility
 
 - The player picks exactly **3** interests. Each card shows **5** interests.
-- Compatibility = number of the player's interests shown on the card (0–2). Shared interests are
-  highlighted on the card.
+- Compatibility = number of the player's interests shown on the card (0–2). By default shared
+  interests are **not** highlighted and there is no "N in common" label, so players have to read
+  the card (`candidate.highlightSharedInterests` turns both back on, e.g. to compare in user tests).
 - The deck generator decides each card's shared count from weights `{ 0: 2, 1: 4, 2: 3 }` —
   mostly 1–2 shared.
 - **No candidate ever shares all 3 interests.** A perfect match is reserved for THE ONE, who
@@ -114,6 +121,17 @@ Ages are 19–45, with an 8 % chance of an "ancient" alien (120–950). Distance
 - Same seed + same three interests → identical deck and identical match results for the same
   swipes.
 
+## Algorithm messages
+
+Content in `src/data/algorithm-messages.json`, shown in the feedback overlay:
+
+- **No-match messages** (`noMatch`) replace the old neutral "No match… keep swiping!" and make the
+  algorithm's judgement visible. They cycle in order.
+- **THE ONE teasers** (`theOneTeasers`) appear every **6th** swipe
+  (`feedback.theOneTeaserEverySwipes`) above the normal feedback, for **1.8 s**
+  (`feedback.teaserOverlayDurationMs`). They dangle THE ONE to keep the player swiping. Purely
+  text — THE ONE still never appears.
+
 ## Session statistics
 
 Available to the results screen as `SessionSummary` (`src/types/game.ts`):
@@ -127,10 +145,11 @@ Available to the results screen as `SessionSummary` (`src/types/game.ts`):
 | `normalMatches`     | +10 matches                                                     |
 | `specialMatches`    | +100 matches                                                    |
 | `negativeMatches`   | −100 matches with unverified candidates                         |
+| `unansweredLikes`   | Likes that weren't returned (−10 each)                          |
 | `sessionDurationMs` | From gameplay start to end                                      |
 | `endReason`         | `time-up` or `deck-exhausted`                                   |
 
-Likes without a match = `rightSwipes − normalMatches − specialMatches − negativeMatches`.
+`rightSwipes = normalMatches + specialMatches + negativeMatches + unansweredLikes`.
 
 ## Content validation
 
