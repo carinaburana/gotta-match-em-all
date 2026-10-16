@@ -104,10 +104,10 @@ No environment variables are needed.
 | Deck generation          | ✅ 100 cards, seeded, 70% normal / 10% special / 20% unverified |
 | Swipe loop, score, timer | ✅ Drag, buttons and ←/→ keys; 60 s countdown                   |
 | Match feedback           | 🟡 Simple placeholder overlays                                  |
-| AI searching sequence    | 🟡 Placeholder radar animation, configurable text               |
+| AI searching sequence    | ✅ Animated "nearby matches" radar, configurable text           |
 | THE ONE teaser           | 🟡 Video slot + placeholder (video not supplied yet)            |
 | Results screen           | 🟡 Placeholder stats list — final ending not decided            |
-| Illustrations / logo     | ✅ 46 portraits + 4 avatars · 🟡 text logo still placeholder    |
+| Illustrations / logo     | ✅ 46 portraits + 4 avatars + logo (`public/logo.webp`)         |
 | Sound                    | ⬜ Not started (files will go in `public/sounds/`)              |
 | Bottom navigation        | ⬜ Not planned yet — shell is prepared for it                   |
 

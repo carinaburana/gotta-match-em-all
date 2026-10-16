@@ -1,6 +1,7 @@
 import { AnimatePresence, motion } from 'motion/react';
 import type { ReactNode } from 'react';
 
+import { NearbyMatchesRadar } from '@/components/animations/NearbyMatchesRadar';
 import { useTimedProgress } from '@/hooks/useTimedProgress';
 
 interface SearchingAnimationProps {
@@ -9,7 +10,7 @@ interface SearchingAnimationProps {
   /** Messages shown one after another while the fake progress runs. */
   steps: string[];
   durationMs: number;
-  /** Centre illustration. Defaults to a radar placeholder; swap in final artwork here. */
+  /** Centre illustration. Defaults to the animated "nearby matches" radar. */
   illustration?: ReactNode;
   /** Rendered below the text; receives whether the "analysis" has finished. */
   renderAction?: (isComplete: boolean) => ReactNode;
@@ -34,7 +35,7 @@ export function SearchingAnimation({
   return (
     <div className="flex h-full flex-col items-center text-center">
       <div className="flex w-full flex-1 items-center justify-center py-6">
-        {illustration ?? <RadarPlaceholder />}
+        {illustration ?? <NearbyMatchesRadar className="max-w-80" />}
       </div>
 
       <h2 className="text-2xl font-bold text-brand-700">{title}</h2>
@@ -67,23 +68,6 @@ export function SearchingAnimation({
       </div>
 
       {renderAction && <div className="mt-6 w-full">{renderAction(isComplete)}</div>}
-    </div>
-  );
-}
-
-/** PLACEHOLDER illustration: pulsing radar with orbiting profile cards. */
-function RadarPlaceholder() {
-  return (
-    <div className="relative aspect-square w-full max-w-64" aria-hidden>
-      <div className="absolute inset-0 rounded-full border-8 border-brand-100 bg-brand-50" />
-      <div className="absolute inset-6 rounded-full border-2 border-dashed border-brand-200" />
-      <div className="absolute inset-0 animate-pulse-ring rounded-full border-4 border-brand-300" />
-      <div className="absolute inset-0 animate-radar rounded-full bg-[conic-gradient(from_0deg,transparent_0deg,transparent_300deg,var(--color-brand-300)_360deg)] opacity-70" />
-      <div className="absolute inset-[34%] flex items-center justify-center rounded-full bg-accent-teal text-4xl shadow-lg">
-        👽
-      </div>
-      <div className="absolute top-[12%] -left-2 h-20 w-16 animate-float rounded-xl border-2 border-brand-800 bg-white shadow-md [--float-rotate:-10deg]" />
-      <div className="absolute -right-2 bottom-[18%] h-20 w-16 animate-float rounded-xl border-2 border-brand-800 bg-accent-yellow shadow-md [animation-delay:0.8s] [--float-rotate:10deg]" />
     </div>
   );
 }

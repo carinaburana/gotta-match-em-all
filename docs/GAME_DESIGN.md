@@ -62,5 +62,5 @@ for demos, but the experience should land on the first play.
 - **Messages / profile / settings tabs:** may be added later as a bottom navigation (the app shell
   already supports it). Not part of the current scope.
 - **Sound:** not yet designed.
-- **Logo, start/search illustrations and teaser video:** in production; placeholders are used
-  meanwhile. Alien portraits and player avatars are final.
+- **Teaser video:** in production; a placeholder is used meanwhile. The logo (start screen),
+  the "nearby matches" radar (searching screen), alien portraits and player avatars are final.

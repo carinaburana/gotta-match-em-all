@@ -83,7 +83,9 @@ Tailwind's 4 px scale. Common values: screen side padding `px-6` (24 px), card i
 
 - **Motion for React** for gestures, enter/exit and anything state-driven
   (`src/components/animations/variants.ts` holds shared variants and timings).
-- **CSS** (`animate-float`, `animate-radar`, …) for simple looping decoration.
+- **CSS** (`animate-float`, `animate-radar`, `animate-pulse-ring`, `animate-twinkle`,
+  `animate-heartbeat`) for simple looping decoration — e.g. the inline SVG in
+  `NearbyMatchesRadar.tsx`, whose parts are animated individually.
 - Animations visualise state; they never decide rules or change the score.
 - Keep UI transitions short (150–350 ms). Reward moments may be bigger and bouncier; the +100
   should feel noticeably more exciting than +10, and −100 should feel like a "fail" moment.
