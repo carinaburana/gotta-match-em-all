@@ -1,0 +1,45 @@
+{
+  "_comment": "SAMPLE DATA — replace or extend. Interest IDs must be unique, lowercase-kebab-case and never change once used. Labels can change freely.",
+  "categories": [
+    {
+      "id": "food",
+      "label": "Food & Snacks",
+      "interests": [
+        { "id": "hamburgers", "label": "Hamburgers" },
+        { "id": "ice-cream", "label": "Ice Cream" },
+        { "id": "cookie-dough", "label": "Cookie Dough" },
+        { "id": "space-noodles", "label": "Space Noodles" }
+      ]
+    },
+    {
+      "id": "culture",
+      "label": "Culture",
+      "interests": [
+        { "id": "museums-galleries", "label": "Museums & Galleries" },
+        { "id": "karaoke", "label": "Karaoke" },
+        { "id": "crop-circle-art", "label": "Crop Circle Art" },
+        { "id": "earth-reality-tv", "label": "Earth Reality TV" }
+      ]
+    },
+    {
+      "id": "action",
+      "label": "Sports & Action",
+      "interests": [
+        { "id": "race-car-shows", "label": "Race Car Shows" },
+        { "id": "zero-g-yoga", "label": "Zero-G Yoga" },
+        { "id": "asteroid-surfing", "label": "Asteroid Surfing" },
+        { "id": "hiking", "label": "Hiking" }
+      ]
+    },
+    {
+      "id": "cosmos",
+      "label": "Cosmic Life",
+      "interests": [
+        { "id": "stargazing", "label": "Stargazing" },
+        { "id": "black-hole-tourism", "label": "Black Hole Tourism" },
+        { "id": "cow-watching", "label": "Cow Watching" },
+        { "id": "time-travel", "label": "Time Travel" }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,11 @@
+{
+  "_comment": "List every portrait file in public/aliens/ that the game may use. Replace the placeholders with alien-001.webp … alien-050.webp when the real art arrives.",
+  "files": [
+    "placeholder-01.svg",
+    "placeholder-02.svg",
+    "placeholder-03.svg",
+    "placeholder-04.svg",
+    "placeholder-05.svg",
+    "placeholder-06.svg"
+  ]
+}

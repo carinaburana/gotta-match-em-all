@@ -1,0 +1,95 @@
+import { AnimatePresence, motion } from 'motion/react';
+import { useEffect, useState } from 'react';
+
+import { feedbackVariants } from '@/components/animations/variants';
+import { GAME_CONFIG } from '@/game/config';
+import type { SwipeEvent, SwipeOutcome } from '@/types/game';
+
+interface FeedbackStyle {
+  title: string;
+  className: string;
+}
+
+/**
+ * PLACEHOLDER feedback visuals. Replace the content per outcome with the final reward
+ * animations (+10, +100, −100) later — the trigger logic below can stay as it is.
+ */
+function getFeedbackStyle(outcome: SwipeOutcome): FeedbackStyle | null {
+  if (outcome.type === 'liked-no-match') {
+    return { title: 'No match… keep swiping!', className: 'bg-white/90 text-ink-muted text-base' };
+  }
+  if (outcome.type !== 'match') return null;
+  switch (outcome.category) {
+    case 'normal':
+      return { title: "It's a match! +10", className: 'bg-like text-white text-2xl' };
+    case 'special':
+      return { title: 'SUPER MATCH! +100', className: 'bg-reward text-brand-900 text-3xl' };
+    case 'negative':
+      return { title: 'Unverified! −100', className: 'bg-nope text-white text-2xl' };
+  }
+}
+
+/** Shows a short overlay after each swipe. Purely visual — it never changes the score. */
+export function MatchFeedbackOverlay({ lastSwipe }: { lastSwipe: SwipeEvent | null }) {
+  const [visibleEventId, setVisibleEventId] = useState<number | null>(null);
+
+  useEffect(() => {
+    if (!lastSwipe) return;
+    setVisibleEventId(lastSwipe.eventId);
+    const timeoutId = window.setTimeout(
+      () => setVisibleEventId((current) => (current === lastSwipe.eventId ? null : current)),
+      GAME_CONFIG.feedback.overlayDurationMs,
+    );
+    return () => window.clearTimeout(timeoutId);
+  }, [lastSwipe]);
+
+  const style =
+    lastSwipe && visibleEventId === lastSwipe.eventId ? getFeedbackStyle(lastSwipe.outcome) : null;
+
+  return (
+    <div
+      className="pointer-events-none absolute inset-0 z-30 flex items-center justify-center"
+      aria-live="polite"
+    >
+      <AnimatePresence>
+        {style && lastSwipe && (
+          <motion.div
+            key={lastSwipe.eventId}
+            variants={feedbackVariants}
+            initial="initial"
+            animate="animate"
+            exit="exit"
+            className={`rounded-3xl px-6 py-4 text-center font-black shadow-xl ${style.className}`}
+          >
+            {style.title}
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </div>
+  );
+}
+
+/** Shown when the session ends, right before the results screen opens. */
+export function TimeUpOverlay({ show, label }: { show: boolean; label: string }) {
+  return (
+    <AnimatePresence>
+      {show && (
+        <motion.div
+          className="absolute inset-0 z-40 flex items-center justify-center bg-brand-900/60 backdrop-blur-sm"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          role="status"
+        >
+          <motion.p
+            variants={feedbackVariants}
+            initial="initial"
+            animate="animate"
+            className="rounded-3xl bg-surface px-8 py-5 text-3xl font-black text-brand-700 shadow-xl"
+          >
+            {label}
+          </motion.p>
+        </motion.div>
+      )}
+    </AnimatePresence>
+  );
+}

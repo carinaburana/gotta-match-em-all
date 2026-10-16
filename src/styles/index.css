@@ -1,0 +1,114 @@
+@import 'tailwindcss';
+
+/*
+ * Design tokens (PROVISIONAL — see docs/DESIGN_SYSTEM.md).
+ * Every token here becomes a Tailwind utility, e.g. --color-brand-600 → bg-brand-600.
+ */
+@theme {
+  /* Brand purple */
+  --color-brand-50: #f6f1fd;
+  --color-brand-100: #ece2fa;
+  --color-brand-200: #dccbf4;
+  --color-brand-300: #c2a5ea;
+  --color-brand-400: #9d76d6;
+  --color-brand-500: #7a54b6;
+  --color-brand-600: #5b3a8e;
+  --color-brand-700: #4b2f77;
+  --color-brand-800: #3a245c;
+  --color-brand-900: #2b1d45;
+
+  /* Neutrals */
+  --color-canvas: #f4f3f6;
+  --color-surface: #ffffff;
+  --color-ink: #1c1626;
+  --color-ink-muted: #625b70;
+  --color-line: #d9d5e0;
+
+  /* Feedback */
+  --color-like: #2fbf8f;
+  --color-like-soft: #dcf7ec;
+  --color-nope: #e5484d;
+  --color-nope-soft: #fde4e5;
+  --color-reward: #f2a900;
+  --color-reward-soft: #fff4d1;
+
+  /* Decorative accents (stickers, confetti) */
+  --color-accent-pink: #ff5fa2;
+  --color-accent-yellow: #ffd23f;
+  --color-accent-teal: #38d6c4;
+
+  --font-sans:
+    ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  --font-display:
+    'Arial Rounded MT Bold', 'SF Pro Rounded', ui-rounded, ui-sans-serif, system-ui, sans-serif;
+
+  --radius-card: 1.75rem;
+
+  --animate-float: float 3.2s ease-in-out infinite;
+  --animate-radar: radar-sweep 3.5s linear infinite;
+  --animate-pulse-ring: pulse-ring 2.4s ease-out infinite;
+
+  @keyframes radar-sweep {
+    to {
+      transform: rotate(360deg);
+    }
+  }
+
+  @keyframes float {
+    0%,
+    100% {
+      transform: translateY(0) rotate(var(--float-rotate, 0deg));
+    }
+    50% {
+      transform: translateY(-8px) rotate(var(--float-rotate, 0deg));
+    }
+  }
+
+  @keyframes pulse-ring {
+    0% {
+      transform: scale(0.6);
+      opacity: 0.7;
+    }
+    100% {
+      transform: scale(1.35);
+      opacity: 0;
+    }
+  }
+}
+
+/* Safe-area aware padding for phones with notches / home indicators. */
+@utility pt-safe {
+  padding-top: max(1rem, env(safe-area-inset-top));
+}
+@utility pb-safe {
+  padding-bottom: max(1rem, env(safe-area-inset-bottom));
+}
+
+@layer base {
+  html,
+  body,
+  #root {
+    height: 100%;
+  }
+
+  body {
+    @apply bg-canvas font-sans text-ink antialiased;
+    /* No rubber-band scrolling / pull-to-refresh while swiping. */
+    overscroll-behavior: none;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  :focus-visible {
+    @apply outline-3 outline-offset-2 outline-brand-500;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

@@ -1,0 +1,9 @@
+{
+  "_comment": "The four profile pictures a player can choose from. Files live in public/avatars/. PLACEHOLDER art.",
+  "avatars": [
+    { "id": "avatar-01", "label": "Purple blob", "file": "avatar-01.svg" },
+    { "id": "avatar-02", "label": "Green cyclops", "file": "avatar-02.svg" },
+    { "id": "avatar-03", "label": "Pink triple-eye", "file": "avatar-03.svg" },
+    { "id": "avatar-04", "label": "Blue antenna", "file": "avatar-04.svg" }
+  ]
+}

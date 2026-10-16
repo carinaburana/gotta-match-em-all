@@ -1,0 +1,12 @@
+{
+  "_comment": "Messages shown one after another on the fake 'AI searching' screen. {name} is replaced with the player's name. None of this is real — that's the joke.",
+  "title": "We're looking for your No. 1",
+  "subtitle": "Scanning your cosmic neighbourhood!",
+  "steps": [
+    "Uploading {name}'s aura to the cloud…",
+    "Cross-referencing 4.2 billion profiles…",
+    "Calibrating quantum love algorithm…",
+    "Consulting the matchmaking neural network…",
+    "THE ONE has been located!"
+  ]
+}

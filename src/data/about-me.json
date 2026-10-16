@@ -1,0 +1,37 @@
+{
+  "_comment": "SAMPLE DATA — 'About me' texts. IDs must be unique. Keep texts short enough to fit a phone card (roughly 40 words max).",
+  "entries": [
+    {
+      "id": "bio-001",
+      "text": "Greetings. I enjoy long glides through low Earth orbit. Looking for a carbon-unit to share atmospheric pressure and mutually pretend our internal organs are normal. Swipe right if your exoskeleton is intact."
+    },
+    {
+      "id": "bio-002",
+      "text": "Looking for a sweet alien to go to Mars with."
+    },
+    {
+      "id": "bio-003",
+      "text": "Three hearts, zero commitment issues. Well, maybe one per heart."
+    },
+    {
+      "id": "bio-004",
+      "text": "I have been told my tentacles are my best feature. My mother disagrees."
+    },
+    {
+      "id": "bio-005",
+      "text": "Recently out of a 400-year relationship. Ready to try again."
+    },
+    {
+      "id": "bio-006",
+      "text": "Fluent in 3,000 languages, still bad at texting back."
+    },
+    {
+      "id": "bio-007",
+      "text": "Just here to see what the algorithm thinks I deserve."
+    },
+    {
+      "id": "bio-008",
+      "text": "If you can survive my home planet's gravity, you can survive my family."
+    }
+  ]
+}
