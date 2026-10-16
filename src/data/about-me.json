@@ -1,5 +1,5 @@
 {
-  "_comment": "SAMPLE DATA — 'About me' texts. IDs must be unique. Keep texts short enough to fit a phone card (roughly 40 words max).",
+  "_comment": "Alien dating bios. IDs are unique; bio-001 through bio-013 are preserved verbatim.",
   "entries": [
     {
       "id": "bio-001",
@@ -32,6 +32,174 @@
     {
       "id": "bio-008",
       "text": "If you can survive my home planet's gravity, you can survive my family."
+    },
+    {
+      "id": "bio-009",
+      "text": "Greetings, gorgeous carbon-based life-form. I enjoy moonlit asteroid walks and staring deeply into the void. Looking for someone to make my three hearts beat slightly out of sync. Bonus points if you don't scream when I molt."
+    },
+    {
+      "id": "bio-010",
+      "text": "6'4\" with the antennae, 6'1\" without. I love fine dining, bad decisions, and abducting your attention. Looking for a long-term situationship with someone who appreciates a little intergalactic mystery. My spaceship has two seats and one suspicious stain."
+    },
+    {
+      "id": "bio-011",
+      "text": "Is your name Gravity? Because I'm falling toward you at an alarming speed. I enjoy stargazing, collecting shiny rocks, and complimenting your unusually symmetrical face. Seeking a partner for cosmic adventures and mutual emotional damage."
+    },
+    {
+      "id": "bio-012",
+      "text": "Just a gentle creature with eight arms and absolutely no idea how to flirt. I like cozy nebulae, warm soup, and holding hands (all of them). Looking for someone to cuddle with during meteor showers. Please be patient while I learn your customs."
+    },
+    {
+      "id": "bio-013",
+      "text": "Emotionally available, financially stable, and legally permitted to visit Earth. My hobbies include cooking questionable casseroles and looking mysterious in doorways. Looking for someone who wants to build a future together, preferably in a low-gravity environment. I come with my own moon."
+    },
+    {
+      "id": "bio-014",
+      "text": "Ideal Friday: takeout, trash TV, cave. Please don't interpret my bioluminescence as a hint. Sometimes I'm just blue."
+    },
+    {
+      "id": "bio-015",
+      "text": "I've rehearsed this bio 47 times in four different dimensions. I enjoy long walks, deep conversations, and wondering if your \"haha\" means you hate me. Looking for someone emotionally mature enough to explain human dating customs. Please send a distress signal if you're interested."
+    },
+    {
+      "id": "bio-016",
+      "text": "Nap enthusiast. Sleep cycle: 400 hours. Love language: leaving you the warm side of the rock. 💤"
+    },
+    {
+      "id": "bio-017",
+      "text": "My friends say I'm a great listener, mostly because I don't have ears. I enjoy board games, quiet cafés, and standing three inches too close to people. Looking for a genuine connection and someone who won't judge my constantly changing shape. First date? Somewhere with washable furniture."
+    },
+    {
+      "id": "bio-018",
+      "text": "CEO of something boring on Saturn. Looking for someone who'll make me ignore my work communicator. I can take Tuesday off, probably."
+    },
+    {
+      "id": "bio-019",
+      "text": "I'm not like other monsters. I have secrets, several aliases, and a basement full of glowing eggs. I enjoy deep eye contact and asking questions I refuse to answer myself. Looking for someone who loves a challenge. My ex is currently trapped in a pocket dimension, but that's ancient history."
+    },
+    {
+      "id": "bio-020",
+      "text": "14 pupils, still can't read the room. In therapy. Ask me about it (please only ask once)."
+    },
+    {
+      "id": "bio-021",
+      "text": "Not seeking anything serious unless you count an outstanding warrant in the Andromeda sector. Here for chemistry, not cohabitation. ✨"
+    },
+    {
+      "id": "bio-022",
+      "text": "Fresh out of a very complicated mating ritual. I enjoy long drives through abandoned galaxies and deleting old telepathic messages. Looking for someone who won't ask about the glowing crater on my chest. I'm healed, mostly, and only scream my ex's name during thunderstorms."
+    },
+    {
+      "id": "bio-023",
+      "text": "Our first date went amazing in my head. I've planned date two. Is that too much? 💍"
+    },
+    {
+      "id": "bio-024",
+      "text": "Call me old-fashioned, but I still believe in handwritten love letters and courting rituals that last several lunar cycles. I enjoy slow dancing, homemade moon pies, and remembering anniversaries in multiple calendars. Looking for a love that survives the heat death of the universe. Chivalry isn't dead, it's just evolving."
+    },
+    {
+      "id": "bio-025",
+      "text": "Will write a sonnet about your cheekbones after one drink. Consider this fair warning."
+    },
+    {
+      "id": "bio-026",
+      "text": "Looking for someone to wear matching pajamas with while the universe slowly collapses. Preferably someone who won't mind the occasional slime trail."
+    },
+    {
+      "id": "bio-027",
+      "text": "One day, I hope to find someone who makes my tentacles tingle. I dream of a little asteroid home, a garden of singing mushrooms, and mornings spent watching alien birds. Looking for a partner to build something beautiful and mildly radioactive. Big feelings, tiny spaceship."
+    },
+    {
+      "id": "bio-028",
+      "text": "Good at chores, good at talking things out, bad at keeping all my limbs attached. Seeking a teammate, not a host organism."
+    },
+    {
+      "id": "bio-029",
+      "text": "You'll find me at the hottest clubs orbiting Jupiter. I enjoy neon slime, questionable dance moves, and making friends with things that have too many teeth. Looking for someone who can keep up until sunrise, which on my home planet lasts 63 hours. Dress code: fabulous and vaguely sentient."
+    },
+    {
+      "id": "bio-030",
+      "text": "I have been banned from six galaxies for pressing buttons. Looking for someone to tell me 'don't' while secretly filming."
+    },
+    {
+      "id": "bio-031",
+      "text": "Festival creature. Three moons, one tent, zero sense of direction. If you find my ship I'll buy you breakfast. 🎶"
+    },
+    {
+      "id": "bio-032",
+      "text": "My mixes are so good they've caused three minor planetary evacuations. I enjoy late nights, loud bass, and making your organs vibrate in perfect rhythm. Seeking a dance partner and possibly someone to help me carry my equipment. My last relationship ended over a disagreement about the drop."
+    },
+    {
+      "id": "bio-033",
+      "text": "Extrovert with 600 close friends. I'll introduce you to everyone at the party, then remember I forgot to ask your name."
+    },
+    {
+      "id": "bio-034",
+      "text": "Nature enthusiast seeking someone to climb mountains that haven't technically formed yet. I enjoy fresh cosmic air, strange wildlife, and getting lost without admitting it. Looking for a partner who packs snacks and doesn't complain about the occasional acid rain. Let's touch some extraterrestrial grass."
+    },
+    {
+      "id": "bio-035",
+      "text": "Sea monster. Terrible on land. Excellent at picnics on shipwrecks. 🌊"
+    },
+    {
+      "id": "bio-036",
+      "text": "My plants bite, but I'm nice. Unless you insult the begonias."
+    },
+    {
+      "id": "bio-037",
+      "text": "Asteroid racing, volcano swims, last-minute trips. Tell me the dumbest adventure you've ever survived. Bonus points if you've still got most of your original bones."
+    },
+    {
+      "id": "bio-038",
+      "text": "Just a simple creature from a quiet moon with a little farm and a lot of feelings. I enjoy stargazing, baking root vegetables, and waving at passing spacecraft. Looking for someone who appreciates a slower pace of life and doesn't mind the occasional crop circle. City monsters need not apply."
+    },
+    {
+      "id": "bio-039",
+      "text": "Co-op games > competitive games. Except when I win. My love language is reviving you and pretending I didn't see you fall. 🎮"
+    },
+    {
+      "id": "bio-040",
+      "text": "Yes, I own every edition of the Galactic Encyclopedia, including the one that predicts the end of existence. I love speculative fiction, miniature spacecraft, and correcting people about wormhole physics. Seeking someone to argue with lovingly about fictional universes. We can agree to disagree after approximately six hours."
+    },
+    {
+      "id": "bio-041",
+      "text": "Collector of antique ray guns, polished meteorites and weird little spoons. Yes, I need all of them. What's the strangest thing you own?"
+    },
+    {
+      "id": "bio-042",
+      "text": "Romantic, intelligent, and only occasionally responsible for an explosion. I enjoy chemistry, late-night experiments, and making tiny versions of myself for company. Looking for someone curious enough to ask questions but sensible enough not to drink anything from my fridge. Together, we could create life or a moderately successful podcast."
+    },
+    {
+      "id": "bio-043",
+      "text": "Paints nebulae. Cries at museum exhibitions. Currently purple, emotionally and physically. 🎨"
+    },
+    {
+      "id": "bio-044",
+      "text": "They say the way to a monster's heart is through its stomach, but mine is in a jar for safekeeping. I love experimenting with alien spices and hosting dinners that occasionally require protective eyewear. Looking for someone adventurous enough to try my cooking twice. First date includes a tasting menu and a liability waiver."
+    },
+    {
+      "id": "bio-045",
+      "text": "Will share my emergency moon cheese with the right person. That's basically marriage where I'm from. 🧀"
+    },
+    {
+      "id": "bio-046",
+      "text": "Need caffeine before my first coherent telepathic thought. Best first date: coffee and judging passing spacecraft."
+    },
+    {
+      "id": "bio-047",
+      "text": "I'm adventurous in love but cautious around unfamiliar textures. My diet consists of three approved minerals and one suspicious pudding. Looking for someone who won't judge me for separating my food by molecular weight. We'll have a beautiful relationship as long as we order separately."
+    },
+    {
+      "id": "bio-048",
+      "text": "Professional mooncake baker, amateur flirt. I made you cookies but accidentally ate them. 🍪"
+    },
+    {
+      "id": "bio-049",
+      "text": "Sometimes I am a lamp. If we match while I'm a lamp, please don't make it weird."
+    },
+    {
+      "id": "bio-050",
+      "text": "I'm a little haunted, but in a charming, vintage sort of way. I enjoy candlelit dinners, antique furniture, and whispering cryptic compliments at 3 a.m. Looking for someone who won't mind a few uninvited spirits at our anniversary party. My baggage is literal, and it occasionally levitates."
     }
   ]
 }

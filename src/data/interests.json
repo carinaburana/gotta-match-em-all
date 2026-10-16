@@ -1,43 +1,94 @@
 {
-  "_comment": "SAMPLE DATA — replace or extend. Interest IDs must be unique, lowercase-kebab-case and never change once used. Labels can change freely.",
+  "_comment": "Interest IDs must be unique, lowercase-kebab-case and never change once used. Labels can change freely.",
   "categories": [
     {
-      "id": "food",
-      "label": "Food & Snacks",
+      "id": "food-drink",
+      "label": "Food & Drink",
       "interests": [
-        { "id": "hamburgers", "label": "Hamburgers" },
+        { "id": "burgers", "label": "Burgers" },
+        { "id": "sushi", "label": "Sushi" },
+        { "id": "pizza", "label": "Pizza" },
+        { "id": "mexican-food", "label": "Mexican Food" },
+        { "id": "street-food", "label": "Street Food" },
+        { "id": "fine-dining", "label": "Fine Dining" },
+        { "id": "vegan", "label": "Vegan Food" },
+        { "id": "homemade-food", "label": "Home Cooking" },
+        { "id": "baking", "label": "Baking" },
+        { "id": "coffee", "label": "Coffee" },
+        { "id": "wine-tasting", "label": "Wine Tasting" },
         { "id": "ice-cream", "label": "Ice Cream" },
         { "id": "cookie-dough", "label": "Cookie Dough" },
         { "id": "space-noodles", "label": "Space Noodles" }
       ]
     },
     {
-      "id": "culture",
-      "label": "Culture",
+      "id": "entertainment-pop-culture",
+      "label": "Entertainment & Social",
       "interests": [
-        { "id": "museums-galleries", "label": "Museums & Galleries" },
+        { "id": "movies", "label": "Movies" },
+        { "id": "series", "label": "TV Series" },
+        { "id": "earth-reality-tv", "label": "Earth Reality TV" },
+        { "id": "podcasts", "label": "Podcasts" },
+        { "id": "true-crime", "label": "True Crime" },
+        { "id": "concerts", "label": "Concerts" },
         { "id": "karaoke", "label": "Karaoke" },
-        { "id": "crop-circle-art", "label": "Crop Circle Art" },
-        { "id": "earth-reality-tv", "label": "Earth Reality TV" }
+        { "id": "parties", "label": "Parties" },
+        { "id": "bowling", "label": "Bowling" },
+        { "id": "board-games", "label": "Board Games" },
+        { "id": "video-games", "label": "Video Games" }
       ]
     },
     {
-      "id": "action",
-      "label": "Sports & Action",
+      "id": "creativity-art",
+      "label": "Arts & Creativity",
       "interests": [
-        { "id": "race-car-shows", "label": "Race Car Shows" },
+        { "id": "painting", "label": "Painting" },
+        { "id": "writing", "label": "Writing" },
+        { "id": "photography", "label": "Photography" },
+        { "id": "pottery", "label": "Pottery" },
+        { "id": "playing-instruments", "label": "Playing Instruments" },
+        { "id": "museums-galleries", "label": "Museums & Galleries" },
+        { "id": "books", "label": "Books & Reading" },
+        { "id": "crop-circle-art", "label": "Crop Circle Art" }
+      ]
+    },
+    {
+      "id": "sport-fitness",
+      "label": "Sports & Fitness",
+      "interests": [
+        { "id": "running", "label": "Running" },
+        { "id": "tennis", "label": "Tennis" },
+        { "id": "swimming", "label": "Swimming" },
+        { "id": "yoga", "label": "Yoga" },
         { "id": "zero-g-yoga", "label": "Zero-G Yoga" },
+        { "id": "gym", "label": "Gym" },
+        { "id": "soccer", "label": "Soccer" },
+        { "id": "cycling", "label": "Cycling" },
+        { "id": "climbing", "label": "Climbing" },
+        { "id": "golf", "label": "Golf" },
+        { "id": "dancing", "label": "Dancing" },
+        { "id": "crossfit", "label": "CrossFit" },
         { "id": "asteroid-surfing", "label": "Asteroid Surfing" },
-        { "id": "hiking", "label": "Hiking" }
+        { "id": "race-car-shows", "label": "Race Car Shows" }
+      ]
+    },
+    {
+      "id": "nature-outdoors",
+      "label": "Nature & Outdoors",
+      "interests": [
+        { "id": "hiking", "label": "Hiking" },
+        { "id": "camping", "label": "Camping" },
+        { "id": "fishing", "label": "Fishing" },
+        { "id": "gardening", "label": "Gardening" },
+        { "id": "cow-watching", "label": "Cow Watching" }
       ]
     },
     {
       "id": "cosmos",
-      "label": "Cosmic Life",
+      "label": "Space & Exploration",
       "interests": [
         { "id": "stargazing", "label": "Stargazing" },
         { "id": "black-hole-tourism", "label": "Black Hole Tourism" },
-        { "id": "cow-watching", "label": "Cow Watching" },
         { "id": "time-travel", "label": "Time Travel" }
       ]
     }
