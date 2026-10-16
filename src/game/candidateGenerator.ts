@@ -8,7 +8,7 @@ type CandidateConfig = (typeof GAME_CONFIG)['candidate'];
 export interface CandidateSpec {
   id: string;
   kind: CandidateKind;
-  /** How many of the player's interests appear on this card (0 … player interest count). */
+  /** How many of the player's interests appear on this card (0 … player interest count − 1). */
   sharedInterestCount: number;
 }
 
@@ -32,8 +32,11 @@ export function createCandidateGenerator(
     (id) => !playerInterestSet.has(id),
   );
 
+  // A full match on every interest is reserved for THE ONE, so candidates always miss at least one.
+  const maxSharedCount = Math.max(0, playerInterestIds.length - 1);
+
   function pickInterests(sharedCount: number): InterestId[] {
-    const shared = Math.max(0, Math.min(sharedCount, playerInterestIds.length));
+    const shared = Math.max(0, Math.min(sharedCount, maxSharedCount));
     const sharedIds = pickDistinct(rng, playerInterestIds, shared);
     const otherIds = pickDistinct(rng, otherInterestIds, config.interestsPerCard - shared);
     return shuffle(rng, [...sharedIds, ...otherIds]);
