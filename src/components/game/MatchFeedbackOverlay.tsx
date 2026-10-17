@@ -60,7 +60,7 @@ export function MatchFeedbackOverlay({ lastSwipe }: { lastSwipe: SwipeEvent | nu
     >
       <AnimatePresence>
         {style && lastSwipe && (
-          <motion.div
+                    <motion.div
             key={lastSwipe.eventId}
             variants={matchFeedbackVariants}
             initial="initial"
@@ -70,6 +70,7 @@ export function MatchFeedbackOverlay({ lastSwipe }: { lastSwipe: SwipeEvent | nu
           >
             {style.title}
           </motion.div>
+
         )}
       </AnimatePresence>
     </div>
@@ -82,7 +83,7 @@ export function TimeUpOverlay({ show, label }: { show: boolean; label: string })
     <AnimatePresence>
       {show && (
         <motion.div
-          className="absolute inset-0 z-40 flex items-center justify-center bg-brand-900/60 backdrop-blur-sm"
+          className="absolute inset-0 z-40 flex items-center justify-center bg-brand-900/60 "
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           role="status"
