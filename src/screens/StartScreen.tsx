@@ -15,15 +15,8 @@ export function StartScreen({ onStart }: StartScreenProps) {
         </Button>
       }
     >
-      <div className="flex flex-1 flex-col items-center justify-center gap-10 text-center">
-        <Logo />
-        {/* PLACEHOLDER illustration area — replace with the final start-screen artwork. */}
-        <div
-          aria-hidden
-          className="flex h-40 w-32 animate-float items-center justify-center rounded-3xl border-4 border-brand-800 bg-brand-100 text-6xl shadow-lg [--float-rotate:-6deg]"
-        >
-          👽
-        </div>
+      <div className="flex flex-1 flex-col items-center justify-center gap-8 text-center">
+        <Logo className="w-full max-w-80" />
         <p className="max-w-64 text-ink-muted">
           Start matching to find “The One” before the time runs out!
         </p>

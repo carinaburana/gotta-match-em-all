@@ -31,7 +31,7 @@ export interface AboutMeEntry {
 export interface PlayerAvatar {
   id: string;
   label: string;
-  /** Public URL, e.g. "/avatars/avatar-01.svg". */
+  /** Public URL, e.g. "/avatars/avatar-01.webp". */
   src: string;
 }
 

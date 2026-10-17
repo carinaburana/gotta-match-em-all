@@ -109,10 +109,10 @@ Rules:
 
 **Alien portraits**
 
-1. Export as WebP (≈ 800 px, character roughly centred).
-2. Name them `alien-001.webp`, `alien-002.webp`, … and put them in `public/aliens/`.
+1. Export as WebP (≈ 768 px wide, quality ~80, character roughly centred).
+2. Continue the numbering (`alien-047.webp`, …) and put them in `public/aliens/`.
 3. Add each file name to `src/data/alien-portraits.json` → `"files"`.
-4. Remove the `placeholder-0X.svg` entries once real portraits exist. Keep `fallback.svg`.
+4. Keep `fallback.svg` — it's shown if an image fails to load.
 
 **Player avatars:** replace files in `public/avatars/` and update `src/data/player-avatars.json`.
 

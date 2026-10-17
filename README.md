@@ -110,19 +110,19 @@ No environment variables are needed.
 
 ## Implementation status
 
-| Area                       | Status                                                          |
-| -------------------------- | --------------------------------------------------------------- |
-| App flow (6 screens)       | ✅ Working                                                      |
-| Profile setup              | ✅ Name, exactly 3 interests by category, 1 of 4 avatars        |
-| Deck generation            | ✅ 100 cards, seeded, 70% normal / 10% special / 20% unverified |
-| Swipe loop, score, timer   | ✅ Drag, buttons and ←/→ keys; 60 s countdown                   |
-| Match feedback             | 🟡 Simple placeholder overlays                                  |
-| AI searching sequence      | 🟡 Placeholder radar animation, configurable text               |
-| THE ONE teaser             | 🟡 Video slot + placeholder (video not supplied yet)            |
-| Results screen             | 🟡 Placeholder stats list — final ending not decided            |
-| Final illustrations / logo | 🟡 Placeholder SVGs and text logo                               |
-| Sound                      | ⬜ Not started (files will go in `public/sounds/`)              |
-| Bottom navigation          | ⬜ Not planned yet — shell is prepared for it                   |
+| Area                     | Status                                                          |
+| ------------------------ | --------------------------------------------------------------- |
+| App flow (6 screens)     | ✅ Working                                                      |
+| Profile setup            | ✅ Name, exactly 3 interests by category, 1 of 4 avatars        |
+| Deck generation          | ✅ 100 cards, seeded, 70% normal / 10% special / 20% unverified |
+| Swipe loop, score, timer | ✅ Drag, buttons and ←/→ keys; 60 s countdown                   |
+| Match feedback           | 🟡 Simple placeholder overlays                                  |
+| AI searching sequence    | ✅ Animated "nearby matches" radar, configurable text           |
+| THE ONE teaser           | 🟡 Video slot + placeholder (video not supplied yet)            |
+| Results screen           | 🟡 Placeholder stats list — final ending not decided            |
+| Illustrations / logo     | ✅ 46 portraits + 4 avatars + logo (`public/logo.webp`)         |
+| Sound                    | ⬜ Not started (files will go in `public/sounds/`)              |
+| Bottom navigation        | ⬜ Not planned yet — shell is prepared for it                   |
 
 ## For AI coding agents
 Read [AGENTS.md](AGENTS.md) (Claude Code also reads [CLAUDE.md](CLAUDE.md)) before making changes.
