@@ -1,18 +1,31 @@
-# Gotta Match 'Em All 👽💜
+# Gotta Match 'Em All
 
-A playful, mobile-first web game that satirises dating apps, "AI-powered" matchmaking and
-engagement-driven algorithms.
+A thought-provoking mobile web game that plays on dating apps business model, their predictive compatibility scores, and engagement-driven recommendation algorithms.
+Players create a makeshift dating profile, choose three interests, and enter a fictional company's matchmaking process. 
 
-Players create an alien dating profile, pick three interests, watch a (completely fake) AI
-matchmaking sequence and get introduced to **THE ONE** — their supposedly perfect match. Then they
-swipe through alien profiles for 60 seconds, collecting points for matches and losing points for
-matching with unverified profiles.
+Dating platforms face an interesting conflict of incentives: while their users may hope to find a long-term partner and leave the app for good,
+the platforms themselves benefit from keeping users single.
 
-**The twist: THE ONE never appears.** The app keeps you swiping for someone it will never show you.
-See [docs/GAME_DESIGN.md](docs/GAME_DESIGN.md) for the idea behind it.
+Without concrete proof, but from numerous experiences shared online, we hypothesize companies withhold our ideal matches from customers on purpose.
+Inspired loosely by the Gale–Shapley stable matching algorithm, we take this conflict to an extreme. In our satirical interpretation, the only way to find your best match is to simply match with everyone.
 
-This is a single-session demonstrator (about 1–2 minutes), not a real dating platform. There is no
-backend, no accounts, no real AI and no data collection.
+More about the idea behind the game can be found in [docs/GAME_DESIGN.md](docs/GAME_DESIGN.md).
+
+
+This is a single-session demonstrator (about 1–2 minutes), not a real dating platform. To avoid reinforcing human stereotypes or distracting from our core concept,
+players and their potential matches are cute, fluffy aliens from a nearby planet.
+
+### But why does this matter?
+According to [Pew Research Center (2023)](https://www.pewresearch.org/internet/2023/02/02/from-looking-for-love-to-swiping-the-field-online-dating-in-the-u-s/), 20% of partnered Americans aged 18–29 met their current partner through a dating site or app.
+
+As romantic connections increasingly begin on digital platforms rather than through traditional social networks, like work or friend groups, the algorithms determining who we encounter may also influence who we ultimately form relationships with - or not.
+
+Meanwhile, the share of American adults aged 25–54 living without a spouse or partner increased from 29% in 1990 to 38% in 2019 ([Pew Research Center, 2021](https://www.pewresearch.org/social-trends/2021/10/05/rising-share-of-u-s-adults-are-living-without-a-spouse-or-partner/)), although more recent data show a slight decline. Research has also linked prolonged singlehood among young adults to greater loneliness and lower life satisfaction ([Krämer et al., 2026](https://doi.org/10.1037/pspp0000595)), while demographic studies have identified economic disparities between partnered and unpartnered adults.
+
+Of course, there is no established evidence that dating apps are responsible for these broader demographic trends.
+But as increasingly important parts of our romantic lives are mediated by private companies, it is worth questioning whose interests their matchmaking algorithms really serve.
+
+
 
 ## Tech stack
 
@@ -112,5 +125,4 @@ No environment variables are needed.
 | Bottom navigation          | ⬜ Not planned yet — shell is prepared for it                   |
 
 ## For AI coding agents
-
 Read [AGENTS.md](AGENTS.md) (Claude Code also reads [CLAUDE.md](CLAUDE.md)) before making changes.
