@@ -12,7 +12,7 @@ So to make this contradiction tangible and obvious to experience we created a fi
 advanced AI matchmaking. User engagement is rewarded with points, flashy animations and urgency for continuous swiping.
 
 However, the points have no purpose. The score visualizes neural mechanisms involved in reward anticipation and reinforcement learning. Similar mechanisms are involved in gambling, when unpredictable rewards can lead to higher dopamine-responses and reinforce repetition and compulsive use. A [2024 lawsuit against Match Group](https://www.washingtonpost.com/technology/2024/02/19/tinder-hinge-dating-app-lawsuit/) alleged that dating apps deliberately use such game-like reward mechanisms to encourage compulsive engagement.
-A countdown timer introduces time pressure and a sense of urgency, potentially amplifying fear of missing out (FOMO). 
+In our provotype a countdown timer additionally introduces time pressure and thereby a sense of urgency, potentially amplifying fear of missing out (FOMO). 
 
 ## Withholding most-ideal matches
 Through a video sequence the company introduces "The One" - an ideal match for the players. Then this profile is moved 
