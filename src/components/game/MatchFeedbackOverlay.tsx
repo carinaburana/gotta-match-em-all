@@ -48,21 +48,23 @@ export function MatchFeedbackOverlay({ lastSwipe }: { lastSwipe: SwipeEvent | nu
 
   return (
     <div
-      className="pointer-events-none absolute inset-0 z-30 flex items-center justify-center"
+      className="pointer-events-none absolute top-4 right-4  z-30 flex flex-col items-end"
       aria-live="polite"
     >
       <AnimatePresence>
         {style && lastSwipe && (
-          <motion.div
+                    <motion.div
             key={lastSwipe.eventId}
             variants={feedbackVariants}
             initial="initial"
             animate="animate"
             exit="exit"
-            className={`rounded-3xl px-6 py-4 text-center font-black shadow-xl ${style.className}`}
+            // CHANGED HERE: Lowered rounding, shrank padding, and added a smaller text scale
+            className={`rounded-xl px-3 py-1.5 text-sm text-center font-black shadow-md ${style.className}`}
           >
             {style.title}
           </motion.div>
+
         )}
       </AnimatePresence>
     </div>
@@ -75,7 +77,7 @@ export function TimeUpOverlay({ show, label }: { show: boolean; label: string })
     <AnimatePresence>
       {show && (
         <motion.div
-          className="absolute inset-0 z-40 flex items-center justify-center bg-brand-900/60 backdrop-blur-sm"
+          className="absolute inset-0 z-40 flex items-center justify-center bg-brand-900/60 "
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           role="status"
