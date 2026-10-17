@@ -88,7 +88,11 @@ export const GAME_CONFIG = {
 
   feedback: {
     /** How long a match overlay stays visible. */
-    overlayDurationMs: 1_70,
+    overlayDurationMs: 1_90,
+    /** Delay before the one-time gameplay reminder appears. */
+    reminderDelayMs: 20_000,
+    /** How long the one-time gameplay reminder stays visible. */
+    reminderDurationMs: 2_500,
   },
 } as const;
 
