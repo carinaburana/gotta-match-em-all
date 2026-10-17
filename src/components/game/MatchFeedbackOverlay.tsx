@@ -11,22 +11,25 @@ interface FeedbackStyle {
   className: string;
 }
 
+const NOTIFICATION_CLASS =
+  'rounded-2xl px-4 py-2 text-center text-sm font-bold whitespace-nowrap shadow-xl';
+
 /**
  * PLACEHOLDER feedback visuals. Replace the content per outcome with the final reward
  * animations (+10, +100, −100) later — the trigger logic below can stay as it is.
  */
 function getFeedbackStyle(outcome: SwipeOutcome): FeedbackStyle | null {
   if (outcome.type === 'liked-no-match') {
-    return { title: 'No match… keep swiping!', className: 'bg-white/90 text-ink-muted text-base' };
+    return { title: 'No match… keep swiping!', className: 'bg-white/90 text-ink-muted' };
   }
   if (outcome.type !== 'match') return null;
   switch (outcome.category) {
     case 'normal':
-      return { title: "It's a match! +10", className: 'bg-like text-white text-2xl' };
+      return { title: "It's a match! +10", className: 'bg-like text-white' };
     case 'special':
-      return { title: 'SUPER MATCH! +100', className: 'bg-reward text-brand-900 text-3xl' };
+      return { title: 'SUPER MATCH! +100', className: 'bg-reward text-brand-900' };
     case 'negative':
-      return { title: 'Unverified! −100', className: 'bg-nope text-white text-2xl' };
+      return { title: 'Unverified! −100', className: 'bg-nope text-white' };
   }
 }
 
@@ -37,6 +40,7 @@ function getFeedbackStyle(outcome: SwipeOutcome): FeedbackStyle | null {
  */
 export function MatchFeedbackOverlay({ lastSwipe }: { lastSwipe: SwipeEvent | null }) {
   const [visibleEventId, setVisibleEventId] = useState<number | null>(null);
+  const [showReminder, setShowReminder] = useState(false);
 
   useEffect(() => {
     if (!lastSwipe) return;
@@ -47,6 +51,22 @@ export function MatchFeedbackOverlay({ lastSwipe }: { lastSwipe: SwipeEvent | nu
     );
     return () => window.clearTimeout(timeoutId);
   }, [lastSwipe]);
+
+  useEffect(() => {
+    let reminderHideTimeoutId: number | undefined;
+    const reminderTimeoutId = window.setTimeout(() => {
+      setShowReminder(true);
+      reminderHideTimeoutId = window.setTimeout(
+        () => setShowReminder(false),
+        GAME_CONFIG.feedback.reminderDurationMs,
+      );
+    }, GAME_CONFIG.feedback.reminderDelayMs);
+
+    return () => {
+      window.clearTimeout(reminderTimeoutId);
+      if (reminderHideTimeoutId !== undefined) window.clearTimeout(reminderHideTimeoutId);
+    };
+  }, []);
 
   const style =
     lastSwipe && visibleEventId === lastSwipe.eventId ? getFeedbackStyle(lastSwipe.outcome) : null;
@@ -59,18 +79,31 @@ export function MatchFeedbackOverlay({ lastSwipe }: { lastSwipe: SwipeEvent | nu
       aria-live="polite"
     >
       <AnimatePresence>
+        {showReminder && (
+          <motion.p
+            key="engagement-reminder"
+            variants={feedbackVariants}
+            initial="initial"
+            animate="animate"
+            exit="exit"
+            className={`absolute bottom-4 ${NOTIFICATION_CLASS} bg-white text-brand-700`}
+          >
+            Hurry, you need to find your No. 1
+          </motion.p>
+        )}
+      </AnimatePresence>
+      <AnimatePresence>
         {style && lastSwipe && (
-                    <motion.div
+          <motion.div
             key={lastSwipe.eventId}
             variants={matchFeedbackVariants}
             initial="initial"
             animate="animate"
             exit="exit"
-            className={`col-start-1 row-start-1 rounded-3xl px-6 py-4 text-center font-black whitespace-nowrap shadow-xl ${style.className}`}
+            className={`col-start-1 row-start-1 ${NOTIFICATION_CLASS} ${style.className}`}
           >
             {style.title}
           </motion.div>
-
         )}
       </AnimatePresence>
     </div>
