@@ -103,7 +103,9 @@ Details and numbers: `docs/GAME_MECHANICS.md`.
 - Screen changes: `AnimatePresence mode="wait"` + `ScreenTransition` in `App.tsx`.
 - Cards: `SwipeableCard` handles drag and reports a direction; `AnimatePresence` animates the old
   card out in the swipe direction (`custom` = last swipe direction) while the next card enters.
-- Feedback: `MatchFeedbackOverlay` reacts to `state.lastSwipe` (keyed by `eventId`).
+- Feedback: `MatchFeedbackOverlay` reacts to `state.lastSwipe` (keyed by `eventId`). It is
+  rendered inside the card area and sits on the bottom of the portrait (`PORTRAIT_AREA_CLASS` in
+  `components/cards/cardLayout.ts`) so it never hides the name or verification badge.
 - Shared variants/timings: `src/components/animations/variants.ts`.
 
 To build richer reward animations, replace the visuals inside `MatchFeedbackOverlay` (or add new

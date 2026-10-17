@@ -46,10 +46,11 @@ export const GAME_CONFIG = {
     /** Interest tags shown on each card. */
     interestsPerCard: 5,
     /**
-     * Relative weights for how many interests a candidate shares with the player (0–3).
+     * Relative weights for how many interests a candidate shares with the player (0–2).
+     * Sharing all 3 is reserved for THE ONE (who never appears), so no candidate ever gets it.
      * Compatibility is independent of the reward kind — a "special" candidate may share nothing.
      */
-    sharedInterestWeights: { 0: 2, 1: 4, 2: 3, 3: 1 } as Record<number, number>,
+    sharedInterestWeights: { 0: 2, 1: 4, 2: 3 } as Record<number, number>,
     age: {
       min: 19,
       max: 45,
@@ -87,7 +88,7 @@ export const GAME_CONFIG = {
 
   feedback: {
     /** How long a match overlay stays visible. */
-    overlayDurationMs: 1_100,
+    overlayDurationMs: 1_70,
   },
 } as const;
 

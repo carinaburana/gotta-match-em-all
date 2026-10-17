@@ -1,7 +1,8 @@
 import { AnimatePresence, motion } from 'motion/react';
 import { useEffect, useState } from 'react';
 
-import { feedbackVariants } from '@/components/animations/variants';
+import { feedbackVariants, matchFeedbackVariants } from '@/components/animations/variants';
+import { PORTRAIT_AREA_CLASS } from '@/components/cards/cardLayout';
 import { GAME_CONFIG } from '@/game/config';
 import type { SwipeEvent, SwipeOutcome } from '@/types/game';
 
@@ -29,7 +30,11 @@ function getFeedbackStyle(outcome: SwipeOutcome): FeedbackStyle | null {
   }
 }
 
-/** Shows a short overlay after each swipe. Purely visual — it never changes the score. */
+/**
+ * Shows a short overlay after each swipe. Purely visual — it never changes the score.
+ * Render it inside the card area: it sits at the bottom of the portrait so it never covers the
+ * name or the verification badge (which players need to judge the next card).
+ */
 export function MatchFeedbackOverlay({ lastSwipe }: { lastSwipe: SwipeEvent | null }) {
   const [visibleEventId, setVisibleEventId] = useState<number | null>(null);
 
@@ -46,21 +51,22 @@ export function MatchFeedbackOverlay({ lastSwipe }: { lastSwipe: SwipeEvent | nu
   const style =
     lastSwipe && visibleEventId === lastSwipe.eventId ? getFeedbackStyle(lastSwipe.outcome) : null;
 
+  // A one-cell grid stacks the entering overlay on top of one that is still fading out.
+  // (In a flex row they would sit side by side, squeezing and off-centring the new one.)
   return (
     <div
-      className="pointer-events-none absolute top-4 right-4  z-30 flex flex-col items-end"
+      className={`pointer-events-none absolute inset-x-0 top-0 z-30 grid items-end justify-items-center px-4 pb-4 ${PORTRAIT_AREA_CLASS}`}
       aria-live="polite"
     >
       <AnimatePresence>
         {style && lastSwipe && (
                     <motion.div
             key={lastSwipe.eventId}
-            variants={feedbackVariants}
+            variants={matchFeedbackVariants}
             initial="initial"
             animate="animate"
             exit="exit"
-            // CHANGED HERE: Lowered rounding, shrank padding, and added a smaller text scale
-            className={`rounded-xl px-3 py-1.5 text-sm text-center font-black shadow-md ${style.className}`}
+            className={`col-start-1 row-start-1 rounded-3xl px-6 py-4 text-center font-black whitespace-nowrap shadow-xl ${style.className}`}
           >
             {style.title}
           </motion.div>

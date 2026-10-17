@@ -1,4 +1,5 @@
 import { AlienImage } from '@/components/cards/AlienImage';
+import { PORTRAIT_AREA_CLASS } from '@/components/cards/cardLayout';
 import { InterestTag } from '@/components/cards/InterestTag';
 import { HomeIcon, PinIcon, VerifiedIcon } from '@/components/ui/icons';
 import { GAME_CONTENT } from '@/data';
@@ -21,7 +22,7 @@ export function CandidateCard({ candidate, playerInterestIds }: CandidateCardPro
       className="flex h-full flex-col overflow-hidden rounded-card bg-surface shadow-lg shadow-brand-900/10 ring-1 ring-brand-900/5"
     >
       {/* Portrait area. Top padding leaves room for the game HUD overlay. */}
-      <div className="relative h-[44%] min-h-40 shrink-0 bg-brand-100">
+      <div className={`relative shrink-0 bg-brand-100 ${PORTRAIT_AREA_CLASS}`}>
         <AlienImage src={candidate.portraitSrc} alt={`Portrait of ${candidate.name}`} />
       </div>
 
