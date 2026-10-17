@@ -1,7 +1,7 @@
 import { AnimatePresence, motion } from 'motion/react';
 import { useEffect, useState } from 'react';
 
-import { feedbackVariants } from '@/components/animations/variants';
+import { feedbackVariants, matchFeedbackVariants } from '@/components/animations/variants';
 import { PORTRAIT_AREA_CLASS } from '@/components/cards/cardLayout';
 import { GAME_CONFIG } from '@/game/config';
 import type { SwipeEvent, SwipeOutcome } from '@/types/game';
@@ -51,20 +51,22 @@ export function MatchFeedbackOverlay({ lastSwipe }: { lastSwipe: SwipeEvent | nu
   const style =
     lastSwipe && visibleEventId === lastSwipe.eventId ? getFeedbackStyle(lastSwipe.outcome) : null;
 
+  // A one-cell grid stacks the entering overlay on top of one that is still fading out.
+  // (In a flex row they would sit side by side, squeezing and off-centring the new one.)
   return (
     <div
-      className={`pointer-events-none absolute inset-x-0 top-0 z-30 flex items-end justify-center pb-4 ${PORTRAIT_AREA_CLASS}`}
+      className={`pointer-events-none absolute inset-x-0 top-0 z-30 grid items-end justify-items-center px-4 pb-4 ${PORTRAIT_AREA_CLASS}`}
       aria-live="polite"
     >
       <AnimatePresence>
         {style && lastSwipe && (
           <motion.div
             key={lastSwipe.eventId}
-            variants={feedbackVariants}
+            variants={matchFeedbackVariants}
             initial="initial"
             animate="animate"
             exit="exit"
-            className={`rounded-3xl px-6 py-4 text-center font-black shadow-xl ${style.className}`}
+            className={`col-start-1 row-start-1 rounded-3xl px-6 py-4 text-center font-black whitespace-nowrap shadow-xl ${style.className}`}
           >
             {style.title}
           </motion.div>
