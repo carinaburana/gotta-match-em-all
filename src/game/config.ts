@@ -88,7 +88,7 @@ export const GAME_CONFIG = {
 
   feedback: {
     /** How long a match overlay stays visible. */
-    overlayDurationMs: 1_100,
+    overlayDurationMs: 1_70,
   },
 } as const;
 
