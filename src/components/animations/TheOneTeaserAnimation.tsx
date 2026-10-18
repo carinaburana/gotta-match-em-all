@@ -2,6 +2,7 @@ import { AnimatePresence, motion } from 'motion/react';
 import type { ReactNode } from 'react';
 
 import { DeckQueue } from '@/components/animations/DeckQueue';
+import { StageBackdrop } from '@/components/animations/StageBackdrop';
 import { TheOneFace } from '@/components/cards/TheOneFace';
 import { StageLayout } from '@/components/layout/StageLayout';
 import { HeartIcon } from '@/components/ui/icons';
@@ -58,12 +59,7 @@ export function TheOneTeaserAnimation({
         delayS: beat === 'matchFound' ? 0.4 : 0,
       }}
       footer={footer}
-      backdrop={
-        <>
-          <Daylight />
-          <Sparkles />
-        </>
-      }
+      backdrop={<StageBackdrop tone="light" />}
     >
       <AnimatePresence>
         {beat === 'matchFound' && <MatchFoundHeart key="heart" />}
@@ -159,68 +155,5 @@ function MatchFoundHeart() {
         </span>
       </motion.div>
     </motion.div>
-  );
-}
-
-/** The ending's spotlight, in daylight: a soft pink beam, a lavender glow, a warm pool. */
-function Daylight() {
-  return (
-    <>
-      <div
-        className="absolute inset-0"
-        style={{
-          background:
-            'linear-gradient(to bottom, color-mix(in oklab, var(--color-accent-pink) 16%, transparent), transparent 78%)',
-          clipPath: 'polygon(41% 0, 59% 0, 110% 100%, -10% 100%)',
-        }}
-      />
-      <div
-        className="absolute inset-0"
-        style={{
-          background:
-            'radial-gradient(55% 48% at 50% 62%, color-mix(in oklab, var(--color-brand-200) 70%, transparent), transparent 100%)',
-        }}
-      />
-      <div
-        className="absolute inset-x-0 bottom-0 h-40"
-        style={{
-          background:
-            'radial-gradient(50% 100% at 50% 100%, color-mix(in oklab, var(--color-accent-yellow) 28%, transparent), transparent 100%)',
-        }}
-      />
-    </>
-  );
-}
-
-/** Same spots as the ending's dust — here they are sparkles. */
-const SPARKLES = [
-  { top: '14%', left: '30%', size: 14, delay: '0s' },
-  { top: '22%', left: '66%', size: 10, delay: '0.7s' },
-  { top: '36%', left: '18%', size: 10, delay: '1.3s' },
-  { top: '44%', left: '78%', size: 14, delay: '0.4s' },
-  { top: '58%', left: '12%', size: 9, delay: '1.6s' },
-  { top: '64%', left: '86%', size: 11, delay: '1s' },
-  { top: '76%', left: '28%', size: 9, delay: '0.2s' },
-  { top: '80%', left: '72%', size: 12, delay: '2s' },
-];
-
-function Sparkles() {
-  return (
-    <div className="absolute inset-0 overflow-hidden">
-      {SPARKLES.map(({ top, left, size, delay }) => (
-        <svg
-          key={`${top}-${left}`}
-          viewBox="0 0 20 20"
-          className="absolute animate-twinkle text-accent-yellow"
-          style={{ top, left, width: size, height: size, animationDelay: delay }}
-          aria-hidden
-        >
-          <path
-            d="M10 0 C 10.8 6.5, 13.5 9.2, 20 10 C 13.5 10.8, 10.8 13.5, 10 20 C 9.2 13.5, 6.5 10.8, 0 10 C 6.5 9.2, 9.2 6.5, 10 0 Z"
-            fill="currentColor"
-          />
-        </svg>
-      ))}
-    </div>
   );
 }

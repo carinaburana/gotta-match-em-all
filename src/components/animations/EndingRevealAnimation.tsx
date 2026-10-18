@@ -6,6 +6,7 @@ import { DeckQueue } from '@/components/animations/DeckQueue';
 import { EndingSwipeStream } from '@/components/animations/EndingSwipeStream';
 import type { StagePoint } from '@/components/animations/EndingSwipeStream';
 import { FounderFigure } from '@/components/animations/FounderFigure';
+import { StageBackdrop } from '@/components/animations/StageBackdrop';
 import { AlienImage } from '@/components/cards/AlienImage';
 import { StageLayout } from '@/components/layout/StageLayout';
 import { GAME_CONTENT } from '@/data';
@@ -118,6 +119,7 @@ export function EndingRevealAnimation({
       footer={footer}
       backdrop={
         <>
+          <StageBackdrop tone="dark" dim={!founderOnStage} />
           {/* Lights off: the app's light canvas fades away to reveal the backstage. */}
           <motion.div
             className="absolute inset-0 z-30 bg-canvas"
@@ -128,9 +130,6 @@ export function EndingRevealAnimation({
         </>
       }
     >
-      <Spotlight bright={founderOnStage} />
-      <Dust />
-
       {/* Founder: in the spotlight for the intro and the closer, off stage in between. */}
       <div className="absolute inset-x-0 bottom-0 flex h-[80%] items-end justify-center">
         <motion.div
@@ -244,71 +243,6 @@ export function EndingRevealAnimation({
         )}
       </AnimatePresence>
     </StageLayout>
-  );
-}
-
-/** A cone of light from above, a glow behind the figure, and a warm pool on the floor. */
-function Spotlight({ bright }: { bright: boolean }) {
-  return (
-    <motion.div
-      className="pointer-events-none absolute inset-0"
-      animate={{ opacity: bright ? 1 : 0.45 }}
-      transition={{ duration: 0.8, ease: 'easeInOut' }}
-    >
-      <div
-        className="absolute inset-0"
-        style={{
-          background:
-            'linear-gradient(to bottom, color-mix(in oklab, white 10%, transparent), transparent 78%)',
-          clipPath: 'polygon(41% 0, 59% 0, 110% 100%, -10% 100%)',
-        }}
-      />
-      <div
-        className="absolute inset-0"
-        style={{
-          background:
-            'radial-gradient(55% 48% at 50% 62%, color-mix(in oklab, var(--color-brand-400) 55%, transparent), transparent 100%)',
-        }}
-      />
-      <div
-        className="absolute inset-x-0 bottom-0 h-24"
-        style={{
-          background:
-            'radial-gradient(50% 100% at 50% 100%, color-mix(in oklab, var(--color-accent-pink) 32%, transparent), transparent 100%)',
-        }}
-      />
-    </motion.div>
-  );
-}
-
-const DUST = [
-  { top: '12%', left: '36%', size: 3, delay: '0s' },
-  { top: '22%', left: '61%', size: 2, delay: '0.7s' },
-  { top: '35%', left: '28%', size: 2, delay: '1.3s' },
-  { top: '44%', left: '70%', size: 3, delay: '0.4s' },
-  { top: '58%', left: '22%', size: 2, delay: '1.6s' },
-  { top: '66%', left: '77%', size: 2, delay: '1s' },
-  { top: '30%', left: '48%', size: 2, delay: '2s' },
-  { top: '76%', left: '40%', size: 3, delay: '0.2s' },
-];
-
-/** Specks drifting through the light beam. */
-function Dust() {
-  return (
-    <div className="pointer-events-none absolute inset-0 overflow-hidden">
-      {DUST.map(({ top, left, size, delay }) => (
-        <span
-          key={`${top}-${left}`}
-          className="absolute animate-float rounded-full bg-white/30"
-          style={{ top, left, width: size, height: size, animationDelay: delay }}
-        >
-          <span
-            className="block h-full w-full animate-twinkle rounded-full bg-white"
-            style={{ animationDelay: delay }}
-          />
-        </span>
-      ))}
-    </div>
   );
 }
 
