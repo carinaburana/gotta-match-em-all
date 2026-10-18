@@ -7,6 +7,8 @@ import { EndingSwipeStream } from '@/components/animations/EndingSwipeStream';
 import type { StagePoint } from '@/components/animations/EndingSwipeStream';
 import { FounderFigure } from '@/components/animations/FounderFigure';
 import { StageBackdrop } from '@/components/animations/StageBackdrop';
+import { EASE_OUT_SOFT } from '@/components/animations/variants';
+
 import { AlienImage } from '@/components/cards/AlienImage';
 import { StageLayout } from '@/components/layout/StageLayout';
 import { GAME_CONTENT } from '@/data';
@@ -43,8 +45,6 @@ const STREAM_FROM: StagePoint = { x: -96, y: -70 };
 const PILE: StagePoint = { x: 96, y: -64 };
 const STREAM_FLIGHT_MS = 620;
 const STREAM_STAGGER_MAX_MS = 130;
-
-const EASE_OUT_SOFT = [0.22, 1, 0.36, 1] as const;
 
 /**
  * The ending: the teaser's dark mirror, in the same frame (StageLayout). The app's lights go out
@@ -218,7 +218,10 @@ export function EndingRevealAnimation({
               { total: seconds, label: content.ledger.seconds },
             ]}
             startMs={STREAM_FLIGHT_MS}
-            durationMs={streamStaggerMs * streamDirections.length + STREAM_FLIGHT_MS}
+            // Even with no swipes the counters still tick up (seconds of attention).
+            durationMs={
+              Math.max(streamStaggerMs * streamDirections.length, 1_200) + STREAM_FLIGHT_MS
+            }
           />
         )}
       </AnimatePresence>

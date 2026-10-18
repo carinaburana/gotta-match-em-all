@@ -53,13 +53,14 @@ export function ResultsScreen({ player, summary, onRestart }: ResultsScreenProps
               </motion.div>
             ) : (
               <motion.div key="skip" exit={{ opacity: 0, transition: { duration: 0.15 } }}>
-                <button
-                  type="button"
+                <Button
+                  fullWidth
+                  variant="ghost"
+                  className="text-white/45 hover:bg-transparent hover:text-white/80"
                   onClick={() => setStage('stats')}
-                  className="inline-flex min-h-12 w-full items-center justify-center rounded-full px-6 text-base font-semibold text-white/45 transition-colors hover:text-white/80"
                 >
                   {buttons.skip}
-                </button>
+                </Button>
               </motion.div>
             )}
           </AnimatePresence>

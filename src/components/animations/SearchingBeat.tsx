@@ -1,6 +1,7 @@
 import { AnimatePresence, motion } from 'motion/react';
 
 import { NearbyMatchesRadar } from '@/components/animations/NearbyMatchesRadar';
+import { EASE_OUT_SOFT } from '@/components/animations/variants';
 import { useTimedProgress } from '@/hooks/useTimedProgress';
 
 interface SearchingBeatProps {
@@ -25,7 +26,7 @@ export function SearchingBeat({ subtitle, steps, durationMs }: SearchingBeatProp
       initial={{ opacity: 0, scale: 0.85 }}
       animate={{ opacity: 1, scale: 1 }}
       exit={{ opacity: 0, scale: 0.6, transition: { duration: 0.35, ease: 'easeIn' } }}
-      transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+      transition={{ duration: 0.6, ease: EASE_OUT_SOFT }}
     >
       <NearbyMatchesRadar className="max-w-72" />
 

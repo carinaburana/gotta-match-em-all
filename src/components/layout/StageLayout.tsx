@@ -1,6 +1,8 @@
 import { AnimatePresence, motion } from 'motion/react';
 import type { ReactNode } from 'react';
 
+import { EASE_OUT_SOFT } from '@/components/animations/variants';
+
 export type StageTone = 'light' | 'dark';
 
 export interface StageCaption {
@@ -26,8 +28,6 @@ interface StageLayoutProps {
   /** The stage itself: absolutely positioned children, measured from its edges. */
   children: ReactNode;
 }
-
-const EASE_OUT_SOFT = [0.22, 1, 0.36, 1] as const;
 
 /**
  * The "cinematic" screen skeleton shared by the THE ONE teaser and the ending reveal, so both
@@ -81,9 +81,7 @@ export function StageLayout({
         </p>
       </motion.header>
 
-      <div className="relative min-h-0 flex-1" aria-hidden>
-        {children}
-      </div>
+      <div className="relative min-h-0 flex-1">{children}</div>
 
       {/* One line per beat. The visuals carry the story; this is the narrator's voice. */}
       <div

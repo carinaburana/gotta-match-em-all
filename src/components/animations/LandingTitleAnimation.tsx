@@ -2,14 +2,14 @@ import { motion } from 'motion/react';
 import type { ReactNode } from 'react';
 
 import { StageBackdrop } from '@/components/animations/StageBackdrop';
+import { EASE_OUT_SOFT } from '@/components/animations/variants';
+
 import { AlienImage } from '@/components/cards/AlienImage';
 import { Logo } from '@/components/ui/Logo';
 import { GAME_CONTENT } from '@/data';
 
 /** Fan of profile cards behind the logo: rotation per card, spread from the centre outwards. */
 const FAN_ROTATIONS = [-32, -16, 0, 16, 32];
-
-const EASE_OUT_SOFT = [0.22, 1, 0.36, 1] as const;
 
 /**
  * Title sequence for the landing page: a hand of real profile cards fans out, the logo stamps

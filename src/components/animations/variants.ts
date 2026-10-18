@@ -31,7 +31,7 @@ export const cardVariants: Variants = {
 };
 
 /** Smooth "ease out" curve: starts fast, settles gently into place. */
-const EASE_OUT_SOFT: [number, number, number, number] = [0.22, 1, 0.36, 1];
+export const EASE_OUT_SOFT: [number, number, number, number] = [0.22, 1, 0.36, 1];
 
 /** Match feedback after a swipe: grows open from the centre instead of bouncing in. */
 export const matchFeedbackVariants: Variants = {

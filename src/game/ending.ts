@@ -52,6 +52,7 @@ export function getQueueNumbers(
   deckSize: number = GAME_CONFIG.deck.size,
 ): QueueNumbers {
   const theOne = deckSize;
-  const next = Math.min(summary.cardsViewed + 1, theOne);
+  // Even when the deck ran out, "next up" stays in front of THE ONE — that's the story.
+  const next = Math.max(1, Math.min(summary.cardsViewed + 1, theOne - visibleCards));
   return { next, theOne, hidden: Math.max(0, theOne - next - visibleCards) };
 }

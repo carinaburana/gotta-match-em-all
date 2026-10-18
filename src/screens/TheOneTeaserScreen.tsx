@@ -25,8 +25,8 @@ export function TheOneTeaserScreen({ player, onContinue }: TheOneTeaserScreenPro
         <Button
           fullWidth
           onClick={onContinue}
-          variant={isAnimationDone ? 'primary' : 'secondary'}
-          className={isAnimationDone ? '' : 'border-transparent bg-transparent text-ink-muted'}
+          variant={isAnimationDone ? 'primary' : 'ghost'}
+          className={isAnimationDone ? '' : 'text-ink-muted'}
         >
           {isAnimationDone ? 'Start swiping' : 'Skip'}
         </Button>

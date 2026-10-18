@@ -43,7 +43,7 @@ export const DEV_JUMP_TARGETS = {
 export type DevJumpTarget = keyof typeof DEV_JUMP_TARGETS;
 
 function isDevJumpTarget(value: string | null): value is DevJumpTarget {
-  return value !== null && value in DEV_JUMP_TARGETS;
+  return value !== null && Object.hasOwn(DEV_JUMP_TARGETS, value);
 }
 
 /** `?dev=ending` (or teaser, game) opens that screen directly — survives page reloads. */

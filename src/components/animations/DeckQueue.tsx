@@ -2,6 +2,8 @@ import { motion } from 'motion/react';
 import type { TargetAndTransition, Transition } from 'motion/react';
 
 import { AlienImage } from '@/components/cards/AlienImage';
+import { EASE_OUT_SOFT } from '@/components/animations/variants';
+
 import { TheOneFace } from '@/components/cards/TheOneFace';
 import type { StageTone } from '@/components/layout/StageLayout';
 
@@ -35,10 +37,9 @@ const SLOT_SCALE_LOSS = 0.1;
 /** Extra slots between the visible front and THE ONE, so it reads as "far, far back". */
 const GAP_SLOTS = 1.4;
 const ENTER_STAGGER_S = 0.09;
-const EASE_OUT_SOFT = [0.22, 1, 0.36, 1] as const;
-const GLOW_SOFT = '0 0 20px 0px rgba(255,95,162,0.35)';
-const GLOW_STRONG = '0 0 44px 6px rgba(255,95,162,0.75)';
-const GLOW_NONE = '0 0 0px 0px rgba(255,95,162,0)';
+const GLOW_SOFT = '0 0 20px 0px color-mix(in oklab, var(--color-accent-pink) 35%, transparent)';
+const GLOW_STRONG = '0 0 44px 6px color-mix(in oklab, var(--color-accent-pink) 75%, transparent)';
+const GLOW_NONE = '0 0 0px 0px transparent';
 
 function slotTransform(slot: number) {
   return {

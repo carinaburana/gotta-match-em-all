@@ -4,6 +4,8 @@ import type { ReactNode } from 'react';
 import { DeckQueue } from '@/components/animations/DeckQueue';
 import { SearchingBeat } from '@/components/animations/SearchingBeat';
 import { StageBackdrop } from '@/components/animations/StageBackdrop';
+import { EASE_OUT_SOFT } from '@/components/animations/variants';
+
 import { TheOneFace } from '@/components/cards/TheOneFace';
 import { StageLayout } from '@/components/layout/StageLayout';
 import { HeartIcon } from '@/components/ui/icons';
@@ -22,8 +24,6 @@ interface TheOneTeaserAnimationProps {
   /** Called once when the last beat is reached. */
   onComplete: () => void;
 }
-
-const EASE_OUT_SOFT = [0.22, 1, 0.36, 1] as const;
 
 /**
  * The teaser before the game: the bright, hopeful twin of the ending reveal, in the same frame
@@ -89,7 +89,8 @@ export function TheOneTeaserAnimation({
                 scale: 1,
                 rotateY: 0,
                 y: beat === 'reveal' ? -70 : -116,
-                boxShadow: '0 24px 48px -12px rgba(255,95,162,0.55)',
+                boxShadow:
+                  '0 24px 48px -12px color-mix(in oklab, var(--color-accent-pink) 55%, transparent)',
               }}
               exit={{ scale: 0.75, y: -150, transition: { duration: 0.3 } }}
               transition={

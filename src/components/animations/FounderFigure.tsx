@@ -25,6 +25,9 @@ export function FounderFigure({ className = '' }: { className?: string }) {
   return <FounderSilhouette className={className} />;
 }
 
+const PINK = 'var(--color-accent-pink)';
+const TEAL = 'var(--color-accent-teal)';
+/** Silhouette tones — artwork colours, like the radar illustration. */
 const SHADOW = '#120c20';
 const SHADOW_SOFT = '#231a3d';
 
@@ -41,18 +44,18 @@ function FounderSilhouette({ className }: { className: string }) {
       <defs>
         {/* Rim light: pink spill from the spotlight on the figure's right edge. */}
         <linearGradient id="founder-rim" x1="0" y1="0" x2="1" y2="0">
-          <stop offset="0" stopColor="#ff5fa2" stopOpacity="0" />
-          <stop offset="0.6" stopColor="#ff5fa2" stopOpacity="0.1" />
-          <stop offset="1" stopColor="#ff8cc0" stopOpacity="0.9" />
+          <stop offset="0" stopColor={PINK} stopOpacity="0" />
+          <stop offset="0.6" stopColor={PINK} stopOpacity="0.1" />
+          <stop offset="1" stopColor={PINK} stopOpacity="0.9" />
         </linearGradient>
         <radialGradient id="founder-lens" cx="0.35" cy="0.3" r="0.8">
-          <stop offset="0" stopColor="#8ff5ec" stopOpacity="0.6" />
-          <stop offset="0.6" stopColor="#38d6c4" stopOpacity="0.12" />
-          <stop offset="1" stopColor="#38d6c4" stopOpacity="0" />
+          <stop offset="0" stopColor={TEAL} stopOpacity="0.7" />
+          <stop offset="0.6" stopColor={TEAL} stopOpacity="0.12" />
+          <stop offset="1" stopColor={TEAL} stopOpacity="0" />
         </radialGradient>
         <radialGradient id="founder-bulb" cx="0.5" cy="0.5" r="0.5">
-          <stop offset="0" stopColor="#38d6c4" stopOpacity="0.55" />
-          <stop offset="1" stopColor="#38d6c4" stopOpacity="0" />
+          <stop offset="0" stopColor={TEAL} stopOpacity="0.55" />
+          <stop offset="1" stopColor={TEAL} stopOpacity="0" />
         </radialGradient>
       </defs>
 
@@ -63,8 +66,8 @@ function FounderSilhouette({ className }: { className: string }) {
       </g>
       <circle cx="54" cy="9" r="13" fill="url(#founder-bulb)" />
       <circle cx="146" cy="9" r="13" fill="url(#founder-bulb)" />
-      <circle cx="54" cy="9" r="4.5" fill="#38d6c4" />
-      <circle cx="146" cy="9" r="4.5" fill="#38d6c4" />
+      <circle cx="54" cy="9" r="4.5" fill={TEAL} />
+      <circle cx="146" cy="9" r="4.5" fill={TEAL} />
 
       {/* Jacket, turtleneck, pocket square. */}
       <path
@@ -85,7 +88,7 @@ function FounderSilhouette({ className }: { className: string }) {
         strokeWidth="3"
         strokeLinejoin="round"
       />
-      <path d="M146 226 L 160 219 L 157 233 Z" fill="#ff5fa2" opacity="0.9" />
+      <path d="M146 226 L 160 219 L 157 233 Z" fill={PINK} opacity="0.9" />
 
       {/* Presenting hand: forearm from the right shoulder, palm open, three fingers. */}
       <path
@@ -104,7 +107,7 @@ function FounderSilhouette({ className }: { className: string }) {
       <path
         d="M184 158 C 190 176, 184 192, 172 204"
         fill="none"
-        stroke="#ff8cc0"
+        stroke={PINK}
         strokeWidth="2"
         strokeLinecap="round"
         opacity="0.75"
@@ -142,14 +145,14 @@ function FounderSilhouette({ className }: { className: string }) {
       <path
         d="M80 126 Q 100 145, 121 124"
         fill="none"
-        stroke="#ff5fa2"
+        stroke={PINK}
         strokeWidth="3.2"
         strokeLinecap="round"
       />
       <path
         d="M85 129 Q 100 139, 116 127"
         fill="none"
-        stroke="#ffd6e8"
+        stroke="white"
         strokeWidth="1.2"
         strokeLinecap="round"
         opacity="0.7"
