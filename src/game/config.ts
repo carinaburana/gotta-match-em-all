@@ -103,13 +103,13 @@ export const GAME_CONFIG = {
      * e.g. '/founder.webp'). `null` draws a spotlit silhouette instead.
      */
     founderPortraitSrc: null as string | null,
-    /** How long each beat of the reveal lasts, in order (~15 s in total). */
+    /** How long each beat of the reveal lasts, in order (~21 s in total). */
     beatDurationsMs: {
-      intro: 3_200,
-      harvest: 4_400,
-      queue: 2_800,
-      held: 2_400,
-      closer: 2_800,
+      intro: 4_200,
+      harvest: 5_600,
+      queue: 3_800,
+      held: 3_400,
+      closer: 3_600,
     },
     /** Cap on the mini cards flicked across the stage in the "harvest" beat (DOM/image budget). */
     maxStreamCards: 18,
@@ -125,8 +125,8 @@ export const GAME_CONFIG = {
   },
 
   feedback: {
-    /** How long a match overlay stays visible. */
-    overlayDurationMs: 1_90,
+    /** How long a swipe feedback overlay (+10, +100, −100, no match) stays visible. */
+    overlayDurationMs: 1_500,
     /** Delay before the one-time gameplay reminder appears. */
     reminderDelayMs: 20_000,
     /** How long the one-time gameplay reminder stays visible. */
