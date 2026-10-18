@@ -16,11 +16,18 @@ const EASE_OUT_SOFT = [0.22, 1, 0.36, 1] as const;
  * down on top of it with a bounce, and everything settles into a slow float. Same lighting as
  * the teaser, so the first screen and the teaser feel like one production.
  */
-export function LandingTitleAnimation({ children }: { children: ReactNode }) {
+interface LandingTitleAnimationProps {
+  /** Tagline under the logo. */
+  children: ReactNode;
+  /** Pinned action at the bottom; shares the backdrop so the lighting runs under it. */
+  footer: ReactNode;
+}
+
+export function LandingTitleAnimation({ children, footer }: LandingTitleAnimationProps) {
   const portraits = GAME_CONTENT.portraitSrcs.slice(0, FAN_ROTATIONS.length);
 
   return (
-    <div className="relative flex h-full flex-col">
+    <div className="relative flex h-full flex-col overflow-hidden bg-canvas">
       <StageBackdrop tone="light" />
 
       <div className="pt-safe relative flex min-h-0 flex-1 flex-col items-center justify-center gap-8 px-6 text-center">
@@ -78,6 +85,8 @@ export function LandingTitleAnimation({ children }: { children: ReactNode }) {
           {children}
         </motion.div>
       </div>
+
+      <div className="pb-safe relative shrink-0 px-6 pt-3">{footer}</div>
     </div>
   );
 }
