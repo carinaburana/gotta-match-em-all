@@ -68,15 +68,53 @@ export const GAME_CONFIG = {
    */
   randomSeed: null as number | null,
 
-  searching: {
-    /** Total length of the fake "AI analysis" progress animation. */
-    durationMs: 4_500,
+  teaser: {
+    /**
+     * The animated THE ONE teaser before the game (TheOneTeaserAnimation). It opens with the
+     * fake "AI searching" sequence, then introduces THE ONE.
+     */
+    animation: {
+      /** How long each beat lasts, in order (~15 s in total). */
+      beatDurationsMs: {
+        searching: 4_500,
+        matchFound: 2_200,
+        reveal: 2_400,
+        interests: 3_000,
+        hide: 3_000,
+      },
+      /** Real portraits lined up in front of THE ONE when it slips into the deck. */
+      queueVisibleCards: 3,
+      /**
+       * PLACEHOLDER: portrait shown blurred as THE ONE's silhouette. Swap for dedicated art.
+       * It's blurred beyond recognition on purpose — THE ONE is never a real candidate.
+       */
+      theOnePortraitSrc: '/aliens/alien-007.webp',
+    },
   },
 
-  teaser: {
-    /** Drop the real video at public/videos/the-one-teaser.mp4. Missing file → placeholder. */
-    videoSrc: '/videos/the-one-teaser.mp4',
-    posterSrc: null as string | null,
+  ending: {
+    /**
+     * Play the "leaked investor pitch" reveal before the stats. Set to false when the reveal
+     * happens in an in-person debrief instead — the results screen then opens on the stats.
+     */
+    showReveal: true as boolean,
+    /**
+     * PLACEHOLDER: Pixar-style founder artwork (transparent background, roughly 3:4 portrait,
+     * e.g. '/founder.webp'). `null` draws a spotlit silhouette instead.
+     */
+    founderPortraitSrc: null as string | null,
+    /** How long each beat of the reveal lasts, in order (~21 s in total). */
+    beatDurationsMs: {
+      intro: 4_200,
+      harvest: 5_600,
+      queue: 3_800,
+      held: 3_400,
+      closer: 3_600,
+    },
+    /** Cap on the mini cards flicked across the stage in the "harvest" beat (DOM/image budget). */
+    maxStreamCards: 18,
+    /** Real portraits lined up in front of THE ONE in the "queue" beat. */
+    queueVisibleCards: 3,
   },
 
   swipe: {
@@ -87,8 +125,8 @@ export const GAME_CONFIG = {
   },
 
   feedback: {
-    /** How long a match overlay stays visible. */
-    overlayDurationMs: 1_90,
+    /** How long a swipe feedback overlay (+10, +100, −100, no match) stays visible. */
+    overlayDurationMs: 1_500,
     /** Delay before the one-time gameplay reminder appears. */
     reminderDelayMs: 20_000,
     /** How long the one-time gameplay reminder stays visible. */

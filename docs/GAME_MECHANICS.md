@@ -7,7 +7,7 @@ All numbers below are defaults from **`src/game/config.ts`**. Change them there 
 The app flow (`src/types/app.ts`) is:
 
 ```
-start → profile-setup → searching → teaser → playing → results
+start → profile-setup → teaser → playing → results
 ```
 
 Inside `playing`, the swipe session (`src/game/gameReducer.ts`) has its own status:
@@ -24,7 +24,7 @@ statistics change.
 ## Timer
 
 - Duration: **60 s** (`sessionDurationMs`).
-- Starts when the game screen mounts — not during setup, searching or the teaser.
+- Starts when the game screen mounts — not during setup or the teaser (which includes the fake AI search).
 - Remaining time is computed from the start timestamp on every tick, so it doesn't drift.
 - At 0: the session finishes, swipes stop being accepted, a "Time's up!" overlay shows for
   `endScreenDelayMs` (1.2 s), then the results screen opens with the frozen statistics.

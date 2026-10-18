@@ -9,12 +9,11 @@ displays them and reports input.**
 ├── docs/                    Project documentation + mockups/
 ├── public/                  Static files served as-is
 │   ├── aliens/              Candidate portraits (alien-001.webp …) + fallback.svg
-│   ├── avatars/             The 4 player avatars
-│   └── videos/              the-one-teaser.mp4 (not supplied yet)
+│   └── avatars/             The 4 player avatars
 └── src/
     ├── App.tsx              App flow: which screen is shown, transitions between phases
     ├── main.tsx             Entry point
-    ├── screens/             One component per phase (Start, ProfileSetup, Searching,
+    ├── screens/             One component per phase (Start, ProfileSetup,
     │                        TheOneTeaser, Game, Results)
     ├── components/
     │   ├── layout/          AppShell (phone frame, future nav slots), Screen
@@ -22,7 +21,7 @@ displays them and reports input.**
     │   ├── cards/           CandidateCard, SwipeableCard, AlienImage, InterestTag
     │   ├── game/            GameHud, SwipeButtons, MatchFeedbackOverlay
     │   ├── profile/         Profile-setup steps
-    │   └── animations/      Shared Motion variants, ScreenTransition, SearchingAnimation
+    │   └── animations/      Shared Motion variants, ScreenTransition, StageBackdrop, …
     ├── game/                Pure game logic — no React
     │   ├── config.ts        All tunable numbers
     │   ├── random.ts        Seedable PRNG + helpers
@@ -118,7 +117,6 @@ change.
 | --------------------------------------------------------------- | ------------------------------------------------------------ |
 | Final results / ending                                          | Rewrite `ResultsScreen`; all numbers are in `SessionSummary` |
 | Bottom navigation                                               | Pass a nav component to `AppShell`'s `bottom` slot           |
-| Real teaser video                                               | Add the file; see `public/videos/README.md`                  |
 | Final portraits                                                 | `public/aliens/` + `alien-portraits.json`                    |
 | New candidate fields                                            | `Candidate` type → `candidateGenerator.ts` → `CandidateCard` |
 | New content restrictions (e.g. bios only for unverified aliens) | Extend the JSON entry + filter in `candidateGenerator.ts`    |

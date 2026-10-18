@@ -27,7 +27,7 @@ export function useGameSession(player: PlayerProfile) {
     ),
   );
 
-  // The timer starts when gameplay becomes visible — not during setup, searching or the teaser.
+  // The timer starts when gameplay becomes visible — not during setup or the teaser.
   useEffect(() => {
     dispatch({ type: 'start', at: performance.now() });
   }, []);

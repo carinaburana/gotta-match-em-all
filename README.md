@@ -76,6 +76,12 @@ manually playing through the game.
 Add `?seed=1234` to the URL (e.g. `http://localhost:5173/?seed=1234`) to get the same deck every
 time — handy for demos and bug reports. A default seed can also be set in `src/game/config.ts`.
 
+### Dev shortcuts (only in `npm run dev`)
+
+A small **DEV** button in the bottom-left corner jumps straight to the teaser, the game or the
+ending with a fake player and session. `?dev=teaser`, `?dev=game` or `?dev=ending` in the URL does
+the same and survives page reloads. None of this is included in production builds.
+
 ## Deploying to Vercel
 
 1. Push the repository to GitHub.
@@ -105,8 +111,6 @@ No environment variables are needed.
 - **Alien portraits:** add `public/aliens/alien-001.webp` … and list each file in
   `src/data/alien-portraits.json`. Details: [public/aliens/README.md](public/aliens/README.md).
 - **Player avatars:** `public/avatars/` + `src/data/player-avatars.json`.
-- **THE ONE teaser video:** save it as `public/videos/the-one-teaser.mp4`. Until then a placeholder
-  is shown. Details: [public/videos/README.md](public/videos/README.md).
 
 ## Implementation status
 
@@ -117,9 +121,9 @@ No environment variables are needed.
 | Deck generation          | ✅ 100 cards, seeded, 70% normal / 10% special / 20% unverified |
 | Swipe loop, score, timer | ✅ Drag, buttons and ←/→ keys; 60 s countdown                   |
 | Match feedback           | 🟡 Simple placeholder overlays                                  |
-| AI searching sequence    | ✅ Animated "nearby matches" radar, configurable text           |
-| THE ONE teaser           | 🟡 Video slot + placeholder (video not supplied yet)            |
-| Results screen           | 🟡 Placeholder stats list — final ending not decided            |
+| AI searching sequence    | ✅ Opens the teaser: animated radar, configurable text          |
+| THE ONE teaser           | ✅ Animated in-app (`TheOneTeaserAnimation`), text in JSON      |
+| Results screen           | ✅ Ending reveal (founder's investor pitch) + stats             |
 | Illustrations / logo     | ✅ 46 portraits + 4 avatars + logo (`public/logo.webp`)         |
 | Sound                    | ⬜ Not started (files will go in `public/sounds/`)              |
 | Bottom navigation        | ⬜ Not planned yet — shell is prepared for it                   |
