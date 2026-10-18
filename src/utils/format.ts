@@ -15,3 +15,8 @@ export function formatDurationSeconds(ms: number): string {
 export function fillTemplate(template: string, values: Record<string, string>): string {
   return template.replace(/\{(\w+)\}/g, (match, key: string) => values[key] ?? match);
 }
+
+/** "€0.87" */
+export function formatEuros(amount: number): string {
+  return `€${amount.toFixed(2)}`;
+}

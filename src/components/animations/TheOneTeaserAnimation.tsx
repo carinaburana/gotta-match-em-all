@@ -1,28 +1,11 @@
 import { AnimatePresence, motion } from 'motion/react';
-import { useEffect, useRef } from 'react';
 
-import { AlienImage } from '@/components/cards/AlienImage';
+import { TheOneFace } from '@/components/cards/TheOneFace';
 import { GAME_CONTENT } from '@/data';
 import { GAME_CONFIG } from '@/game/config';
-import { useTimedProgress } from '@/hooks/useTimedProgress';
-import type { InterestId, TheOneTeaserContent } from '@/types/content';
+import { useBeatSequence } from '@/hooks/useBeatSequence';
+import type { InterestId } from '@/types/content';
 import { fillTemplate } from '@/utils/format';
-
-type Beat = keyof TheOneTeaserContent;
-
-const TIMED_BEATS = ['matchFound', 'reveal', 'interests', 'hide'] as const;
-const { beatDurationsMs, theOnePortraitSrc } = GAME_CONFIG.teaser.animation;
-const TOTAL_DURATION_MS = TIMED_BEATS.reduce((sum, beat) => sum + beatDurationsMs[beat], 0);
-
-/** Which beat is showing after `elapsedMs`. The last beat ("go") stays on screen. */
-function getBeat(elapsedMs: number): Beat {
-  let beatEndMs = 0;
-  for (const beat of TIMED_BEATS) {
-    beatEndMs += beatDurationsMs[beat];
-    if (elapsedMs < beatEndMs) return beat;
-  }
-  return 'go';
-}
 
 interface TheOneTeaserAnimationProps {
   playerName: string;
@@ -41,16 +24,7 @@ export function TheOneTeaserAnimation({
   interestIds,
   onComplete,
 }: TheOneTeaserAnimationProps) {
-  const progress = useTimedProgress(TOTAL_DURATION_MS);
-  const beat = progress >= 1 ? 'go' : getBeat(progress * TOTAL_DURATION_MS);
-
-  const onCompleteRef = useRef(onComplete);
-  useEffect(() => {
-    onCompleteRef.current = onComplete;
-  }, [onComplete]);
-  useEffect(() => {
-    if (beat === 'go') onCompleteRef.current();
-  }, [beat]);
+  const beat = useBeatSequence(GAME_CONFIG.teaser.animation.beatDurationsMs, 'go', onComplete);
 
   const caption = fillTemplate(GAME_CONTENT.theOneTeaser[beat], { name: playerName });
   const interestLabels = interestIds.map((id) => GAME_CONTENT.interestsById.get(id)?.label ?? id);
@@ -142,24 +116,6 @@ function MysteryCard() {
     >
       <TheOneFace />
     </motion.div>
-  );
-}
-
-function TheOneFace() {
-  return (
-    <>
-      <AlienImage
-        src={theOnePortraitSrc}
-        alt="A blurred silhouette of THE ONE"
-        className="scale-125 blur-xl saturate-150"
-      />
-      <span className="absolute inset-0 flex items-center justify-center text-7xl font-black text-white/90 drop-shadow-lg">
-        ?
-      </span>
-      <span className="absolute inset-x-0 bottom-0 bg-brand-900/70 py-1.5 text-center text-sm font-black tracking-widest">
-        THE ONE
-      </span>
-    </>
   );
 }
 

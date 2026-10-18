@@ -3,6 +3,8 @@ import { useState } from 'react';
 
 import { ScreenTransition } from '@/components/animations/ScreenTransition';
 import { AppShell } from '@/components/layout/AppShell';
+import { readDevJumpFromUrl } from '@/dev/devJump';
+import { DevJumpMenu } from '@/dev/DevJumpMenu';
 import { GameScreen } from '@/screens/GameScreen';
 import { ProfileSetupScreen } from '@/screens/ProfileSetupScreen';
 import { ResultsScreen } from '@/screens/ResultsScreen';
@@ -17,7 +19,11 @@ import type { AppState } from '@/types/app';
  * Every transition is a call to setAppState in this file, so the flow is easy to follow.
  */
 export function App() {
-  const [appState, setAppState] = useState<AppState>({ phase: 'start' });
+  const [appState, setAppState] = useState<AppState>(
+    () => (import.meta.env.DEV ? readDevJumpFromUrl() : null) ?? { phase: 'start' },
+  );
+  // Dev jumps can land on the phase that's already showing; bumping the key remounts it.
+  const [devJumpCount, setDevJumpCount] = useState(0);
 
   function renderScreen(state: AppState) {
     switch (state.phase) {
@@ -74,9 +80,19 @@ export function App() {
     <MotionConfig reducedMotion="user">
       <AppShell>
         <AnimatePresence mode="wait">
-          <ScreenTransition key={appState.phase}>{renderScreen(appState)}</ScreenTransition>
+          <ScreenTransition key={`${appState.phase}-${devJumpCount}`}>
+            {renderScreen(appState)}
+          </ScreenTransition>
         </AnimatePresence>
       </AppShell>
+      {import.meta.env.DEV && (
+        <DevJumpMenu
+          onJump={(state) => {
+            setAppState(state);
+            setDevJumpCount((count) => count + 1);
+          }}
+        />
+      )}
     </MotionConfig>
   );
 }

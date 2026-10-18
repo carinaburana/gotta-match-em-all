@@ -76,6 +76,12 @@ manually playing through the game.
 Add `?seed=1234` to the URL (e.g. `http://localhost:5173/?seed=1234`) to get the same deck every
 time — handy for demos and bug reports. A default seed can also be set in `src/game/config.ts`.
 
+### Dev shortcuts (only in `npm run dev`)
+
+A small **DEV** button in the bottom-left corner jumps straight to the teaser, the game or the
+ending with a fake player and session. `?dev=teaser`, `?dev=game` or `?dev=ending` in the URL does
+the same and survives page reloads. None of this is included in production builds.
+
 ## Deploying to Vercel
 
 1. Push the repository to GitHub.

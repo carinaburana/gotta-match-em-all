@@ -51,6 +51,16 @@ export interface TheOneTeaserContent {
   go: string;
 }
 
+/** Captions for the ending reveal. See src/data/ending.json for the placeholders. */
+export interface EndingContent {
+  leak: string;
+  swipes: string;
+  earnings: string;
+  theOne: string;
+  heldBack: string;
+  pitch: string;
+}
+
 /** Everything the game needs from `src/data`, validated and ready to use. */
 export interface GameContent {
   interestCategories: InterestCategory[];
@@ -64,4 +74,5 @@ export interface GameContent {
   playerAvatars: PlayerAvatar[];
   searching: SearchingContent;
   theOneTeaser: TheOneTeaserContent;
+  ending: EndingContent;
 }

@@ -7,6 +7,7 @@ import aboutMeJson from '@/data/about-me.json';
 import alienCitiesJson from '@/data/alien-cities.json';
 import alienNamesJson from '@/data/alien-names.json';
 import alienPortraitsJson from '@/data/alien-portraits.json';
+import endingJson from '@/data/ending.json';
 import interestsJson from '@/data/interests.json';
 import playerAvatarsJson from '@/data/player-avatars.json';
 import searchingStepsJson from '@/data/searching-steps.json';
@@ -14,6 +15,7 @@ import theOneTeaserJson from '@/data/the-one-teaser.json';
 import { GAME_CONFIG } from '@/game/config';
 import type {
   AboutMeEntry,
+  EndingContent,
   GameContent,
   InterestCategory,
   InterestId,
@@ -101,12 +103,23 @@ function loadPlayerAvatars(): PlayerAvatar[] {
   return avatars;
 }
 
+function assertNoEmptyCaptions(file: string, captions: Record<string, string>): void {
+  for (const [key, value] of Object.entries(captions)) {
+    if (value.trim() === '') throw new ContentError(file, `"${key}" is empty`);
+  }
+}
+
 function loadTheOneTeaser(): TheOneTeaserContent {
   const { matchFound, reveal, interests, hide, go } = theOneTeaserJson;
   const captions = { matchFound, reveal, interests, hide, go };
-  for (const [key, value] of Object.entries(captions)) {
-    if (value.trim() === '') throw new ContentError('the-one-teaser.json', `"${key}" is empty`);
-  }
+  assertNoEmptyCaptions('the-one-teaser.json', captions);
+  return captions;
+}
+
+function loadEnding(): EndingContent {
+  const { leak, swipes, earnings, theOne, heldBack, pitch } = endingJson;
+  const captions = { leak, swipes, earnings, theOne, heldBack, pitch };
+  assertNoEmptyCaptions('ending.json', captions);
   return captions;
 }
 
@@ -128,6 +141,7 @@ function loadContent(): GameContent {
       steps: cleanStringList('searching-steps.json', searchingStepsJson.steps),
     },
     theOneTeaser: loadTheOneTeaser(),
+    ending: loadEnding(),
   };
 }
 

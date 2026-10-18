@@ -1,0 +1,9 @@
+{
+  "_comment": "Captions for the ending reveal: a 'leaked investor update' from the company behind the app. Placeholders: {name} = player name, {swipes} = right + left swipes, {earnings} = fake revenue from this session, {position} = where THE ONE was kept in the queue.",
+  "leak": "Meanwhile, at Gotta Match 'Em All HQ…",
+  "swipes": "{name} swiped {swipes} times for us.",
+  "earnings": "earned from {name}'s attention",
+  "theOne": "THE ONE? #1 for compatibility. Kept at #{position} in the queue.",
+  "heldBack": "Held back: high churn risk",
+  "pitch": "Users who find love delete the app. We don't sell love. We sell the search."
+}
