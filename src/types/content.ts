@@ -51,6 +51,25 @@ export interface TheOneTeaserContent {
   go: string;
 }
 
+/** One line of text per beat of the ending reveal. See src/data/ending.json for placeholders. */
+export interface EndingCaptions {
+  intro: string;
+  harvest: string;
+  queue: string;
+  held: string;
+  closer: string;
+}
+
+/** Text for the ending reveal (the founder's "leaked investor pitch"). */
+export interface EndingContent {
+  letterhead: string;
+  captions: EndingCaptions;
+  productCard: { role: string };
+  ledger: { swipes: string; matches: string; seconds: string };
+  queueTags: { next: string; theOne: string; held: string };
+  buttons: { skip: string; continue: string };
+}
+
 /** Everything the game needs from `src/data`, validated and ready to use. */
 export interface GameContent {
   interestCategories: InterestCategory[];
@@ -64,4 +83,5 @@ export interface GameContent {
   playerAvatars: PlayerAvatar[];
   searching: SearchingContent;
   theOneTeaser: TheOneTeaserContent;
+  ending: EndingContent;
 }

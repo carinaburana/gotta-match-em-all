@@ -96,6 +96,31 @@ export const GAME_CONFIG = {
     },
   },
 
+  ending: {
+    /**
+     * Play the "leaked investor pitch" reveal before the stats. Set to false when the reveal
+     * happens in an in-person debrief instead — the results screen then opens on the stats.
+     */
+    showReveal: true as boolean,
+    /**
+     * PLACEHOLDER: Pixar-style founder artwork (transparent background, roughly 3:4 portrait,
+     * e.g. '/founder.webp'). `null` draws a spotlit silhouette instead.
+     */
+    founderPortraitSrc: null as string | null,
+    /** How long each beat of the reveal lasts, in order (~15 s in total). */
+    beatDurationsMs: {
+      intro: 3_200,
+      harvest: 4_400,
+      queue: 2_800,
+      held: 2_400,
+      closer: 2_800,
+    },
+    /** Cap on the mini cards flicked across the stage in the "harvest" beat (DOM/image budget). */
+    maxStreamCards: 18,
+    /** Real portraits lined up in front of THE ONE in the "queue" beat. */
+    queueVisibleCards: 3,
+  },
+
   swipe: {
     /** Horizontal drag distance (px) needed to count as a swipe. */
     distanceThresholdPx: 110,

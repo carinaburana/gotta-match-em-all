@@ -1,0 +1,28 @@
+{
+  "_comment": "Text for the ending reveal — a leaked investor pitch by the app's founder, shown before the stats. Placeholders: {name} = player name, {seconds} = session length in whole seconds, {swipes} = right + left swipes, {matches} = all matches, {next} = queue number of the next card, {position} = queue position THE ONE was kept at. THE ONE never appears in the game — this is narrative only.",
+  "letterhead": "Investor pitch · confidential",
+  "captions": {
+    "intro": "Investors — meet our product.",
+    "harvest": "{name} gave us {seconds} seconds. We kept every one.",
+    "queue": "Their perfect match? We know exactly where they are.",
+    "held": "People who find love delete the app.",
+    "closer": "We don't sell love. We sell the search."
+  },
+  "productCard": {
+    "role": "User · online now"
+  },
+  "ledger": {
+    "swipes": "swipes",
+    "matches": "matches",
+    "seconds": "seconds of attention"
+  },
+  "queueTags": {
+    "next": "#{next} · next up",
+    "theOne": "#{position} · best match",
+    "held": "#{position} · held"
+  },
+  "buttons": {
+    "skip": "Skip",
+    "continue": "See my stats"
+  }
+}
