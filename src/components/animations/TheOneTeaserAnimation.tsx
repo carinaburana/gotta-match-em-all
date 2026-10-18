@@ -2,6 +2,7 @@ import { AnimatePresence, motion } from 'motion/react';
 import type { ReactNode } from 'react';
 
 import { DeckQueue } from '@/components/animations/DeckQueue';
+import { SearchingBeat } from '@/components/animations/SearchingBeat';
 import { StageBackdrop } from '@/components/animations/StageBackdrop';
 import { TheOneFace } from '@/components/cards/TheOneFace';
 import { StageLayout } from '@/components/layout/StageLayout';
@@ -26,9 +27,9 @@ const EASE_OUT_SOFT = [0.22, 1, 0.36, 1] as const;
 
 /**
  * The teaser before the game: the bright, hopeful twin of the ending reveal, in the same frame
- * (StageLayout). A match is found, THE ONE's card rises into the light, their shared interests
- * pop up — and the card slips to the very back of the deck, "somewhere in there". Purely
- * narrative: THE ONE is never a candidate in the game.
+ * (StageLayout). The fake AI scans the galaxy, a match is found, THE ONE's card rises into the
+ * light, their shared interests pop up — and the card slips to the very back of the deck,
+ * "somewhere in there". Purely narrative: THE ONE is never a candidate in the game.
  */
 export function TheOneTeaserAnimation({
   playerName,
@@ -38,6 +39,7 @@ export function TheOneTeaserAnimation({
 }: TheOneTeaserAnimationProps) {
   const config = GAME_CONFIG.teaser.animation;
   const content = GAME_CONTENT.theOneTeaser;
+  const searching = GAME_CONTENT.searching;
   const beat = useBeatSequence(config.beatDurationsMs, 'go', onComplete);
 
   const values = { name: playerName };
@@ -54,7 +56,7 @@ export function TheOneTeaserAnimation({
       letterhead={fillTemplate(content.letterhead, values)}
       caption={{
         key: beat,
-        text: fillTemplate(content[beat], values),
+        text: fillTemplate(beat === 'searching' ? searching.title : content[beat], values),
         emphasis: beat === 'go',
         delayS: beat === 'matchFound' ? 0.4 : 0,
       }}
@@ -62,6 +64,15 @@ export function TheOneTeaserAnimation({
       backdrop={<StageBackdrop tone="light" />}
     >
       <AnimatePresence>
+        {beat === 'searching' && (
+          <SearchingBeat
+            key="searching"
+            subtitle={searching.subtitle}
+            steps={searching.steps.map((step) => fillTemplate(step, values))}
+            durationMs={config.beatDurationsMs.searching}
+          />
+        )}
+
         {beat === 'matchFound' && <MatchFoundHeart key="heart" />}
 
         {showCard && (

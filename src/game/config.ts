@@ -68,16 +68,15 @@ export const GAME_CONFIG = {
    */
   randomSeed: null as number | null,
 
-  searching: {
-    /** Total length of the fake "AI analysis" progress animation. */
-    durationMs: 4_500,
-  },
-
   teaser: {
-    /** The animated THE ONE teaser before the game (TheOneTeaserAnimation). */
+    /**
+     * The animated THE ONE teaser before the game (TheOneTeaserAnimation). It opens with the
+     * fake "AI searching" sequence, then introduces THE ONE.
+     */
     animation: {
-      /** How long each beat lasts, in order (~10 s in total). */
+      /** How long each beat lasts, in order (~15 s in total). */
       beatDurationsMs: {
+        searching: 4_500,
         matchFound: 2_200,
         reveal: 2_400,
         interests: 3_000,

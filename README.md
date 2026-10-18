@@ -121,7 +121,7 @@ No environment variables are needed.
 | Deck generation          | ✅ 100 cards, seeded, 70% normal / 10% special / 20% unverified |
 | Swipe loop, score, timer | ✅ Drag, buttons and ←/→ keys; 60 s countdown                   |
 | Match feedback           | 🟡 Simple placeholder overlays                                  |
-| AI searching sequence    | ✅ Animated "nearby matches" radar, configurable text           |
+| AI searching sequence    | ✅ Opens the teaser: animated radar, configurable text          |
 | THE ONE teaser           | ✅ Animated in-app (`TheOneTeaserAnimation`), text in JSON      |
 | Results screen           | ✅ Ending reveal (founder's investor pitch) + stats             |
 | Illustrations / logo     | ✅ 46 portraits + 4 avatars + logo (`public/logo.webp`)         |

@@ -28,7 +28,7 @@ Visual references: `docs/mockups/*.png`.
 2. Candidate kinds are exactly `normal` (+10), `special` (+100) and `unverified` (−100).
 3. Penalties only happen when an unverified candidate **reciprocates** a like. Viewing, liking
    without a match, and rejecting never change the score.
-4. The timer starts when gameplay becomes active — not during setup, searching or the teaser.
+4. The timer starts when gameplay becomes active — not during setup or the teaser (incl. the search).
 5. Swipe gestures, buttons and keyboard all go through the same `swipe(candidateId, direction)`
    action. The reducer ignores swipes for anything other than the current card.
 6. All tunable numbers live in `src/game/config.ts`. Don't hard-code them elsewhere.

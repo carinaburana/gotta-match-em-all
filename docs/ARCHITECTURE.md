@@ -13,7 +13,7 @@ displays them and reports input.**
 └── src/
     ├── App.tsx              App flow: which screen is shown, transitions between phases
     ├── main.tsx             Entry point
-    ├── screens/             One component per phase (Start, ProfileSetup, Searching,
+    ├── screens/             One component per phase (Start, ProfileSetup,
     │                        TheOneTeaser, Game, Results)
     ├── components/
     │   ├── layout/          AppShell (phone frame, future nav slots), Screen
@@ -21,7 +21,7 @@ displays them and reports input.**
     │   ├── cards/           CandidateCard, SwipeableCard, AlienImage, InterestTag
     │   ├── game/            GameHud, SwipeButtons, MatchFeedbackOverlay
     │   ├── profile/         Profile-setup steps
-    │   └── animations/      Shared Motion variants, ScreenTransition, SearchingAnimation
+    │   └── animations/      Shared Motion variants, ScreenTransition, StageBackdrop, …
     ├── game/                Pure game logic — no React
     │   ├── config.ts        All tunable numbers
     │   ├── random.ts        Seedable PRNG + helpers
