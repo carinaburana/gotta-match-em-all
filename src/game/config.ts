@@ -96,27 +96,6 @@ export const GAME_CONFIG = {
     },
   },
 
-  ending: {
-    /**
-     * Show the "leaked investor update" reveal before the stats. Turn off if the reveal happens
-     * in an in-person debrief instead.
-     */
-    showReveal: true as boolean,
-    /** Fake revenue the company "earns" from a session — shown in the reveal, never in-game. */
-    revenueEur: {
-      perSwipe: 0.04,
-      perMatch: 0.15,
-    },
-    beatDurationsMs: {
-      leak: 2_400,
-      swipes: 2_600,
-      earnings: 2_800,
-      theOne: 4_200,
-    },
-    /** PLACEHOLDER: the founder/villain character. `null` shows a simple silhouette. */
-    founderPortraitSrc: null as string | null,
-  },
-
   swipe: {
     /** Horizontal drag distance (px) needed to count as a swipe. */
     distanceThresholdPx: 110,
