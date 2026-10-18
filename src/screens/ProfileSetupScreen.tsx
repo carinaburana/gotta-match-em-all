@@ -1,5 +1,6 @@
 import { useState } from 'react';
 
+import { StageBackdrop } from '@/components/animations/StageBackdrop';
 import { Screen } from '@/components/layout/Screen';
 import { AvatarStep } from '@/components/profile/AvatarStep';
 import { InterestStep } from '@/components/profile/InterestStep';
@@ -55,32 +56,36 @@ export function ProfileSetupScreen({ onComplete, onExit }: ProfileSetupScreenPro
   };
 
   return (
-    <Screen
-      className="bg-surface"
-      footer={
-        <Button fullWidth disabled={!canContinue[step]} onClick={goNext}>
-          {step === 'avatar' ? 'Find my match' : 'Continue'}
-        </Button>
-      }
-    >
-      <StepHeader currentStep={stepIndex} totalSteps={STEPS.length} onBack={goBack} />
+    // Same lighting as the landing page and the teaser, running under the footer too.
+    <div className="relative h-full overflow-hidden bg-canvas">
+      <StageBackdrop tone="light" />
+      <Screen
+        className="relative"
+        footer={
+          <Button fullWidth disabled={!canContinue[step]} onClick={goNext}>
+            {step === 'avatar' ? 'Find my match' : 'Continue'}
+          </Button>
+        }
+      >
+        <StepHeader currentStep={stepIndex} totalSteps={STEPS.length} onBack={goBack} />
 
-      {step === 'name' && <NameStep value={name} onChange={setName} onSubmit={goNext} />}
-      {step === 'interests' && (
-        <InterestStep
-          categories={GAME_CONTENT.interestCategories}
-          selectedIds={interestIds}
-          requiredCount={requiredInterestCount}
-          onToggle={toggleInterest}
-        />
-      )}
-      {step === 'avatar' && (
-        <AvatarStep
-          avatars={GAME_CONTENT.playerAvatars}
-          selectedId={avatarId}
-          onSelect={setAvatarId}
-        />
-      )}
-    </Screen>
+        {step === 'name' && <NameStep value={name} onChange={setName} onSubmit={goNext} />}
+        {step === 'interests' && (
+          <InterestStep
+            categories={GAME_CONTENT.interestCategories}
+            selectedIds={interestIds}
+            requiredCount={requiredInterestCount}
+            onToggle={toggleInterest}
+          />
+        )}
+        {step === 'avatar' && (
+          <AvatarStep
+            avatars={GAME_CONTENT.playerAvatars}
+            selectedId={avatarId}
+            onSelect={setAvatarId}
+          />
+        )}
+      </Screen>
+    </div>
   );
 }
