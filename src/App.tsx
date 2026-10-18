@@ -43,6 +43,7 @@ export function App() {
       case 'teaser':
         return (
           <TheOneTeaserScreen
+            player={state.player}
             onContinue={() => setAppState({ phase: 'playing', player: state.player })}
           />
         );

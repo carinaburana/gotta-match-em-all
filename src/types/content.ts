@@ -42,6 +42,15 @@ export interface SearchingContent {
   steps: string[];
 }
 
+/** Captions for the animated THE ONE teaser, one per beat. "{name}" = player name. */
+export interface TheOneTeaserContent {
+  matchFound: string;
+  reveal: string;
+  interests: string;
+  hide: string;
+  go: string;
+}
+
 /** Everything the game needs from `src/data`, validated and ready to use. */
 export interface GameContent {
   interestCategories: InterestCategory[];
@@ -54,4 +63,5 @@ export interface GameContent {
   portraitSrcs: string[];
   playerAvatars: PlayerAvatar[];
   searching: SearchingContent;
+  theOneTeaser: TheOneTeaserContent;
 }

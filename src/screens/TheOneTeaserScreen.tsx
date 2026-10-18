@@ -1,13 +1,16 @@
 import { useEffect, useRef, useState } from 'react';
 
+import { TheOneTeaserAnimation } from '@/components/animations/TheOneTeaserAnimation';
 import { Screen } from '@/components/layout/Screen';
 import { Button } from '@/components/ui/Button';
 import { PlayIcon } from '@/components/ui/icons';
 import { GAME_CONFIG } from '@/game/config';
+import type { PlayerProfile } from '@/types/game';
 
-type VideoStatus = 'loading' | 'playing' | 'needs-tap' | 'ended' | 'unavailable';
+type TeaserStatus = 'loading' | 'playing' | 'needs-tap' | 'ended' | 'animating';
 
 interface TheOneTeaserScreenProps {
+  player: PlayerProfile;
   onContinue: () => void;
 }
 
@@ -15,24 +18,26 @@ interface TheOneTeaserScreenProps {
  * Introduces THE ONE as the player's "perfect match". This is a narrative promise only —
  * THE ONE is never a candidate in the deck.
  *
- * Plays `GAME_CONFIG.teaser.videoSrc` if the file exists, otherwise shows a placeholder.
+ * Shows the animated teaser by default. If `GAME_CONFIG.teaser.videoSrc` is set, plays that video
+ * instead — and falls back to the animation if the file is missing or broken.
  */
-export function TheOneTeaserScreen({ onContinue }: TheOneTeaserScreenProps) {
+export function TheOneTeaserScreen({ player, onContinue }: TheOneTeaserScreenProps) {
   const videoRef = useRef<HTMLVideoElement>(null);
-  const [status, setStatus] = useState<VideoStatus>('loading');
   const { videoSrc, posterSrc } = GAME_CONFIG.teaser;
+  const [status, setStatus] = useState<TeaserStatus>(videoSrc ? 'loading' : 'animating');
+  const [isAnimationDone, setIsAnimationDone] = useState(false);
 
   useEffect(() => {
     const video = videoRef.current;
     if (!video) return;
     video.play().then(
-      () => setStatus((current) => (current === 'unavailable' ? current : 'playing')),
-      () => setStatus((current) => (current === 'unavailable' ? current : 'needs-tap')),
+      () => setStatus((current) => (current === 'animating' ? current : 'playing')),
+      () => setStatus((current) => (current === 'animating' ? current : 'needs-tap')),
     );
   }, []);
 
-  const isUnavailable = status === 'unavailable';
-  const canContinue = status === 'ended' || isUnavailable;
+  const isAnimating = status === 'animating';
+  const canContinue = status === 'ended' || (isAnimating && isAnimationDone);
 
   return (
     <Screen
@@ -48,8 +53,12 @@ export function TheOneTeaserScreen({ onContinue }: TheOneTeaserScreenProps) {
       </p>
 
       <div className="relative mt-6 flex min-h-0 flex-1 items-center justify-center overflow-hidden rounded-card bg-brand-900">
-        {isUnavailable ? (
-          <TeaserPlaceholder />
+        {isAnimating || !videoSrc ? (
+          <TheOneTeaserAnimation
+            playerName={player.name}
+            interestIds={player.interestIds}
+            onComplete={() => setIsAnimationDone(true)}
+          />
         ) : (
           <video
             ref={videoRef}
@@ -59,7 +68,7 @@ export function TheOneTeaserScreen({ onContinue }: TheOneTeaserScreenProps) {
             playsInline
             preload="auto"
             onEnded={() => setStatus('ended')}
-            onError={() => setStatus('unavailable')}
+            onError={() => setStatus('animating')}
           />
         )}
 
@@ -77,20 +86,5 @@ export function TheOneTeaserScreen({ onContinue }: TheOneTeaserScreenProps) {
         )}
       </div>
     </Screen>
-  );
-}
-
-/** PLACEHOLDER shown until public/videos/the-one-teaser.mp4 exists. */
-function TeaserPlaceholder() {
-  return (
-    <div className="flex flex-col items-center gap-4 p-8 text-center text-white">
-      <div className="flex h-36 w-36 animate-float items-center justify-center rounded-full bg-linear-to-br from-accent-pink to-brand-400 text-6xl shadow-2xl">
-        ❤
-      </div>
-      <p className="text-3xl font-black tracking-wide">THE ONE</p>
-      <p className="max-w-56 text-sm text-white/70">
-        Teaser video placeholder. Add <code>public/videos/the-one-teaser.mp4</code> to replace it.
-      </p>
-    </div>
   );
 }

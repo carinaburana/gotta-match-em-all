@@ -74,9 +74,26 @@ export const GAME_CONFIG = {
   },
 
   teaser: {
-    /** Drop the real video at public/videos/the-one-teaser.mp4. Missing file → placeholder. */
-    videoSrc: '/videos/the-one-teaser.mp4',
+    /**
+     * `null` = play the animated teaser (TheOneTeaserAnimation). Set a path such as
+     * '/videos/the-one-teaser.mp4' to play a video instead (missing file → animation).
+     */
+    videoSrc: null as string | null,
     posterSrc: null as string | null,
+    animation: {
+      /** How long each beat of the animated teaser lasts, in order. */
+      beatDurationsMs: {
+        matchFound: 2_000,
+        reveal: 2_400,
+        interests: 2_800,
+        hide: 2_800,
+      },
+      /**
+       * PLACEHOLDER: portrait shown blurred as THE ONE's silhouette. Swap for dedicated art.
+       * It's blurred beyond recognition on purpose — THE ONE is never a real candidate.
+       */
+      theOnePortraitSrc: '/aliens/alien-007.webp',
+    },
   },
 
   swipe: {

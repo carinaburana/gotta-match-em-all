@@ -10,6 +10,7 @@ import alienPortraitsJson from '@/data/alien-portraits.json';
 import interestsJson from '@/data/interests.json';
 import playerAvatarsJson from '@/data/player-avatars.json';
 import searchingStepsJson from '@/data/searching-steps.json';
+import theOneTeaserJson from '@/data/the-one-teaser.json';
 import { GAME_CONFIG } from '@/game/config';
 import type {
   AboutMeEntry,
@@ -18,6 +19,7 @@ import type {
   InterestId,
   InterestWithCategory,
   PlayerAvatar,
+  TheOneTeaserContent,
 } from '@/types/content';
 
 const ALIEN_PORTRAIT_DIR = '/aliens/';
@@ -99,6 +101,15 @@ function loadPlayerAvatars(): PlayerAvatar[] {
   return avatars;
 }
 
+function loadTheOneTeaser(): TheOneTeaserContent {
+  const { matchFound, reveal, interests, hide, go } = theOneTeaserJson;
+  const captions = { matchFound, reveal, interests, hide, go };
+  for (const [key, value] of Object.entries(captions)) {
+    if (value.trim() === '') throw new ContentError('the-one-teaser.json', `"${key}" is empty`);
+  }
+  return captions;
+}
+
 function loadContent(): GameContent {
   const interests = loadInterests();
   return {
@@ -116,6 +127,7 @@ function loadContent(): GameContent {
       subtitle: searchingStepsJson.subtitle,
       steps: cleanStringList('searching-steps.json', searchingStepsJson.steps),
     },
+    theOneTeaser: loadTheOneTeaser(),
   };
 }
 
