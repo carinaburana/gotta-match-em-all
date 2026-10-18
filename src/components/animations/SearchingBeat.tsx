@@ -31,7 +31,8 @@ export function SearchingBeat({ subtitle, steps, durationMs }: SearchingBeatProp
 
       <div className="w-full max-w-72 text-center">
         <p className="text-sm text-ink-muted">{subtitle}</p>
-        <div className="mt-2 min-h-6" aria-live="polite">
+        {/* Fixed two-line height so the progress bar stays put when a step wraps. */}
+        <div className="mt-1 flex h-10 items-center justify-center" aria-live="polite">
           <AnimatePresence mode="wait">
             <motion.p
               key={stepIndex}
@@ -39,7 +40,7 @@ export function SearchingBeat({ subtitle, steps, durationMs }: SearchingBeatProp
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -6 }}
               transition={{ duration: 0.2 }}
-              className="text-sm font-semibold text-brand-600"
+              className="text-sm leading-5 font-semibold text-brand-600"
             >
               {steps[stepIndex]}
             </motion.p>
