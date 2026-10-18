@@ -48,16 +48,25 @@ export function generateDeck({
     ...Array<CandidateKind>(counts.unverified).fill('unverified'),
   ]);
 
-  const deck = kinds.map((kind, index) =>
-    generateCandidate({
+  const deck = kinds.map((kind, index) => {
+    // 1. Roll the weighted random count from config
+    let sharedCount = Number(pickWeighted(rng, GAME_CONFIG.candidate.sharedInterestWeights));
+
+    // 2. Fix the bug: Cap at 2 so 3 shared interests remain completely exclusive to the One
+    if (sharedCount >= 3) {
+      sharedCount = 2;
+    }
+
+    return generateCandidate({
       id: `cand-${String(index + 1).padStart(3, '0')}`,
       kind,
-      sharedInterestCount: Number(pickWeighted(rng, GAME_CONFIG.candidate.sharedInterestWeights)),
-    }),
-  );
+      sharedInterestCount: sharedCount,
+    });
+  });
 
   if (new Set(deck.map((candidate) => candidate.id)).size !== deck.length) {
     throw new Error('generateDeck: duplicate candidate IDs');
   }
+
   return deck;
 }
