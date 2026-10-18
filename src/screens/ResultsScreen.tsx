@@ -82,32 +82,56 @@ export function ResultsScreen({ player, summary, onRestart }: ResultsScreenProps
     ['Session duration', formatDurationSeconds(summary.sessionDurationMs)],
   ];
 
+  // Styled as the last page of the founder's pitch: same backstage look as the reveal.
   return (
-    <Screen
-      footer={
-        <Button fullWidth onClick={onRestart}>
-          Play again
-        </Button>
-      }
-    >
-      <p className="mt-4 text-xs font-semibold tracking-widest text-ink-muted uppercase">
-        Your session
-      </p>
-      <h2 className="mt-1 text-3xl font-bold">Nice swiping, {player.name}!</h2>
+    <div className="h-full bg-ink text-white">
+      <Screen
+        footer={
+          <Button
+            fullWidth
+            variant="ghost"
+            className="bg-white shadow-lg shadow-black/30 hover:bg-brand-50"
+            onClick={onRestart}
+          >
+            Play again
+          </Button>
+        }
+      >
+        <header className="flex items-center justify-between gap-4">
+          <img
+            src="/logo.webp"
+            alt="Gotta Match 'Em All"
+            width={840}
+            height={476}
+            draggable={false}
+            className="h-auto w-24 select-none opacity-90"
+          />
+          <p className="text-right text-[10px] font-semibold tracking-[0.22em] text-white/55 uppercase">
+            {GAME_CONTENT.ending.letterhead}
+          </p>
+        </header>
 
-      <div className="mt-6 rounded-card bg-brand-600 px-5 py-5 text-white shadow-lg shadow-brand-900/20">
-        <p className="text-xs font-semibold tracking-widest text-white/70 uppercase">Final score</p>
-        <p className="mt-1 font-display text-5xl font-black tabular-nums">{summary.finalScore}</p>
-      </div>
+        <p className="mt-8 text-xs font-semibold tracking-widest text-white/55 uppercase">
+          Your session
+        </p>
+        <h2 className="mt-1 font-display text-3xl font-black">Nice swiping, {player.name}!</h2>
 
-      <dl className="mt-4 divide-y divide-line overflow-hidden rounded-card bg-surface shadow-sm">
-        {rows.map(([label, value]) => (
-          <div key={label} className="flex items-center justify-between px-5 py-3">
-            <dt className="text-ink-muted">{label}</dt>
-            <dd className="font-semibold tabular-nums">{value}</dd>
-          </div>
-        ))}
-      </dl>
-    </Screen>
+        <div className="mt-6 rounded-card bg-accent-pink px-5 py-5 text-white shadow-lg shadow-black/40">
+          <p className="text-xs font-semibold tracking-widest text-white/80 uppercase">
+            Final score
+          </p>
+          <p className="mt-1 font-display text-5xl font-black tabular-nums">{summary.finalScore}</p>
+        </div>
+
+        <dl className="mt-4 mb-4 divide-y divide-white/10 overflow-hidden rounded-card bg-white/6 ring-1 ring-white/10">
+          {rows.map(([label, value]) => (
+            <div key={label} className="flex items-center justify-between px-5 py-3">
+              <dt className="text-white/70">{label}</dt>
+              <dd className="font-semibold tabular-nums">{value}</dd>
+            </div>
+          ))}
+        </dl>
+      </Screen>
+    </div>
   );
 }
