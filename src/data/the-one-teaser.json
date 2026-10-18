@@ -1,5 +1,6 @@
 {
-  "_comment": "Captions for the animated THE ONE teaser, one per beat. {name} is replaced with the player's name. THE ONE never appears in the game — this is a narrative promise only.",
+  "_comment": "Text for the animated THE ONE teaser: the letterhead tag and one caption per beat. {name} is replaced with the player's name. THE ONE never appears in the game — this is a narrative promise only.",
+  "letterhead": "Match report · for {name}",
   "matchFound": "Perfect match found!",
   "reveal": "Meet THE ONE",
   "interests": "You both love…",

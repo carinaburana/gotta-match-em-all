@@ -29,15 +29,11 @@ export function ResultsScreen({ player, summary, onRestart }: ResultsScreenProps
 
   if (stage === 'reveal') {
     return (
-      <div className="flex h-full flex-col bg-ink">
-        <div className="min-h-0 flex-1">
-          <EndingRevealAnimation
-            player={player}
-            summary={summary}
-            onComplete={() => setIsRevealDone(true)}
-          />
-        </div>
-        <div className="pb-safe shrink-0 px-6 pt-1">
+      <EndingRevealAnimation
+        player={player}
+        summary={summary}
+        onComplete={() => setIsRevealDone(true)}
+        footer={
           <AnimatePresence mode="wait" initial={false}>
             {isRevealDone ? (
               <motion.div
@@ -67,8 +63,8 @@ export function ResultsScreen({ player, summary, onRestart }: ResultsScreenProps
               </motion.div>
             )}
           </AnimatePresence>
-        </div>
-      </div>
+        }
+      />
     );
   }
 

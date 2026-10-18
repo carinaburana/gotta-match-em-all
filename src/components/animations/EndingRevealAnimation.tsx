@@ -1,11 +1,13 @@
 import { AnimatePresence, motion } from 'motion/react';
 import { useEffect } from 'react';
+import type { ReactNode } from 'react';
 
-import { EndingQueue } from '@/components/animations/EndingQueue';
+import { DeckQueue } from '@/components/animations/DeckQueue';
 import { EndingSwipeStream } from '@/components/animations/EndingSwipeStream';
 import type { StagePoint } from '@/components/animations/EndingSwipeStream';
 import { FounderFigure } from '@/components/animations/FounderFigure';
 import { AlienImage } from '@/components/cards/AlienImage';
+import { StageLayout } from '@/components/layout/StageLayout';
 import { GAME_CONTENT } from '@/data';
 import { GAME_CONFIG } from '@/game/config';
 import { buildSwipeStream, getQueueNumbers, getTotalMatches, getTotalSwipes } from '@/game/ending';
@@ -17,6 +19,8 @@ import { fillTemplate } from '@/utils/format';
 interface EndingRevealAnimationProps {
   player: PlayerProfile;
   summary: SessionSummary;
+  /** Pinned action under the animation (Skip / See my stats). */
+  footer: ReactNode;
   /** Called once when the last beat has played. */
   onComplete: () => void;
 }
@@ -42,12 +46,18 @@ const STREAM_STAGGER_MAX_MS = 130;
 const EASE_OUT_SOFT = [0.22, 1, 0.36, 1] as const;
 
 /**
- * The ending: the teaser's dark mirror. The app's lights go out and the founder gives a leaked
- * investor pitch in a spotlight — the player's card is "the product", their swipes are harvested
- * onto the company's pile, and THE ONE is shown waiting at the very back of the queue, held there
- * on purpose. Narrative only: nothing here touches game logic, and THE ONE is still never a card.
+ * The ending: the teaser's dark mirror, in the same frame (StageLayout). The app's lights go out
+ * and the founder gives a leaked investor pitch in a spotlight — the player's card is "the
+ * product", their swipes are harvested onto the company's pile, and the deck queue from the
+ * teaser is shown again: THE ONE was kept at the very back on purpose. Narrative only: nothing
+ * here touches game logic, and THE ONE is still never a card.
  */
-export function EndingRevealAnimation({ player, summary, onComplete }: EndingRevealAnimationProps) {
+export function EndingRevealAnimation({
+  player,
+  summary,
+  footer,
+  onComplete,
+}: EndingRevealAnimationProps) {
   const config = GAME_CONFIG.ending;
   const content = GAME_CONTENT.ending;
   const beat: EndingBeat = useBeatSequence(config.beatDurationsMs, 'done', onComplete);
@@ -89,190 +99,151 @@ export function EndingRevealAnimation({ player, summary, onComplete }: EndingRev
     next: String(queueNumbers.next),
     position: String(queueNumbers.theOne),
   };
-  const caption =
-    beat === 'done'
-      ? content.captions.closer
-      : fillTemplate(content.captions[beat], templateValues);
+  const captionBeat = beat === 'done' ? 'closer' : beat;
 
   const founderOnStage = beat === 'intro' || beat === 'closer' || beat === 'done';
   const showProductCard = beat === 'intro' || beat === 'harvest';
   const showQueue = beat === 'queue' || beat === 'held';
 
   return (
-    <div className="relative flex h-full flex-col overflow-hidden bg-ink text-white">
-      {/* Lights off: the app's light canvas fades away to reveal the backstage. */}
-      <motion.div
-        className="pointer-events-none absolute inset-0 z-30 bg-canvas"
-        initial={{ opacity: 1 }}
-        animate={{ opacity: 0 }}
-        transition={{ duration: 0.9, ease: 'easeInOut' }}
-        aria-hidden
-      />
-
-      <Letterhead text={content.letterhead} />
-
-      {/* Stage */}
-      <div className="relative min-h-0 flex-1" aria-hidden>
-        <Spotlight bright={founderOnStage} />
-        <Dust />
-
-        {/* Founder: in the spotlight for the intro and the closer, off stage in between. */}
-        <div className="absolute inset-x-0 bottom-0 flex h-[80%] items-end justify-center">
+    <StageLayout
+      tone="dark"
+      letterhead={content.letterhead}
+      caption={{
+        key: captionBeat,
+        text: fillTemplate(content.captions[captionBeat], templateValues),
+        emphasis: captionBeat === 'closer',
+        delayS: beat === 'intro' ? 0.5 : 0,
+      }}
+      footer={footer}
+      backdrop={
+        <>
+          {/* Lights off: the app's light canvas fades away to reveal the backstage. */}
           <motion.div
-            className="aspect-[10/13] max-h-full w-[68%] max-w-80 origin-bottom"
-            initial={{ opacity: 0, y: 70, scale: 0.92 }}
-            animate={
-              founderOnStage
-                ? { opacity: 1, x: 0, y: 0, scale: beat === 'intro' ? 1 : 1.06 }
-                : { opacity: 0, x: -140, y: 30, scale: 0.85 }
-            }
-            transition={
-              founderOnStage
-                ? { duration: 1.1, ease: EASE_OUT_SOFT, delay: beat === 'intro' ? 0.35 : 0.3 }
-                : { duration: 0.55, ease: 'easeIn' }
-            }
-          >
-            <FounderFigure />
-          </motion.div>
-        </div>
-
-        {/* The player's own card: "the product". */}
-        <AnimatePresence>
-          {showProductCard && (
-            <motion.div
-              key="product"
-              className="absolute left-1/2 h-0 w-0"
-              initial={{ bottom: FLOOR_BAND }}
-              animate={{ bottom: beat === 'intro' ? FLOOR_BAND : HARVEST_BAND }}
-              exit={{ opacity: 0, transition: { duration: 0.35 } }}
-              transition={{ duration: 0.7, ease: EASE_OUT_SOFT }}
-            >
-              <motion.div
-                className="absolute bottom-0 -left-14 w-28 origin-bottom overflow-hidden rounded-2xl bg-surface text-ink shadow-2xl shadow-black/60 ring-1 ring-white/40"
-                initial={{
-                  opacity: 0,
-                  scale: 0.5,
-                  rotate: -14,
-                  x: PRODUCT_CARD_INTRO.x,
-                  y: PRODUCT_CARD_INTRO.y + 70,
-                }}
-                animate={
-                  beat === 'intro'
-                    ? { opacity: 1, scale: 1, rotate: -6, ...PRODUCT_CARD_INTRO }
-                    : { opacity: 1, scale: 0.92, rotate: -3, ...PRODUCT_CARD_HARVEST }
-                }
-                exit={{ scale: 0.8, transition: { duration: 0.35 } }}
-                transition={
-                  beat === 'intro'
-                    ? { type: 'spring', stiffness: 220, damping: 18, delay: 1.5 }
-                    : { duration: 0.7, ease: EASE_OUT_SOFT }
-                }
-              >
-                <div className="relative h-28 bg-brand-100">
-                  {playerAvatarSrc && <AlienImage src={playerAvatarSrc} alt="" />}
-                  <span className="absolute top-2 left-2 h-2.5 w-2.5 rounded-full bg-like ring-2 ring-white" />
-                </div>
-                <div className="px-3 py-2">
-                  <p className="truncate text-sm font-bold">{player.name}</p>
-                  <p className="truncate text-[10px] text-ink-muted">{content.productCard.role}</p>
-                </div>
-              </motion.div>
-            </motion.div>
-          )}
-        </AnimatePresence>
-
-        {/* The player's swipes, harvested onto the company's pile. */}
-        <AnimatePresence>
-          {beat === 'harvest' && (
-            <EndingSwipeStream
-              key="stream"
-              directions={streamDirections}
-              portraitSrcs={streamPortraits}
-              band={HARVEST_BAND}
-              from={STREAM_FROM}
-              to={PILE}
-              staggerMs={streamStaggerMs}
-              flightMs={STREAM_FLIGHT_MS}
-            />
-          )}
-          {beat === 'harvest' && (
-            <Ledger
-              key="ledger"
-              values={[
-                { total: totalSwipes, label: content.ledger.swipes },
-                { total: totalMatches, label: content.ledger.matches },
-                { total: seconds, label: content.ledger.seconds },
-              ]}
-              startMs={STREAM_FLIGHT_MS}
-              durationMs={streamStaggerMs * streamDirections.length + STREAM_FLIGHT_MS}
-            />
-          )}
-        </AnimatePresence>
-
-        {/* The rest of the deck, with THE ONE kept at the back. */}
-        <AnimatePresence>
-          {showQueue && (
-            <EndingQueue
-              key="queue"
-              portraitSrcs={queuePortraits}
-              numbers={queueNumbers}
-              held={beat === 'held'}
-              tags={{
-                next: fillTemplate(content.queueTags.next, templateValues),
-                theOne: fillTemplate(content.queueTags.theOne, templateValues),
-                held: fillTemplate(content.queueTags.held, templateValues),
-              }}
-            />
-          )}
-        </AnimatePresence>
-      </div>
-
-      {/* One line per beat. The visuals carry the story; this is the founder's voice. */}
-      <div
-        className="flex min-h-24 shrink-0 items-center justify-center px-7 pt-2 pb-3 text-center"
-        aria-live="polite"
-      >
-        <AnimatePresence mode="wait">
-          <motion.p
-            key={beat === 'done' ? 'closer' : beat}
-            className={`font-display font-black text-balance ${
-              beat === 'closer' || beat === 'done'
-                ? 'text-[1.7rem] leading-tight text-accent-pink'
-                : 'text-[1.45rem] leading-snug text-white'
-            }`}
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -6 }}
-            transition={{ duration: 0.4, ease: EASE_OUT_SOFT, delay: beat === 'intro' ? 0.5 : 0 }}
-          >
-            {caption}
-          </motion.p>
-        </AnimatePresence>
-      </div>
-    </div>
-  );
-}
-
-function Letterhead({ text }: { text: string }) {
-  return (
-    <motion.header
-      className="pt-safe flex shrink-0 items-center justify-between gap-4 px-6"
-      initial={{ opacity: 0, y: -8 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.8, delay: 0.8 }}
+            className="absolute inset-0 z-30 bg-canvas"
+            initial={{ opacity: 1 }}
+            animate={{ opacity: 0 }}
+            transition={{ duration: 0.9, ease: 'easeInOut' }}
+          />
+        </>
+      }
     >
-      <img
-        src="/logo.webp"
-        alt="Gotta Match 'Em All"
-        width={840}
-        height={476}
-        draggable={false}
-        className="h-auto w-24 select-none opacity-90"
-      />
-      <p className="text-right text-[10px] font-semibold tracking-[0.22em] text-white/55 uppercase">
-        {text}
-      </p>
-    </motion.header>
+      <Spotlight bright={founderOnStage} />
+      <Dust />
+
+      {/* Founder: in the spotlight for the intro and the closer, off stage in between. */}
+      <div className="absolute inset-x-0 bottom-0 flex h-[80%] items-end justify-center">
+        <motion.div
+          className="aspect-[10/13] max-h-full w-[68%] max-w-80 origin-bottom"
+          initial={{ opacity: 0, y: 70, scale: 0.92 }}
+          animate={
+            founderOnStage
+              ? { opacity: 1, x: 0, y: 0, scale: beat === 'intro' ? 1 : 1.06 }
+              : { opacity: 0, x: -140, y: 30, scale: 0.85 }
+          }
+          transition={
+            founderOnStage
+              ? { duration: 1.1, ease: EASE_OUT_SOFT, delay: beat === 'intro' ? 0.35 : 0.3 }
+              : { duration: 0.55, ease: 'easeIn' }
+          }
+        >
+          <FounderFigure />
+        </motion.div>
+      </div>
+
+      {/* The player's own card: "the product". */}
+      <AnimatePresence>
+        {showProductCard && (
+          <motion.div
+            key="product"
+            className="absolute left-1/2 h-0 w-0"
+            initial={{ bottom: FLOOR_BAND }}
+            animate={{ bottom: beat === 'intro' ? FLOOR_BAND : HARVEST_BAND }}
+            exit={{ opacity: 0, transition: { duration: 0.35 } }}
+            transition={{ duration: 0.7, ease: EASE_OUT_SOFT }}
+          >
+            <motion.div
+              className="absolute bottom-0 -left-14 w-28 origin-bottom overflow-hidden rounded-2xl bg-surface text-ink shadow-2xl shadow-black/60 ring-1 ring-white/40"
+              initial={{
+                opacity: 0,
+                scale: 0.5,
+                rotate: -14,
+                x: PRODUCT_CARD_INTRO.x,
+                y: PRODUCT_CARD_INTRO.y + 70,
+              }}
+              animate={
+                beat === 'intro'
+                  ? { opacity: 1, scale: 1, rotate: -6, ...PRODUCT_CARD_INTRO }
+                  : { opacity: 1, scale: 0.92, rotate: -3, ...PRODUCT_CARD_HARVEST }
+              }
+              exit={{ scale: 0.8, transition: { duration: 0.35 } }}
+              transition={
+                beat === 'intro'
+                  ? { type: 'spring', stiffness: 220, damping: 18, delay: 1.5 }
+                  : { duration: 0.7, ease: EASE_OUT_SOFT }
+              }
+            >
+              <div className="relative h-28 bg-brand-100">
+                {playerAvatarSrc && <AlienImage src={playerAvatarSrc} alt="" />}
+                <span className="absolute top-2 left-2 h-2.5 w-2.5 rounded-full bg-like ring-2 ring-white" />
+              </div>
+              <div className="px-3 py-2">
+                <p className="truncate text-sm font-bold">{player.name}</p>
+                <p className="truncate text-[10px] text-ink-muted">{content.productCard.role}</p>
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      {/* The player's swipes, harvested onto the company's pile. */}
+      <AnimatePresence>
+        {beat === 'harvest' && (
+          <EndingSwipeStream
+            key="stream"
+            directions={streamDirections}
+            portraitSrcs={streamPortraits}
+            band={HARVEST_BAND}
+            from={STREAM_FROM}
+            to={PILE}
+            staggerMs={streamStaggerMs}
+            flightMs={STREAM_FLIGHT_MS}
+          />
+        )}
+        {beat === 'harvest' && (
+          <Ledger
+            key="ledger"
+            values={[
+              { total: totalSwipes, label: content.ledger.swipes },
+              { total: totalMatches, label: content.ledger.matches },
+              { total: seconds, label: content.ledger.seconds },
+            ]}
+            startMs={STREAM_FLIGHT_MS}
+            durationMs={streamStaggerMs * streamDirections.length + STREAM_FLIGHT_MS}
+          />
+        )}
+      </AnimatePresence>
+
+      {/* The rest of the deck — the teaser's queue again — with THE ONE kept at the back. */}
+      <AnimatePresence>
+        {showQueue && (
+          <DeckQueue
+            key="queue"
+            tone="dark"
+            portraitSrcs={queuePortraits}
+            hiddenCount={queueNumbers.hidden}
+            theOne={beat === 'held' ? 'held' : 'reach'}
+            tags={{
+              front: fillTemplate(content.queueTags.next, templateValues),
+              theOne: fillTemplate(
+                beat === 'held' ? content.queueTags.held : content.queueTags.theOne,
+                templateValues,
+              ),
+            }}
+          />
+        )}
+      </AnimatePresence>
+    </StageLayout>
   );
 }
 

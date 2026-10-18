@@ -104,8 +104,8 @@ function loadPlayerAvatars(): PlayerAvatar[] {
 }
 
 function loadTheOneTeaser(): TheOneTeaserContent {
-  const { matchFound, reveal, interests, hide, go } = theOneTeaserJson;
-  const captions = { matchFound, reveal, interests, hide, go };
+  const { letterhead, matchFound, reveal, interests, hide, go } = theOneTeaserJson;
+  const captions = { letterhead, matchFound, reveal, interests, hide, go };
   for (const [key, value] of Object.entries(captions)) {
     if (value.trim() === '') throw new ContentError('the-one-teaser.json', `"${key}" is empty`);
   }

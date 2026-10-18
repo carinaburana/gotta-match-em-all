@@ -12,8 +12,8 @@ interface SearchingScreenProps {
 }
 
 /**
- * The fake "AI matchmaking" moment. The tap at the end is intentional: it gives the browser a
- * user gesture, so the teaser video on the next screen is allowed to play with sound.
+ * The fake "AI matchmaking" moment. The tap at the end is intentional: it gives the player a
+ * breath before the teaser, and a user gesture in case sound is added later.
  */
 export function SearchingScreen({ player, onComplete }: SearchingScreenProps) {
   const { title, subtitle, steps } = GAME_CONTENT.searching;

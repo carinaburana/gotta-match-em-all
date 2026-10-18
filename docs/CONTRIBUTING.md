@@ -116,7 +116,5 @@ Rules:
 
 **Player avatars:** replace files in `public/avatars/` and update `src/data/player-avatars.json`.
 
-**Teaser video:** save as `public/videos/the-one-teaser.mp4` (H.264, portrait, ideally < 10 MB).
-
 Keep large source files (PSD, AI, Figma exports, raw video) out of the repo — only commit the
 optimised files the game actually uses.

@@ -29,4 +29,4 @@ for demos, but the experience is built to land on the first play.
 - **Messages / profile / settings tabs:** may be added later as a bottom navigation (the app shell
   already supports it). Not part of the current scope but could be added if players feel its less credible without one
 - **Sound:** maybe :)
-- **Teaser video:** in production
+- **Teaser:** animated in-app (`TheOneTeaserAnimation`); no video planned

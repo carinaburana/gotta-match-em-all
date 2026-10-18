@@ -74,20 +74,17 @@ export const GAME_CONFIG = {
   },
 
   teaser: {
-    /**
-     * `null` = play the animated teaser (TheOneTeaserAnimation). Set a path such as
-     * '/videos/the-one-teaser.mp4' to play a video instead (missing file → animation).
-     */
-    videoSrc: null as string | null,
-    posterSrc: null as string | null,
+    /** The animated THE ONE teaser before the game (TheOneTeaserAnimation). */
     animation: {
-      /** How long each beat of the animated teaser lasts, in order. */
+      /** How long each beat lasts, in order (~10 s in total). */
       beatDurationsMs: {
-        matchFound: 2_000,
+        matchFound: 2_200,
         reveal: 2_400,
-        interests: 2_800,
-        hide: 2_800,
+        interests: 3_000,
+        hide: 3_000,
       },
+      /** Real portraits lined up in front of THE ONE when it slips into the deck. */
+      queueVisibleCards: 3,
       /**
        * PLACEHOLDER: portrait shown blurred as THE ONE's silhouette. Swap for dedicated art.
        * It's blurred beyond recognition on purpose — THE ONE is never a real candidate.
