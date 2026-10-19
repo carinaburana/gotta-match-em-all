@@ -116,7 +116,7 @@ No environment variables are needed.
 
 | Area                     | Status                                                          |
 | ------------------------ | --------------------------------------------------------------- |
-| App flow (6 screens)     | ✅ Working                                                      |
+| App flow (5 screens)     | ✅ Working                                                      |
 | Profile setup            | ✅ Name, exactly 3 interests by category, 1 of 4 avatars        |
 | Deck generation          | ✅ 100 cards, seeded, 70% normal / 10% special / 20% unverified |
 | Swipe loop, score, timer | ✅ Drag, buttons and ←/→ keys; 60 s countdown                   |
