@@ -83,11 +83,16 @@ Tailwind's 4 px scale. Common values: screen side padding `px-6` (24 px), card i
 
 - **Motion for React** for gestures, enter/exit and anything state-driven
   (`src/components/animations/variants.ts` holds shared variants and timings).
-- **CSS** (`animate-float`, `animate-radar`, …) for simple looping decoration.
+- **CSS** (`animate-float`, `animate-radar`, `animate-pulse-ring`, `animate-twinkle`,
+  `animate-heartbeat`) for simple looping decoration — e.g. the inline SVG in
+  `NearbyMatchesRadar.tsx`, whose parts are animated individually.
 - Animations visualise state; they never decide rules or change the score.
 - Keep UI transitions short (150–350 ms). Reward moments may be bigger and bouncier; the +100
   should feel noticeably more exciting than +10, and −100 should feel like a "fail" moment.
 - `MotionConfig reducedMotion="user"` and a CSS media query respect "reduce motion".
+- Match feedback after a swipe appears centred on one line and grows open from the centre with a
+  ~0.5 s ease-out (`matchFeedbackVariants`); a new overlay stacks on top of one that is still
+  fading out instead of pushing it aside.
 - Current card/feedback animations are basic placeholders _(provisional)_.
 
 ## Responsive behaviour

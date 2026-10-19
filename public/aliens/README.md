@@ -4,12 +4,12 @@ Candidate portraits shown on the swipe cards live here.
 
 ## Naming convention
 
-Final portraits: `alien-001.webp`, `alien-002.webp`, … `alien-050.webp`
+Portraits: `alien-001.webp`, `alien-002.webp`, … (currently `alien-001` … `alien-046`)
 
 - Three-digit, zero-padded numbers.
-- WebP, square or portrait (e.g. 800×800 or 800×1000). Cards use `object-fit: cover`, so exact
+- WebP, about 768 px wide, quality ~80 (≈ 80 KB each). Cards use `object-fit: cover`, so exact
   dimensions don't matter, but keep the character roughly centred.
-- Transparent or light backgrounds both work.
+- Full scene backgrounds are fine (the current art has them).
 
 ## Making a portrait show up in the game
 
@@ -17,9 +17,12 @@ Adding a file here is not enough — also list it in **`src/data/alien-portraits
 The candidate generator only uses portraits from that list, so the game never references a file
 that doesn't exist.
 
-## Placeholders (temporary)
+## Source
 
-- `placeholder-01.svg` … `placeholder-06.svg` — temporary portraits listed in
-  `alien-portraits.json` until the real art arrives. Remove them from the JSON (and here) once
-  real portraits are added.
-- `fallback.svg` — shown automatically if any portrait fails to load. Keep this file.
+The current portraits come from the team's Drive folder (`Image01.webp` … `Image50.webp`, 1024 px),
+resized to 768 px wide. Four of those 50 are used as player avatars instead (see
+`public/avatars/README.md`), so they never appear as swipe candidates.
+
+## Fallback
+
+`fallback.svg` is shown automatically if any portrait fails to load. Keep this file.

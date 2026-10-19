@@ -3,21 +3,27 @@ import { useState } from 'react';
 
 import { ScreenTransition } from '@/components/animations/ScreenTransition';
 import { AppShell } from '@/components/layout/AppShell';
+import { readDevJumpFromUrl } from '@/dev/devJump';
+import { DevJumpMenu } from '@/dev/DevJumpMenu';
 import { GameScreen } from '@/screens/GameScreen';
 import { ProfileSetupScreen } from '@/screens/ProfileSetupScreen';
 import { ResultsScreen } from '@/screens/ResultsScreen';
-import { SearchingScreen } from '@/screens/SearchingScreen';
 import { StartScreen } from '@/screens/StartScreen';
 import { TheOneTeaserScreen } from '@/screens/TheOneTeaserScreen';
+import { TimeLimitScreen } from '@/screens/TimeLimitScreen';
 import type { AppState } from '@/types/app';
 
 /**
  * Owns the application flow:
- * start → profile-setup → searching → teaser → playing → results
+ * start → profile-setup → teaser → time-limit → playing → results
  * Every transition is a call to setAppState in this file, so the flow is easy to follow.
  */
 export function App() {
-  const [appState, setAppState] = useState<AppState>({ phase: 'start' });
+  const [appState, setAppState] = useState<AppState>(
+    () => (import.meta.env.DEV ? readDevJumpFromUrl() : null) ?? { phase: 'start' },
+  );
+  // Dev jumps can land on the phase that's already showing; bumping the key remounts it.
+  const [devJumpCount, setDevJumpCount] = useState(0);
 
   function renderScreen(state: AppState) {
     switch (state.phase) {
@@ -28,22 +34,23 @@ export function App() {
         return (
           <ProfileSetupScreen
             onExit={() => setAppState({ phase: 'start' })}
-            onComplete={(player) => setAppState({ phase: 'searching', player })}
-          />
-        );
-
-      case 'searching':
-        return (
-          <SearchingScreen
-            player={state.player}
-            onComplete={() => setAppState({ phase: 'teaser', player: state.player })}
+            onComplete={(player) => setAppState({ phase: 'teaser', player })}
           />
         );
 
       case 'teaser':
         return (
           <TheOneTeaserScreen
-            onContinue={() => setAppState({ phase: 'playing', player: state.player })}
+            player={state.player}
+            onContinue={() => setAppState({ phase: 'time-limit', player: state.player })}
+          />
+        );
+
+      case 'time-limit':
+        return (
+          <TimeLimitScreen
+            player={state.player}
+            onStart={() => setAppState({ phase: 'playing', player: state.player })}
           />
         );
 
@@ -73,9 +80,19 @@ export function App() {
     <MotionConfig reducedMotion="user">
       <AppShell>
         <AnimatePresence mode="wait">
-          <ScreenTransition key={appState.phase}>{renderScreen(appState)}</ScreenTransition>
+          <ScreenTransition key={`${appState.phase}-${devJumpCount}`}>
+            {renderScreen(appState)}
+          </ScreenTransition>
         </AnimatePresence>
       </AppShell>
+      {import.meta.env.DEV && (
+        <DevJumpMenu
+          onJump={(state) => {
+            setAppState(state);
+            setDevJumpCount((count) => count + 1);
+          }}
+        />
+      )}
     </MotionConfig>
   );
 }

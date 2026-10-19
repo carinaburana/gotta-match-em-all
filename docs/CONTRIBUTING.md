@@ -84,15 +84,15 @@ Don't silence errors with `// eslint-disable`, `@ts-ignore` or `any` — fix the
 
 All game text lives in `src/data/`. You don't need to touch code to change content.
 
-| File                   | Contains                                              |
-| ---------------------- | ----------------------------------------------------- |
-| `interests.json`       | Categories → interests (`id`, `label`)                |
-| `alien-names.json`     | Candidate names                                       |
-| `alien-cities.json`    | Fictional home towns                                  |
-| `about-me.json`        | Bios (`id`, `text`)                                   |
-| `alien-portraits.json` | Portrait files the game may use                       |
-| `player-avatars.json`  | The 4 avatars shown during setup                      |
-| `searching-steps.json` | Text of the fake AI sequence (`{name}` = player name) |
+| File                   | Contains                                                                  |
+| ---------------------- | ------------------------------------------------------------------------- |
+| `interests.json`       | Categories → interests (`id`, `label`)                                    |
+| `alien-names.json`     | Candidate names                                                           |
+| `alien-cities.json`    | Fictional home towns                                                      |
+| `about-me.json`        | Bios (`id`, `text`)                                                       |
+| `alien-portraits.json` | Portrait files the game may use                                           |
+| `player-avatars.json`  | The 4 avatars shown during setup                                          |
+| `searching-steps.json` | Text of the fake AI search that opens the teaser (`{name}` = player name) |
 
 Rules:
 
@@ -109,14 +109,12 @@ Rules:
 
 **Alien portraits**
 
-1. Export as WebP (≈ 800 px, character roughly centred).
-2. Name them `alien-001.webp`, `alien-002.webp`, … and put them in `public/aliens/`.
+1. Export as WebP (≈ 768 px wide, quality ~80, character roughly centred).
+2. Continue the numbering (`alien-047.webp`, …) and put them in `public/aliens/`.
 3. Add each file name to `src/data/alien-portraits.json` → `"files"`.
-4. Remove the `placeholder-0X.svg` entries once real portraits exist. Keep `fallback.svg`.
+4. Keep `fallback.svg` — it's shown if an image fails to load.
 
 **Player avatars:** replace files in `public/avatars/` and update `src/data/player-avatars.json`.
-
-**Teaser video:** save as `public/videos/the-one-teaser.mp4` (H.264, portrait, ideally < 10 MB).
 
 Keep large source files (PSD, AI, Figma exports, raw video) out of the repo — only commit the
 optimised files the game actually uses.

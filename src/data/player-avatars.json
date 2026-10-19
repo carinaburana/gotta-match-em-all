@@ -1,9 +1,25 @@
 {
-  "_comment": "The four profile pictures a player can choose from. Files live in public/avatars/. PLACEHOLDER art.",
+  "_comment": "The four profile pictures a player can choose from. Files live in public/avatars/. These characters are kept out of the swipe deck.",
   "avatars": [
-    { "id": "avatar-01", "label": "Purple blob", "file": "avatar-01.svg" },
-    { "id": "avatar-02", "label": "Green cyclops", "file": "avatar-02.svg" },
-    { "id": "avatar-03", "label": "Pink triple-eye", "file": "avatar-03.svg" },
-    { "id": "avatar-04", "label": "Blue antenna", "file": "avatar-04.svg" }
+    {
+      "id": "avatar-01",
+      "label": "Teal fuzzy alien",
+      "file": "avatar-01.webp"
+    },
+    {
+      "id": "avatar-02",
+      "label": "Yellow fluffy alien",
+      "file": "avatar-02.webp"
+    },
+    {
+      "id": "avatar-03",
+      "label": "Lavender alien",
+      "file": "avatar-03.webp"
+    },
+    {
+      "id": "avatar-04",
+      "label": "Pink three-eyed alien",
+      "file": "avatar-04.webp"
+    }
   ]
 }

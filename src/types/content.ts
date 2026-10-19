@@ -31,7 +31,7 @@ export interface AboutMeEntry {
 export interface PlayerAvatar {
   id: string;
   label: string;
-  /** Public URL, e.g. "/avatars/avatar-01.svg". */
+  /** Public URL, e.g. "/avatars/avatar-01.webp". */
   src: string;
 }
 
@@ -40,6 +40,42 @@ export interface SearchingContent {
   subtitle: string;
   /** Shown one after another. "{name}" is replaced with the player's name. */
   steps: string[];
+}
+
+/** Text for the animated THE ONE teaser: letterhead tag + one caption per beat. "{name}" = player name. */
+export interface TheOneTeaserContent {
+  letterhead: string;
+  matchFound: string;
+  reveal: string;
+  interests: string;
+  hide: string;
+  go: string;
+}
+
+/** Text for the time-limit screen. "{name}" = player name, "{duration}" = session length in words. */
+export interface TimeLimitContent {
+  message: string;
+  countdownLabel: string;
+  button: string;
+}
+
+/** One line of text per beat of the ending reveal. See src/data/ending.json for placeholders. */
+export interface EndingCaptions {
+  intro: string;
+  harvest: string;
+  queue: string;
+  held: string;
+  closer: string;
+}
+
+/** Text for the ending reveal (the founder's "leaked investor pitch"). */
+export interface EndingContent {
+  letterhead: string;
+  captions: EndingCaptions;
+  productCard: { role: string };
+  ledger: { swipes: string; matches: string; seconds: string };
+  queueTags: { next: string; theOne: string; held: string };
+  buttons: { skip: string; continue: string };
 }
 
 /** Everything the game needs from `src/data`, validated and ready to use. */
@@ -54,4 +90,7 @@ export interface GameContent {
   portraitSrcs: string[];
   playerAvatars: PlayerAvatar[];
   searching: SearchingContent;
+  theOneTeaser: TheOneTeaserContent;
+  timeLimit: TimeLimitContent;
+  ending: EndingContent;
 }

@@ -7,17 +7,23 @@ import aboutMeJson from '@/data/about-me.json';
 import alienCitiesJson from '@/data/alien-cities.json';
 import alienNamesJson from '@/data/alien-names.json';
 import alienPortraitsJson from '@/data/alien-portraits.json';
+import endingJson from '@/data/ending.json';
 import interestsJson from '@/data/interests.json';
 import playerAvatarsJson from '@/data/player-avatars.json';
 import searchingStepsJson from '@/data/searching-steps.json';
+import theOneTeaserJson from '@/data/the-one-teaser.json';
+import timeLimitJson from '@/data/time-limit.json';
 import { GAME_CONFIG } from '@/game/config';
 import type {
   AboutMeEntry,
+  EndingContent,
   GameContent,
   InterestCategory,
   InterestId,
   InterestWithCategory,
   PlayerAvatar,
+  TheOneTeaserContent,
+  TimeLimitContent,
 } from '@/types/content';
 
 const ALIEN_PORTRAIT_DIR = '/aliens/';
@@ -99,6 +105,38 @@ function loadPlayerAvatars(): PlayerAvatar[] {
   return avatars;
 }
 
+function loadTheOneTeaser(): TheOneTeaserContent {
+  const { letterhead, matchFound, reveal, interests, hide, go } = theOneTeaserJson;
+  const captions = { letterhead, matchFound, reveal, interests, hide, go };
+  assertNoEmptyStrings('the-one-teaser.json', captions, '');
+  return captions;
+}
+
+function loadTimeLimit(): TimeLimitContent {
+  const { message, countdownLabel, button } = timeLimitJson;
+  const content = { message, countdownLabel, button };
+  assertNoEmptyStrings('time-limit.json', content, '');
+  return content;
+}
+
+/** Throws if any string in a (nested) content object is empty — keyed by its dotted path. */
+function assertNoEmptyStrings(file: string, value: unknown, path: string): void {
+  if (typeof value === 'string') {
+    if (value.trim() === '') throw new ContentError(file, `"${path}" is empty`);
+  } else if (value !== null && typeof value === 'object') {
+    for (const [key, child] of Object.entries(value)) {
+      if (key !== '_comment') assertNoEmptyStrings(file, child, path ? `${path}.${key}` : key);
+    }
+  }
+}
+
+function loadEnding(): EndingContent {
+  const { letterhead, captions, productCard, ledger, queueTags, buttons } = endingJson;
+  const content: EndingContent = { letterhead, captions, productCard, ledger, queueTags, buttons };
+  assertNoEmptyStrings('ending.json', content, '');
+  return content;
+}
+
 function loadContent(): GameContent {
   const interests = loadInterests();
   return {
@@ -116,6 +154,9 @@ function loadContent(): GameContent {
       subtitle: searchingStepsJson.subtitle,
       steps: cleanStringList('searching-steps.json', searchingStepsJson.steps),
     },
+    theOneTeaser: loadTheOneTeaser(),
+    timeLimit: loadTimeLimit(),
+    ending: loadEnding(),
   };
 }
 

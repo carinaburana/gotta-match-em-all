@@ -30,6 +30,16 @@ export const cardVariants: Variants = {
   }),
 };
 
+/** Smooth "ease out" curve: starts fast, settles gently into place. */
+export const EASE_OUT_SOFT: [number, number, number, number] = [0.22, 1, 0.36, 1];
+
+/** Match feedback after a swipe: grows open from the centre instead of bouncing in. */
+export const matchFeedbackVariants: Variants = {
+  initial: { opacity: 0, scale: 0.6 },
+  animate: { opacity: 1, scale: 1, transition: { duration: 0.5, ease: EASE_OUT_SOFT } },
+  exit: { opacity: 0, transition: { duration: 0.2, ease: 'easeIn' } },
+};
+
 export const feedbackVariants: Variants = {
   initial: { opacity: 0, scale: 0.6 },
   animate: { opacity: 1, scale: 1, transition: { type: 'spring', stiffness: 380, damping: 18 } },

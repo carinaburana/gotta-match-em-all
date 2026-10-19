@@ -71,9 +71,9 @@ export function GameScreen({ player, onFinished }: GameScreenProps) {
               </SwipeableCard>
             )}
           </AnimatePresence>
-        </div>
 
-        <MatchFeedbackOverlay lastSwipe={state.lastSwipe} />
+          <MatchFeedbackOverlay lastSwipe={state.lastSwipe} />
+        </div>
       </div>
 
       <SwipeButtons onSwipe={swipeCurrent} disabled={!isPlaying} />

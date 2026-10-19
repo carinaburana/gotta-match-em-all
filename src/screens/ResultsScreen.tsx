@@ -1,5 +1,11 @@
+import { AnimatePresence, motion } from 'motion/react';
+import { useState } from 'react';
+
+import { EndingRevealAnimation } from '@/components/animations/EndingRevealAnimation';
 import { Screen } from '@/components/layout/Screen';
 import { Button } from '@/components/ui/Button';
+import { GAME_CONTENT } from '@/data';
+import { GAME_CONFIG } from '@/game/config';
 import type { PlayerProfile, SessionSummary } from '@/types/game';
 import { formatDurationSeconds } from '@/utils/format';
 
@@ -10,13 +16,60 @@ interface ResultsScreenProps {
 }
 
 /**
- * PLACEHOLDER results screen. The final ending (message, animation, reveal) is not decided yet.
- * Everything needed is in `summary`, so this screen can be redesigned freely without touching
- * the game engine.
+ * After the game: first the ending reveal (the company's side of the session — see
+ * `EndingRevealAnimation`), then the plain stats. `GAME_CONFIG.ending.showReveal = false` skips
+ * straight to the stats for an in-person debrief.
  */
 export function ResultsScreen({ player, summary, onRestart }: ResultsScreenProps) {
+  const [stage, setStage] = useState<'reveal' | 'stats'>(
+    GAME_CONFIG.ending.showReveal ? 'reveal' : 'stats',
+  );
+  const [isRevealDone, setIsRevealDone] = useState(false);
+  const { buttons } = GAME_CONTENT.ending;
+
+  if (stage === 'reveal') {
+    return (
+      <EndingRevealAnimation
+        player={player}
+        summary={summary}
+        onComplete={() => setIsRevealDone(true)}
+        footer={
+          <AnimatePresence mode="wait" initial={false}>
+            {isRevealDone ? (
+              <motion.div
+                key="continue"
+                initial={{ opacity: 0, y: 8 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.4, delay: 0.4 }}
+              >
+                <Button
+                  fullWidth
+                  variant="ghost"
+                  className="bg-white shadow-lg shadow-black/30 hover:bg-brand-50"
+                  onClick={() => setStage('stats')}
+                >
+                  {buttons.continue}
+                </Button>
+              </motion.div>
+            ) : (
+              <motion.div key="skip" exit={{ opacity: 0, transition: { duration: 0.15 } }}>
+                <Button
+                  fullWidth
+                  variant="ghost"
+                  className="text-white/45 hover:bg-transparent hover:text-white/80"
+                  onClick={() => setStage('stats')}
+                >
+                  {buttons.skip}
+                </Button>
+              </motion.div>
+            )}
+          </AnimatePresence>
+        }
+      />
+    );
+  }
+
   const rows: [label: string, value: string | number][] = [
-    ['Final score', summary.finalScore],
     ['Cards viewed', summary.cardsViewed],
     ['Right swipes', summary.rightSwipes],
     ['Left swipes', summary.leftSwipes],
@@ -26,27 +79,56 @@ export function ResultsScreen({ player, summary, onRestart }: ResultsScreenProps
     ['Session duration', formatDurationSeconds(summary.sessionDurationMs)],
   ];
 
+  // Styled as the last page of the founder's pitch: same backstage look as the reveal.
   return (
-    <Screen
-      footer={
-        <Button fullWidth onClick={onRestart}>
-          Play again
-        </Button>
-      }
-    >
-      <p className="mt-4 text-xs font-semibold tracking-widest text-ink-muted uppercase">
-        Results · placeholder
-      </p>
-      <h2 className="mt-1 text-3xl font-bold">Nice swiping, {player.name}!</h2>
+    <div className="h-full bg-ink text-white">
+      <Screen
+        footer={
+          <Button
+            fullWidth
+            variant="ghost"
+            className="bg-white shadow-lg shadow-black/30 hover:bg-brand-50"
+            onClick={onRestart}
+          >
+            Play again
+          </Button>
+        }
+      >
+        <header className="flex items-center justify-between gap-4">
+          <img
+            src="/logo.webp"
+            alt="Gotta Match 'Em All"
+            width={840}
+            height={476}
+            draggable={false}
+            className="h-auto w-24 select-none opacity-90"
+          />
+          <p className="text-right text-[10px] font-semibold tracking-[0.22em] text-white/55 uppercase">
+            {GAME_CONTENT.ending.letterhead}
+          </p>
+        </header>
 
-      <dl className="mt-6 divide-y divide-line overflow-hidden rounded-card bg-surface shadow-sm">
-        {rows.map(([label, value]) => (
-          <div key={label} className="flex items-center justify-between px-5 py-3">
-            <dt className="text-ink-muted">{label}</dt>
-            <dd className="font-semibold tabular-nums">{value}</dd>
-          </div>
-        ))}
-      </dl>
-    </Screen>
+        <p className="mt-8 text-xs font-semibold tracking-widest text-white/55 uppercase">
+          Your session
+        </p>
+        <h2 className="mt-1 font-display text-3xl font-black">Nice swiping, {player.name}!</h2>
+
+        <div className="mt-6 rounded-card bg-accent-pink px-5 py-5 text-white shadow-lg shadow-black/40">
+          <p className="text-xs font-semibold tracking-widest text-white/80 uppercase">
+            Final score
+          </p>
+          <p className="mt-1 font-display text-5xl font-black tabular-nums">{summary.finalScore}</p>
+        </div>
+
+        <dl className="mt-4 mb-4 divide-y divide-white/10 overflow-hidden rounded-card bg-white/6 ring-1 ring-white/10">
+          {rows.map(([label, value]) => (
+            <div key={label} className="flex items-center justify-between px-5 py-3">
+              <dt className="text-white/70">{label}</dt>
+              <dd className="font-semibold tabular-nums">{value}</dd>
+            </div>
+          ))}
+        </dl>
+      </Screen>
+    </div>
   );
 }

@@ -7,7 +7,7 @@ All numbers below are defaults from **`src/game/config.ts`**. Change them there 
 The app flow (`src/types/app.ts`) is:
 
 ```
-start → profile-setup → searching → teaser → playing → results
+start → profile-setup → teaser → time-limit → playing → results
 ```
 
 Inside `playing`, the swipe session (`src/game/gameReducer.ts`) has its own status:
@@ -24,7 +24,11 @@ statistics change.
 ## Timer
 
 - Duration: **60 s** (`sessionDurationMs`).
-- Starts when the game screen mounts — not during setup, searching or the teaser.
+- Starts when the game screen mounts — not during setup, the teaser (which includes the fake AI
+  search) or the time-limit screen.
+- The time-limit screen announces the duration ("Your time is valuable… just 1 minute") with a
+  big `01:00`. Its wording comes from `sessionDurationMs`, and the player starts the game with a
+  button, so nobody loses seconds while reading.
 - Remaining time is computed from the start timestamp on every tick, so it doesn't drift.
 - At 0: the session finishes, swipes stop being accepted, a "Time's up!" overlay shows for
   `endScreenDelayMs` (1.2 s), then the results screen opens with the frozen statistics.
@@ -77,10 +81,13 @@ Resolution (`resolveSwipe` in `src/game/matchmaking.ts`):
 ## Compatibility
 
 - The player picks exactly **3** interests. Each card shows **5** interests.
-- Compatibility = number of the player's interests shown on the card (0–3). Shared interests are
+- Compatibility = number of the player's interests shown on the card (0–2). Shared interests are
   highlighted on the card.
-- The deck generator decides each card's shared count from weights
-  `{ 0: 2, 1: 4, 2: 3, 3: 1 }` — mostly 1–2 shared, rarely all 3.
+- The deck generator decides each card's shared count from weights `{ 0: 2, 1: 4, 2: 3 }` —
+  mostly 1–2 shared.
+- **No candidate ever shares all 3 interests.** A perfect match is reserved for THE ONE, who
+  never appears. `candidateGenerator.ts` caps the shared count at (player interests − 1) even if
+  the weights are changed.
 - **Compatibility does not affect points or reciprocation.** A `special` card may share nothing.
 
 Functions: `countSharedInterests` (`compatibility.ts`), `generateCandidate` with a

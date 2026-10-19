@@ -28,7 +28,8 @@ Visual references: `docs/mockups/*.png`.
 2. Candidate kinds are exactly `normal` (+10), `special` (+100) and `unverified` (−100).
 3. Penalties only happen when an unverified candidate **reciprocates** a like. Viewing, liking
    without a match, and rejecting never change the score.
-4. The timer starts when gameplay becomes active — not during setup, searching or the teaser.
+4. The timer starts when gameplay becomes active — not during setup, the teaser (incl. the search)
+   or the time-limit screen.
 5. Swipe gestures, buttons and keyboard all go through the same `swipe(candidateId, direction)`
    action. The reducer ignores swipes for anything other than the current card.
 6. All tunable numbers live in `src/game/config.ts`. Don't hard-code them elsewhere.
@@ -81,6 +82,7 @@ tests on purpose — don't add a test framework. Use `?seed=1234` for reproducib
 - `src/data/alien-portraits.json` — which files in `public/aliens/` may be used
 - `src/data/player-avatars.json` — the 4 player avatars (`public/avatars/`)
 - `src/data/searching-steps.json` — text for the fake AI sequence
-- `public/videos/the-one-teaser.mp4` — teaser video (placeholder shown if missing)
+- `src/data/the-one-teaser.json`, `ending.json` — text for the animated teaser and the ending reveal
+- `src/data/time-limit.json` — text for the time-limit screen before the game
 
 Keep sample data small; don't invent large datasets. The team supplies final content.
