@@ -106,8 +106,8 @@ function loadPlayerAvatars(): PlayerAvatar[] {
 }
 
 function loadTheOneTeaser(): TheOneTeaserContent {
-  const { letterhead, matchFound, reveal, interests, hide, go } = theOneTeaserJson;
-  const captions = { letterhead, matchFound, reveal, interests, hide, go };
+  const { matchFound, reveal, interests, hide, go } = theOneTeaserJson;
+  const captions = { matchFound, reveal, interests, hide, go };
   assertNoEmptyStrings('the-one-teaser.json', captions, '');
   return captions;
 }
@@ -131,8 +131,8 @@ function assertNoEmptyStrings(file: string, value: unknown, path: string): void 
 }
 
 function loadEnding(): EndingContent {
-  const { letterhead, captions, productCard, ledger, queueTags, buttons } = endingJson;
-  const content: EndingContent = { letterhead, captions, productCard, ledger, queueTags, buttons };
+  const { captions, productCard, ledger, queueTags, buttons } = endingJson;
+  const content: EndingContent = { captions, productCard, ledger, queueTags, buttons };
   assertNoEmptyStrings('ending.json', content, '');
   return content;
 }

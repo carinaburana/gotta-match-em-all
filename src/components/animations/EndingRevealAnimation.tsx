@@ -109,7 +109,6 @@ export function EndingRevealAnimation({
   return (
     <StageLayout
       tone="dark"
-      letterhead={content.letterhead}
       caption={{
         key: captionBeat,
         text: fillTemplate(content.captions[captionBeat], templateValues),

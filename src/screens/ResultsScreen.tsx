@@ -103,9 +103,7 @@ export function ResultsScreen({ player, summary, onRestart }: ResultsScreenProps
             draggable={false}
             className="h-auto w-24 select-none opacity-90"
           />
-          <p className="text-right text-[10px] font-semibold tracking-[0.22em] text-white/55 uppercase">
-            {GAME_CONTENT.ending.letterhead}
-          </p>
+          <p className="text-right text-[10px] font-semibold tracking-[0.22em] text-white/55 uppercase"></p>
         </header>
 
         <p className="mt-8 text-xs font-semibold tracking-widest text-white/55 uppercase">
