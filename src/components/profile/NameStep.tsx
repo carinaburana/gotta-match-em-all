@@ -32,7 +32,7 @@ export function NameStep({ value, onChange, onSubmit }: NameStepProps) {
         aria-describedby="player-name-hint"
       />
       <p id="player-name-hint" className="mt-2 text-sm text-ink-muted">
-        Your name will be visible in your profile. It stays on this device and is never saved.
+        Your name will be visible in your profile.
       </p>
     </form>
   );

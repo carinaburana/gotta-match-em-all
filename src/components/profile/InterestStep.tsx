@@ -19,8 +19,11 @@ export function InterestStep({
   return (
     <div>
       <h2 className="text-3xl font-bold">Pick your interests</h2>
-      <p className="mt-2 text-sm text-ink-muted" aria-live="polite">
-        Choose exactly {requiredCount}.{' '}
+      <p
+        className="mt-3 flex items-baseline justify-between text-base text-ink-muted"
+        aria-live="polite"
+      >
+        <span>Choose exactly {requiredCount}.</span>
         <span className="font-semibold text-brand-600">
           {selectedIds.length} / {requiredCount} selected
         </span>

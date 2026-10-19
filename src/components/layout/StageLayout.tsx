@@ -18,8 +18,6 @@ export interface StageCaption {
 interface StageLayoutProps {
   /** `light` for the hopeful teaser before the game, `dark` for the ending reveal. */
   tone: StageTone;
-  /** Small tag in the top-right corner, next to the logo. */
-  letterhead: string;
   caption: StageCaption;
   /** Pinned action at the bottom. */
   footer: ReactNode;
@@ -31,19 +29,12 @@ interface StageLayoutProps {
 
 /**
  * The "cinematic" screen skeleton shared by the THE ONE teaser and the ending reveal, so both
- * have exactly the same letterhead, stage, caption band and footer measurements — the ending is
+ * have exactly the same lstage, caption band and footer measurements — the ending is
  * the teaser's dark mirror, and the identical frame is what sells that.
  *
- * Layout, top to bottom: letterhead (logo + tag) · stage (fills) · caption band · footer.
+ * Layout, top to bottom: stage (fills) · caption band · footer.
  */
-export function StageLayout({
-  tone,
-  letterhead,
-  caption,
-  footer,
-  backdrop,
-  children,
-}: StageLayoutProps) {
+export function StageLayout({ tone, caption, footer, backdrop, children }: StageLayoutProps) {
   const isDark = tone === 'dark';
 
   return (
@@ -76,9 +67,7 @@ export function StageLayout({
           className={`text-right text-[10px] font-semibold tracking-[0.22em] uppercase ${
             isDark ? 'text-white/55' : 'text-ink-muted'
           }`}
-        >
-          {letterhead}
-        </p>
+        ></p>
       </motion.header>
 
       <div className="relative min-h-0 flex-1">{children}</div>

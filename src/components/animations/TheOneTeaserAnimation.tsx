@@ -53,7 +53,6 @@ export function TheOneTeaserAnimation({
   return (
     <StageLayout
       tone="light"
-      letterhead={fillTemplate(content.letterhead, values)}
       caption={{
         key: beat,
         text: fillTemplate(beat === 'searching' ? searching.title : content[beat], values),

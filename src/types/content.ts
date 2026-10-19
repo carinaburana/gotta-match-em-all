@@ -42,9 +42,8 @@ export interface SearchingContent {
   steps: string[];
 }
 
-/** Text for the animated THE ONE teaser: letterhead tag + one caption per beat. "{name}" = player name. */
+/** Text for the animated THE ONE teaser: one caption per beat. "{name}" = player name. */
 export interface TheOneTeaserContent {
-  letterhead: string;
   matchFound: string;
   reveal: string;
   interests: string;
@@ -70,7 +69,6 @@ export interface EndingCaptions {
 
 /** Text for the ending reveal (the founder's "leaked investor pitch"). */
 export interface EndingContent {
-  letterhead: string;
   captions: EndingCaptions;
   productCard: { role: string };
   ledger: { swipes: string; matches: string; seconds: string };
