@@ -14,7 +14,7 @@ displays them and reports input.**
     ├── App.tsx              App flow: which screen is shown, transitions between phases
     ├── main.tsx             Entry point
     ├── screens/             One component per phase (Start, ProfileSetup,
-    │                        TheOneTeaser, Game, Results)
+    │                        TheOneTeaser, TimeLimit, Game, Results)
     ├── components/
     │   ├── layout/          AppShell (phone frame, future nav slots), Screen
     │   ├── ui/              Button, icons, Logo

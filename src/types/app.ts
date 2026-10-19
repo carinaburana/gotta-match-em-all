@@ -9,6 +9,7 @@ export type AppState =
   | { phase: 'start' }
   | { phase: 'profile-setup' }
   | { phase: 'teaser'; player: PlayerProfile }
+  | { phase: 'time-limit'; player: PlayerProfile }
   | { phase: 'playing'; player: PlayerProfile }
   | { phase: 'results'; player: PlayerProfile; summary: SessionSummary };
 

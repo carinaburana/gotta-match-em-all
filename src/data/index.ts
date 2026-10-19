@@ -12,6 +12,7 @@ import interestsJson from '@/data/interests.json';
 import playerAvatarsJson from '@/data/player-avatars.json';
 import searchingStepsJson from '@/data/searching-steps.json';
 import theOneTeaserJson from '@/data/the-one-teaser.json';
+import timeLimitJson from '@/data/time-limit.json';
 import { GAME_CONFIG } from '@/game/config';
 import type {
   AboutMeEntry,
@@ -22,6 +23,7 @@ import type {
   InterestWithCategory,
   PlayerAvatar,
   TheOneTeaserContent,
+  TimeLimitContent,
 } from '@/types/content';
 
 const ALIEN_PORTRAIT_DIR = '/aliens/';
@@ -110,6 +112,13 @@ function loadTheOneTeaser(): TheOneTeaserContent {
   return captions;
 }
 
+function loadTimeLimit(): TimeLimitContent {
+  const { message, countdownLabel, button } = timeLimitJson;
+  const content = { message, countdownLabel, button };
+  assertNoEmptyStrings('time-limit.json', content, '');
+  return content;
+}
+
 /** Throws if any string in a (nested) content object is empty — keyed by its dotted path. */
 function assertNoEmptyStrings(file: string, value: unknown, path: string): void {
   if (typeof value === 'string') {
@@ -146,6 +155,7 @@ function loadContent(): GameContent {
       steps: cleanStringList('searching-steps.json', searchingStepsJson.steps),
     },
     theOneTeaser: loadTheOneTeaser(),
+    timeLimit: loadTimeLimit(),
     ending: loadEnding(),
   };
 }
