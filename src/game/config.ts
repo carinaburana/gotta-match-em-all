@@ -74,13 +74,13 @@ export const GAME_CONFIG = {
      * fake "AI searching" sequence, then introduces THE ONE.
      */
     animation: {
-      /** How long each beat lasts, in order (~15 s in total). */
+      /** How long each beat lasts, in order (~22 s in total). Testers found ~15 s too fast to read. */
       beatDurationsMs: {
-        searching: 4_500,
-        matchFound: 2_200,
-        reveal: 2_400,
-        interests: 3_000,
-        hide: 3_000,
+        searching: 7_000,
+        matchFound: 3_200,
+        reveal: 3_200,
+        interests: 4_200,
+        hide: 4_500,
       },
       /** Real portraits lined up in front of THE ONE when it slips into the deck. */
       queueVisibleCards: 3,
@@ -103,13 +103,13 @@ export const GAME_CONFIG = {
      * e.g. '/founder.webp'). `null` draws a spotlit silhouette instead.
      */
     founderPortraitSrc: null as string | null,
-    /** How long each beat of the reveal lasts, in order (~21 s in total). */
+    /** How long each beat of the reveal lasts, in order (~27 s in total). Testers found ~21 s too fast. */
     beatDurationsMs: {
-      intro: 4_200,
-      harvest: 5_600,
-      queue: 3_800,
-      held: 3_400,
-      closer: 3_600,
+      intro: 5_500,
+      harvest: 7_000,
+      queue: 5_200,
+      held: 4_800,
+      closer: 4_800,
     },
     /** Cap on the mini cards flicked across the stage in the "harvest" beat (DOM/image budget). */
     maxStreamCards: 18,
