@@ -76,9 +76,7 @@ export function StageLayout({
           className={`text-right text-[10px] font-semibold tracking-[0.22em] uppercase ${
             isDark ? 'text-white/55' : 'text-ink-muted'
           }`}
-        >
-          {letterhead}
-        </p>
+        ></p>
       </motion.header>
 
       <div className="relative min-h-0 flex-1">{children}</div>

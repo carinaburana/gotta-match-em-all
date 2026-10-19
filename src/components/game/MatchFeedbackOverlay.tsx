@@ -20,7 +20,9 @@ const NOTIFICATION_CLASS =
  */
 function getFeedbackStyle(outcome: SwipeOutcome): FeedbackStyle | null {
   if (outcome.type === 'liked-no-match') {
-    return { title: 'No match… keep swiping!', className: 'bg-white/90 text-ink-muted' };
+    return null;
+    // previous no-match hint, hidden for now
+    // return { title: 'No match… keep swiping!', className: 'bg-white/90 text-ink-muted' };
   }
   if (outcome.type !== 'match') return null;
   switch (outcome.category) {

@@ -17,7 +17,7 @@ export function Screen({ children, footer, className = '' }: ScreenProps) {
       <div className={`pt-safe flex min-h-0 flex-1 flex-col overflow-y-auto px-6 ${className}`}>
         {children}
       </div>
-      {footer && <div className="pb-safe shrink-0 px-6 pt-3">{footer}</div>}
+      {footer && <div className="pb-safe relative shrink-0 px-6 pt-3">{footer}</div>}
     </div>
   );
 }
