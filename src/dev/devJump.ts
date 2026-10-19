@@ -33,6 +33,10 @@ const DEV_SUMMARY: SessionSummary = {
 export const DEV_JUMP_TARGETS = {
   start: { label: 'Start', state: (): AppState => ({ phase: 'start' }) },
   teaser: { label: 'Teaser', state: (): AppState => ({ phase: 'teaser', player: DEV_PLAYER }) },
+  timeLimit: {
+    label: 'Time limit',
+    state: (): AppState => ({ phase: 'time-limit', player: DEV_PLAYER }),
+  },
   game: { label: 'Game', state: (): AppState => ({ phase: 'playing', player: DEV_PLAYER }) },
   ending: {
     label: 'Ending',
@@ -46,7 +50,7 @@ function isDevJumpTarget(value: string | null): value is DevJumpTarget {
   return value !== null && Object.hasOwn(DEV_JUMP_TARGETS, value);
 }
 
-/** `?dev=ending` (or teaser, game) opens that screen directly — survives page reloads. */
+/** `?dev=ending` (or teaser, timeLimit, game) opens that screen directly — survives page reloads. */
 export function readDevJumpFromUrl(): AppState | null {
   const target = new URLSearchParams(window.location.search).get('dev');
   return isDevJumpTarget(target) ? DEV_JUMP_TARGETS[target].state() : null;

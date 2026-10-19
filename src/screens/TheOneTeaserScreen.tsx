@@ -28,7 +28,7 @@ export function TheOneTeaserScreen({ player, onContinue }: TheOneTeaserScreenPro
           variant={isAnimationDone ? 'primary' : 'ghost'}
           className={isAnimationDone ? '' : 'text-ink-muted'}
         >
-          {isAnimationDone ? 'Start swiping' : 'Skip'}
+          {isAnimationDone ? 'Continue' : 'Skip'}
         </Button>
       }
     />

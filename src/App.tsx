@@ -10,11 +10,12 @@ import { ProfileSetupScreen } from '@/screens/ProfileSetupScreen';
 import { ResultsScreen } from '@/screens/ResultsScreen';
 import { StartScreen } from '@/screens/StartScreen';
 import { TheOneTeaserScreen } from '@/screens/TheOneTeaserScreen';
+import { TimeLimitScreen } from '@/screens/TimeLimitScreen';
 import type { AppState } from '@/types/app';
 
 /**
  * Owns the application flow:
- * start → profile-setup → teaser → playing → results
+ * start → profile-setup → teaser → time-limit → playing → results
  * Every transition is a call to setAppState in this file, so the flow is easy to follow.
  */
 export function App() {
@@ -41,7 +42,15 @@ export function App() {
         return (
           <TheOneTeaserScreen
             player={state.player}
-            onContinue={() => setAppState({ phase: 'playing', player: state.player })}
+            onContinue={() => setAppState({ phase: 'time-limit', player: state.player })}
+          />
+        );
+
+      case 'time-limit':
+        return (
+          <TimeLimitScreen
+            player={state.player}
+            onStart={() => setAppState({ phase: 'playing', player: state.player })}
           />
         );
 

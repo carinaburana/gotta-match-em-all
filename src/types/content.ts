@@ -52,6 +52,13 @@ export interface TheOneTeaserContent {
   go: string;
 }
 
+/** Text for the time-limit screen. "{name}" = player name, "{duration}" = session length in words. */
+export interface TimeLimitContent {
+  message: string;
+  countdownLabel: string;
+  button: string;
+}
+
 /** One line of text per beat of the ending reveal. See src/data/ending.json for placeholders. */
 export interface EndingCaptions {
   intro: string;
@@ -84,5 +91,6 @@ export interface GameContent {
   playerAvatars: PlayerAvatar[];
   searching: SearchingContent;
   theOneTeaser: TheOneTeaserContent;
+  timeLimit: TimeLimitContent;
   ending: EndingContent;
 }
