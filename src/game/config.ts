@@ -80,13 +80,14 @@ export const GAME_CONFIG = {
 
   swipe: {
     /** Horizontal drag distance (px) needed to count as a swipe. */
-    distanceThresholdPx: 110,
+    distanceThresholdPx: 65,
     /** Fast flicks count even if shorter than the distance threshold. */
-    velocityThresholdPxPerS: 600,
+    velocityThresholdPxPerS: 300,
   },
 
   feedback: {
     /** How long a match overlay stays visible. */
+
     overlayDurationMs: 1_100,
   },
 } as const;
