@@ -1,6 +1,6 @@
 {
   "_comment": "Text for the screen between the teaser and the game. {name} = player name, {duration} = session length in words (from sessionDurationMs). The timer only starts once the player taps the button.",
-  "message": "Your time is valuable, {name}. That's why we give you just {duration} to find your perfect match.",
+  "message": "You have {duration} to find your perfect match, {name}.",
   "countdownLabel": "Countdown",
   "button": "Start swiping"
 }

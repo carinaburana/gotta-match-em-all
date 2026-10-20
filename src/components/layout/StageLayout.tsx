@@ -36,7 +36,6 @@ interface StageLayoutProps {
  */
 export function StageLayout({ tone, caption, footer, backdrop, children }: StageLayoutProps) {
   const isDark = tone === 'dark';
-
   return (
     <div
       className={`relative flex h-full flex-col overflow-hidden ${
