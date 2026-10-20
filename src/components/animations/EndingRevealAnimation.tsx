@@ -22,7 +22,7 @@ import { fillTemplate } from '@/utils/format';
 interface EndingRevealAnimationProps {
   player: PlayerProfile;
   summary: SessionSummary;
-  /** Pinned action under the animation (Skip / See my stats). */
+  /** Pinned action under the animation (See my stats, shown once the reveal has played). */
   footer: ReactNode;
   /** Called once when the last beat has played. */
   onComplete: () => void;

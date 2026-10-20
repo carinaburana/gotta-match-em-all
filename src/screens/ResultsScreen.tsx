@@ -52,16 +52,12 @@ export function ResultsScreen({ player, summary, onRestart }: ResultsScreenProps
                 </Button>
               </motion.div>
             ) : (
-              <motion.div key="skip" exit={{ opacity: 0, transition: { duration: 0.15 } }}>
-                <Button
-                  fullWidth
-                  variant="ghost"
-                  className="text-white/45 hover:bg-transparent hover:text-white/80"
-                  onClick={() => setStage('stats')}
-                >
-                  {buttons.skip}
+              // No skip: the reveal is the point. The hidden button holds the footer height.
+              <div key="placeholder" className="invisible">
+                <Button fullWidth variant="ghost">
+                  {buttons.continue}
                 </Button>
-              </motion.div>
+              </div>
             )}
           </AnimatePresence>
         }

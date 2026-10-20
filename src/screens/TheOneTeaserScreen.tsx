@@ -1,3 +1,4 @@
+import { motion } from 'motion/react';
 import { useState } from 'react';
 
 import { TheOneTeaserAnimation } from '@/components/animations/TheOneTeaserAnimation';
@@ -22,14 +23,18 @@ export function TheOneTeaserScreen({ player, onContinue }: TheOneTeaserScreenPro
       interestIds={player.interestIds}
       onComplete={() => setIsAnimationDone(true)}
       footer={
-        <Button
-          fullWidth
-          onClick={onContinue}
-          variant={isAnimationDone ? 'primary' : 'ghost'}
-          className={isAnimationDone ? '' : 'text-ink-muted'}
+        // No skip: testers have to sit through the promise. The hidden button keeps the footer
+        // height so the stage doesn't jump when it appears.
+        <motion.div
+          className={isAnimationDone ? '' : 'invisible'}
+          initial={false}
+          animate={isAnimationDone ? { opacity: 1, y: 0 } : { opacity: 0, y: 8 }}
+          transition={{ duration: 0.4 }}
         >
-          {isAnimationDone ? 'Continue' : 'Skip'}
-        </Button>
+          <Button fullWidth onClick={onContinue}>
+            Continue
+          </Button>
+        </motion.div>
       }
     />
   );
