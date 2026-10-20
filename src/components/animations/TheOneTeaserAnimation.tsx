@@ -19,7 +19,7 @@ interface TheOneTeaserAnimationProps {
   playerName: string;
   /** The player's own interests — THE ONE "shares all of them", which is what makes it perfect. */
   interestIds: readonly InterestId[];
-  /** Pinned action under the animation (Skip / Start swiping). */
+  /** Pinned action under the animation (Continue, shown once the teaser has played). */
   footer: ReactNode;
   /** Called once when the last beat is reached. */
   onComplete: () => void;

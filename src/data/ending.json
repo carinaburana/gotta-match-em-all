@@ -22,7 +22,6 @@
     "held": "#{position} · held"
   },
   "buttons": {
-    "skip": "Skip",
     "continue": "See my stats"
   }
 }

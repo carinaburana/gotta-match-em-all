@@ -73,7 +73,7 @@ export interface EndingContent {
   productCard: { role: string };
   ledger: { swipes: string; matches: string; seconds: string };
   queueTags: { next: string; theOne: string; held: string };
-  buttons: { skip: string; continue: string };
+  buttons: { continue: string };
 }
 
 /** Everything the game needs from `src/data`, validated and ready to use. */
