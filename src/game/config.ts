@@ -99,10 +99,16 @@ export const GAME_CONFIG = {
      */
     showReveal: true as boolean,
     /**
-     * PLACEHOLDER: Pixar-style founder artwork (transparent background, roughly 3:4 portrait,
-     * e.g. '/founder.webp'). `null` draws a spotlit silhouette instead.
+     * Full-bleed founder artwork (9:16 scenes in `public/founder/`) shown behind each beat.
+     * Beats that share an image hold it instead of cross-fading.
      */
-    founderPortraitSrc: null as string | null,
+    founderScenes: {
+      intro: '/founder/founder-pitch.webp',
+      harvest: '/founder/founder-profiles.webp',
+      queue: '/founder/founder-profiles.webp',
+      held: '/founder/founder-profiles.webp',
+      closer: '/founder/founder-office.webp',
+    },
     /** How long each beat of the reveal lasts, in order (~27 s in total). Testers found ~21 s too fast. */
     beatDurationsMs: {
       intro: 5_500,
