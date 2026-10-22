@@ -5,8 +5,7 @@ import type { ReactNode } from 'react';
 import { DeckQueue } from '@/components/animations/DeckQueue';
 import { EndingSwipeStream } from '@/components/animations/EndingSwipeStream';
 import type { StagePoint } from '@/components/animations/EndingSwipeStream';
-import { FounderFigure } from '@/components/animations/FounderFigure';
-import { StageBackdrop } from '@/components/animations/StageBackdrop';
+import { FounderScene } from '@/components/animations/FounderScene';
 import { EASE_OUT_SOFT } from '@/components/animations/variants';
 
 import { AlienImage } from '@/components/cards/AlienImage';
@@ -32,13 +31,12 @@ type EndingBeat = keyof typeof GAME_CONFIG.ending.beatDurationsMs | 'done';
 
 /**
  * Stage positions the choreography is built around: px right of the centre line and px above a
- * horizontal band. The intro band is the floor (the card hovers over the founder's open hand);
- * the harvest band sits halfway up the stage. Floor-anchoring keeps the card on the hand on
- * every screen height, because the founder's size follows the stage width.
+ * horizontal band. The intro band is the floor (the card hovers between the founder's open
+ * hands); the harvest band sits halfway up the stage.
  */
 const FLOOR_BAND = '0%';
 const HARVEST_BAND = '45%';
-const PRODUCT_CARD_INTRO: StagePoint = { x: 100, y: -174 };
+const PRODUCT_CARD_INTRO: StagePoint = { x: 0, y: -60 };
 const PRODUCT_CARD_HARVEST: StagePoint = { x: -96, y: 0 };
 /** Mini cards start at the product card's centre (its bottom edge sits on the band). */
 const STREAM_FROM: StagePoint = { x: -96, y: -70 };
@@ -48,7 +46,8 @@ const STREAM_STAGGER_MAX_MS = 130;
 
 /**
  * The ending: the teaser's dark mirror, in the same frame (StageLayout). The app's lights go out
- * and the founder gives a leaked investor pitch in a spotlight — the player's card is "the
+ * and the founder gives a leaked investor pitch (full-bleed artwork per beat, see
+ * `GAME_CONFIG.ending.founderScenes`) — the player's card is "the
  * product", their swipes are harvested onto the company's pile, and the deck queue from the
  * teaser is shown again: THE ONE was kept at the very back on purpose. Narrative only: nothing
  * here touches game logic, and THE ONE is still never a card.
@@ -83,9 +82,13 @@ export function EndingRevealAnimation({
     (avatar) => avatar.id === player.avatarId,
   )?.src;
 
-  // Warm the browser cache so the mini cards don't pop in blank mid-flight. Keyed by a string so
-  // the effect runs once, not on every animation frame.
-  const preloadKey = [...streamPortraits, ...queuePortraits].join('\n');
+  // Warm the browser cache so the mini cards and later founder scenes don't pop in blank. Keyed
+  // by a string so the effect runs once, not on every animation frame.
+  const preloadKey = [
+    ...Object.values(config.founderScenes),
+    ...streamPortraits,
+    ...queuePortraits,
+  ].join('\n');
   useEffect(() => {
     for (const src of preloadKey.split('\n')) {
       if (src) new Image().src = src;
@@ -103,6 +106,7 @@ export function EndingRevealAnimation({
   const captionBeat = beat === 'done' ? 'closer' : beat;
 
   const founderOnStage = beat === 'intro' || beat === 'closer' || beat === 'done';
+  const founderScene = config.founderScenes[captionBeat];
   const showProductCard = beat === 'intro' || beat === 'harvest';
   const showQueue = beat === 'queue' || beat === 'held';
 
@@ -118,7 +122,7 @@ export function EndingRevealAnimation({
       footer={footer}
       backdrop={
         <>
-          <StageBackdrop tone="dark" dim={!founderOnStage} />
+          <FounderScene src={founderScene} dim={!founderOnStage} />
           {/* Lights off: the app's light canvas fades away to reveal the backstage. */}
           <motion.div
             className="absolute inset-0 z-30 bg-canvas"
@@ -129,26 +133,6 @@ export function EndingRevealAnimation({
         </>
       }
     >
-      {/* Founder: in the spotlight for the intro and the closer, off stage in between. */}
-      <div className="absolute inset-x-0 bottom-0 flex h-[80%] items-end justify-center">
-        <motion.div
-          className="aspect-[10/13] max-h-full w-[68%] max-w-80 origin-bottom"
-          initial={{ opacity: 0, y: 70, scale: 0.92 }}
-          animate={
-            founderOnStage
-              ? { opacity: 1, x: 0, y: 0, scale: beat === 'intro' ? 1 : 1.06 }
-              : { opacity: 0, x: -140, y: 30, scale: 0.85 }
-          }
-          transition={
-            founderOnStage
-              ? { duration: 1.1, ease: EASE_OUT_SOFT, delay: beat === 'intro' ? 0.35 : 0.3 }
-              : { duration: 0.55, ease: 'easeIn' }
-          }
-        >
-          <FounderFigure />
-        </motion.div>
-      </div>
-
       {/* The player's own card: "the product". */}
       <AnimatePresence>
         {showProductCard && (
